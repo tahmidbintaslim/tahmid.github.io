@@ -12,7 +12,7 @@ const Hero = (props) => (
         Tahmid's World !
       </SectionTitle>
       <SectionText >
-        I am an accomplished Full Stack Developer with a strong foundation in Data Science and Software Engineering, obtained from Stamford International University in Bangkok. My professional journey began in 2018 with freelance projects during my university studies, evolving into contract and full-time roles before graduation. Over the past four years, I have leveraged my expertise across diverse industries, building engaging and functional websites and web applications. This experience has honed my skills and solidified my commitment to excellence in the tech field.
+        Full Stack Developer with a solid background in Data Science and Software Engineering from Stamford International University, I've been transforming ideas into digital realities since 2018. From freelance to full-time, my journey is marked by a relentless pursuit of excellence, creating captivating websites and web applications that stand out in various industries. Let's build the future together.
       </SectionText>
       <Button onClick={() => window.location = "https://www.linkedin.com/in/tahmid-bin-taslim/"}>Learn More</Button>
     </LeftSection>
