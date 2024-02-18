@@ -21,7 +21,7 @@ export const projects = [
     title: 'Relevant Audience Brand Website',
     description: "Devloped this brand website using latest UI/UX. Made with Wordpress, Elementor, Javascript, Cloudflare, Kinsta Hosting",
       image: 'https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2023/02/RELEVANT-AUDIENCE.png',
-      tags: ['Wordpress', 'Javascript'],
+      tags: ['Wordpress', 'Vue', 'Redis', 'Javascript'],
     source: 'https://relevantaudience.com/',
     visit: 'https://relevantaudience.com/',
     id: 2,
