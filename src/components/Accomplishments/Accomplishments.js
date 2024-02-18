@@ -5,10 +5,10 @@ import { Box, Boxes, BoxNum, BoxText } from './AccomplishmentsStyles';
 
 // we kept the data inside our file instead of putting it on constants because it contains just 6 lines.
 const data = [
-  { number: 20, text: 'Open Source Projects'},
-  { number: 1000, text: 'Students', },
-  { number: 1900, text: 'Github Followers', },
-  { number: 5000, text: 'Github Stars', }
+  { number: 4, text: 'Years of Experience.'},
+  { number: 60, text: 'Projects Done till date.', },
+  { number: 4, text: 'Tech Blogs Published', },
+  { number: 191, text: 'Github Stars', }
 ];
 
 const Accomplishments = () => (
