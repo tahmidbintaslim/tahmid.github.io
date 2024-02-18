@@ -27,6 +27,7 @@ const GlobalStyles = createGlobalStyle`
   }
   a {
     text-decoration: none;
+    color: #00ffff;
   }
   li{
     list-style: none;

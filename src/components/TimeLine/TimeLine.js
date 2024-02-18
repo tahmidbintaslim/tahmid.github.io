@@ -49,10 +49,7 @@ const Timeline = () => {
         Apart from coding, My expertise extends to writing technical content on platforms like Medium and DEV.to. I enjoy tackling coding challenges and engaging in front-end development exercises on LeetCode and Codepen. This diverse skill set has enabled me to work across various languages, industries, and cultural environments in different work modes.
         <br />
         <br />
-        For more on my technical writings, visit <a href="https://tahmidbintaslimrafi.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a> and <a href="https://dev.to/tahmidbintaslim" target="_blank" rel="noopener noreferrer">DEV.to</a>. To see my coding challenges and front-end projects, check out <a href="https://leetcode.com/tahmidbintaslimrafi/" target="_blank" rel="noopener noreferrer">LeetCode</a> and <a href="https://codepen.io/tahmid-bin-taslim" target="_blank" rel="noopener noreferrer">Codepen</a>.
-        <br />
-        <br />
-        Find my <a href="https://github.com/tahmidbintaslim" target="_blank" rel="noopener noreferrer">Github</a> and <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:41bd4034-db0a-447b-97dd-eca9519b33f4" target="_blank" rel="noopener noreferrer">Resume</a>
+        For more on my technical writings, visit <a href="https://tahmidbintaslimrafi.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a> and <a href="https://dev.to/tahmidbintaslim" target="_blank" rel="noopener noreferrer">DEV.to</a>. To see my coding challenges and front-end projects, check out <a href="https://leetcode.com/tahmidbintaslimrafi/" target="_blank" rel="noopener noreferrer">LeetCode</a> and <a href="https://codepen.io/tahmid-bin-taslim" target="_blank" rel="noopener noreferrer">Codepen</a>. To know more, visit my <a href="https://github.com/tahmidbintaslim" target="_blank" rel="noopener noreferrer">Github</a> and <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:41bd4034-db0a-447b-97dd-eca9519b33f4" target="_blank" rel="noopener noreferrer">Resume</a>
       </SectionText>
       <CarouselContainer ref={carouselRef} onScroll={handleScroll} >
         <>
