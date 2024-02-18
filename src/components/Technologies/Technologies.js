@@ -9,7 +9,7 @@ const Technologies = () =>  (
     <br />
     <SectionTitle>Technologies</SectionTitle>
     <SectionText>
-      I've worked with a range of technologies, from front-end to back-end, and I've worked with a variety of languages.
+      I've worked with a range of technological aspects, from front-end to back-end, data, server, seo, problem solving, blog writting and I've worked with a variety of languages, industries, cultures and work-mode.
     </SectionText>
     <List>
       <ListItem>

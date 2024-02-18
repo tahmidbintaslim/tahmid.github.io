@@ -9,10 +9,10 @@ const Hero = (props) => (
     <LeftSection>
       <SectionTitle main center >
         Welcome to <br />
-        Tahmid's Personal Portfolio
+        Tahmid's World 💻
       </SectionTitle>
       <SectionText >
-        Hi, I am Tahmid, versatile Full Stack Developer with a passion for creating beautiful and intuitive Websites and Web Applications. Around 2018, while doing my BS in IT(Data Science & Software Engineering) at Stamford Internation University Bangkok, Thailand, I started working on freelance projects. Thats evolves into some contract jobs and transitioned into Full Time Jobs before my graduation. Worked on several companies handling all kinds of web projects and gather different industry experience in last 4 years.
+        I am an accomplished Full Stack Developer with a strong foundation in Data Science and Software Engineering, obtained from Stamford International University in Bangkok. My professional journey began in 2018 with freelance projects during my university studies, evolving into contract and full-time roles before graduation. Over the past four years, I have leveraged my expertise across diverse industries, building engaging and functional websites and web applications. This experience has honed my skills and solidified my commitment to excellence in the tech field.
       </SectionText>
       <Button onClick={() => window.location = "https://www.linkedin.com/in/tahmid-bin-taslim/"}>Learn More</Button>
     </LeftSection>
