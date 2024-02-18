@@ -10,25 +10,25 @@ const Footer = () => {
       <LinkList>
         <LinkColumn>
           <LinkTitle>Call</LinkTitle>
-          <LinkItem href="tel:+1 (123) 456-7890">+1 (123) 456-7890</LinkItem>
+          <LinkItem href="tel:+660656358809">(+66) 065 635-8809</LinkItem>
         </LinkColumn>
         <LinkColumn>
           <LinkTitle>Email</LinkTitle>
-          <LinkItem href="mailto:MyEmail@gmail.com">MyEmail@gmail.com</LinkItem>
+          <LinkItem href="mailto:tahmidbintaslimrafi@gmail.com">tahmidbintaslimrafi@gmail.com</LinkItem>
         </LinkColumn>
       </LinkList>
       <SocialIconsContainer>
         <CompanyContainer>
-          <Slogan>Innovating one project at a time</Slogan>
+          <Slogan>Made with 💗 & Vercel. Beta Release 0.1</Slogan>
         </CompanyContainer>
         <SocialContainer>
-          <SocialIcons target="_blank" href="https://github.com/">
+          <SocialIcons target="_blank" href="https://github.com/tahmidbintaslim">
             <AiFillGithub size="3rem" />
           </SocialIcons>
-          <SocialIcons target="_blank" href="https://www.instagram.com/">
+          <SocialIcons target="_blank" href="https://www.instagram.com/itstahmid100/">
             <AiFillInstagram size="3rem" />
           </SocialIcons>
-          <SocialIcons target="_blank" href="https://www.linkedin.com/in/">
+          <SocialIcons target="_blank" href="https://www.linkedin.com/in/tahmid-bin-taslim/">
             <AiFillLinkedin size="3rem" />
           </SocialIcons>
         </SocialContainer>
