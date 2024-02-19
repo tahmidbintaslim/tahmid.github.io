@@ -63,19 +63,25 @@ export const ListContainer = styled.div`
 export const ListTitle = styled.h4`
   font-weight: 700;
   font-size: 28px;
-  line-height: 32px;
+  line-height: 80px;
   letter-spacing: 0.02em;
   color: #FFFFFF;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
 
 @media ${props => props.theme.breakpoints.md}{
   font-size: 24px;
-  line-height: 28px;
+  line-height: 70px;
 }
 
 @media ${props => props.theme.breakpoints.sm}{
   font-size: 20px;
-  line-height: 28px;
+  line-height: 60px;
   letter-spacing: 0.02em;
   margin-bottom: 4px;
 }

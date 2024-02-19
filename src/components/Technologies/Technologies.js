@@ -1,5 +1,5 @@
   import React from 'react';
-  import { DiFirebase, DiReact, DiZend } from 'react-icons/di';
+  import { DiFirebase, DiReact, DiStylus } from 'react-icons/di';
   import { Section, SectionDivider, SectionText, SectionTitle } from '../../styles/GlobalComponents';
   import { List, ListContainer, ListItem, ListParagraph, ListTitle } from './TechnologiesStyles';
 
@@ -13,9 +13,8 @@
       </SectionText>
       <List>
         <ListItem>
-          <DiReact size="3rem"/>
           <ListContainer>
-            <ListTitle>Front-End</ListTitle>
+            <ListTitle><DiReact size="5rem"/> Front-End</ListTitle>
             <ListParagraph>
               Experience with <br />
               React.js, Vue.js, Django, Flask.
@@ -23,9 +22,8 @@
           </ListContainer>
         </ListItem>
         <ListItem>
-          <DiFirebase size="3rem"/>
           <ListContainer>
-            <ListTitle>Back-End</ListTitle>
+            <ListTitle><DiFirebase size="5rem"/> Back-End</ListTitle>
             <ListParagraph>
               Experience with <br />
               Python, Node.js, PHP, API's, Databases, Docker, Kubernetes, Server & DevOPS.
@@ -33,9 +31,8 @@
           </ListContainer>
         </ListItem>
         <ListItem>
-          <DiZend size="3rem"/>
           <ListContainer>
-            <ListTitle>UI/UX</ListTitle>
+            <ListTitle><DiStylus size="5rem"/> UI/UX</ListTitle>
             <ListParagraph>
               Experience with <br />
               tools like Figma,XD and many other tools.
