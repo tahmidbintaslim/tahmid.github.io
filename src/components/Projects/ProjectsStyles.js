@@ -32,10 +32,15 @@ export const BlogCard = styled.div`
   }
 `;
 export const TitleContent = styled.div`
+  padding: 1.5rem 0;
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(121.57deg, #00ffff 18.77%, rgba(255, 255, 255, 0.66) 60.15%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: center;
   z-index: 20;
   width: 100%;
-
 `;
 
 
