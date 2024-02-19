@@ -38,9 +38,9 @@ export const projects = [
 ];
 
 export const TimeLineData = [
-  { year: 2018, text: 'Started my Tech journey at Stamford International University, Bangkok. Started Freelancing. ', },
-  { year: 2020, text: 'First Full Time Scalia Ventures conglomerate ✌️', },
+  { year: 2018, text: 'Started my Tech at Uni & Started Freelancing 💻', },
+  { year: 2020, text: '1st job at Scalia Ventures conglomerate ✌️', },
   { year: 2021, text: 'Covid Sucks but Two Contracts 😀', },
-  { year: 2022, text: 'Graduation and started Full-Time Full Stack at Relevant', },
-  { year: 2023, text: 'Left Relevant, Joined Trienpont on June till now', },
+  { year: 2022, text: 'Graduated and started as Full Stack at Relevant 🪴', },
+  { year: 2023, text: 'Joined Trienpont as Senior Dev 🌲', },
 ];
