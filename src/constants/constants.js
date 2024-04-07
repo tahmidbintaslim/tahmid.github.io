@@ -29,7 +29,7 @@ export const projects = [
   {
     title: 'Scholl Thailand E-Commerce',
     description: "I developed Scholl Thailand Website while working at Relevant. Shopify Plus website with loads of API integration (python, php, ruby), CRM, Payment, Automation, Delivery & Tracking.",
-    image: 'https://yt3.googleusercontent.com/gzv1onfSVuRWJ6BzkS0DGP6Ow9-YxnnqL4bz49pZVNvBNnXxyFJuFeH9stZzWTs0avMjSuvfHCA=s900-c-k-c0x00ffffff-no-rj',
+    image: 'https://scontent.fdac22-1.fna.fbcdn.net/v/t39.30808-6/398434224_314536177992316_6126077448531397199_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGSt-YIQZ-uzfHASIbV0CybFTxGZSRwr5AVPEZlJHCvkAnLjwpC9P0mplpHGOJ2Q1tNPefBnvy5fSKrLGCotXtc&_nc_ohc=yr6DEIm4PHsAb7CajDT&_nc_ht=scontent.fdac22-1.fna&oh=00_AfAJNbiuJMg6ktNdzIqegKQ_u2VCZ9zjLpNPDAylasAxZA&oe=66186F0D',
     tags: ['Liquid', 'Shopify Plus', 'Firebase', 'Python'],
     source: 'https://schollshoesthailand.com/',
     visit: 'https://schollshoesthailand.com/',
