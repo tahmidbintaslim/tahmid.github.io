@@ -10,7 +10,7 @@ const Header = () =>  (
     <Div1>
       <Link href="/">
         <a style={{ display: "flex", alignItems: "center", color: "white", marginBottom: "20px" }}>
-          <DiCssdeck size="3rem" /> <Span>Tahmid's Portfolio</Span>
+          <DiCssdeck size="3rem" /> <Span> <img src="https://avatars.githubusercontent.com/u/45480402?v=4" alt="Tahmid Bin Taslim Rafi" title="Tahmid Bin Taslim Rafi style={{ borderRadius: "50%", width: "30px", height: "30px" }} /> </Span>
         </a>
       </Link>
     </Div1>
