@@ -17,8 +17,7 @@ row-gap: 3rem;
 @media ${(props) => props.theme.breakpoints.sm} {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  padding-bottom: 0;
+  padding: 2em 1em;
 }
 
 `
@@ -79,8 +78,9 @@ export const CardInfo = styled.p`
   line-height: 24px;
   text-align: justify;
   @media ${(props) => props.theme.breakpoints.sm} {
-    padding:.3rem
-  
+    padding: 1em 1.5em;
+    text-align: left;
+    text-wrap: pretty;  
 }
 `;
 

@@ -37,6 +37,9 @@ export const Div2 = styled.div`
   justify-content: space-around;
   @media ${(props) => props.theme.breakpoints.sm} {
     grid-area: 2 / 2 / 3 / 5;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
   }
 `;
 export const Div3 = styled.div`
