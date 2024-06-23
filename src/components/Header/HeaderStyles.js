@@ -26,7 +26,8 @@ export const Div1 = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   display: flex;
   flex-direction: row;
-  align-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
   @media ${(props) => props.theme.breakpoints.sm} {
     grid-area: 1 / 1 / 2 / 3;
   }
