@@ -38,10 +38,10 @@ export const projects = [
 ];
 
 export const TimeLineData = [
-  { year: 2018, text: 'Started my Tech at Uni & Started Freelancing 💻', },
-  { year: 2020, text: '1st job at Scalia Ventures conglomerate ✌️', },
-  { year: 2021, text: 'Covid Sucks but Two Contracts 😀', },
-  { year: 2022, text: 'Graduated and started as Full Stack at Relevant 🪴', },
+  { year: 2018, text: 'Started BS in IT at Uni & Started Freelancing 💻', },
+  { year: 2020, text: '1st job at Scalia Ventures Conglomerate ✌️', },
+  { year: 2021, text: 'Covid Sucks but Two Contract Jobs 😀', },
+  { year: 2022, text: 'Graduated & started as a Full Stack at Relevant 🪴', },
   { year: 2023, text: 'Joined Trienpont as Senior Dev 🌲', },
   { year: 2024, text: 'New Journey with Marions Kitchen Group 🍽️', },
 ];
