@@ -43,5 +43,5 @@ export const TimeLineData = [
   { year: 2021, text: 'Covid Hit me but doing hustle with 2 Contract Jobs 😀', },
   { year: 2022, text: 'Graduated & started as a Full Stack Dev at Relevant 🕠', },
   { year: 2023, text: 'Joined Trienpont Int. Co., Bangkok as a Senior Soft. Dev 📊', },
-  { year: 2024, text: 'New Journey Senior Soft. Dev with Marions Kitchen Group 🥘', },
+  { year: 2024, text: 'New Journey with Marions Kitchen Group 🥘', },
 ];
