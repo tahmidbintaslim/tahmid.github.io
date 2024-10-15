@@ -12,7 +12,11 @@ const Hero = (props) => (
         Tahmid's World !
       </SectionTitle>
       <SectionText >
-        Full Stack Developer with a solid background in Data Science and Software Engineering from Stamford International University, I've been transforming ideas into digital realities since 2018. From freelance to full-time, my journey is marked by a relentless pursuit of excellence, creating captivating websites and web applications that stand out in various industries. Let's build the future together.
+      HelIo,  I am Rafi, a versatile Software Engineer with over five years of experience in full stack development and data science. I specialize in creating scalable web solutions using technologies like React, Vue.js, Node.js, and PHP, along with expertise in SQL, NoSQL, MongoDB, and PostgreSQL. My strong foundation in Python, R, and MATLAB allows me to integrate machine learning and data analysis into innovative projects.
+
+      I am passionate about solving complex problems and delivering high-quality, efficient solutions. My experience spans both technical development and leadership, driving team success through collaboration and cutting-edge technology. I’m excited to contribute to forward-thinking teams and impactful projects.
+
+      Hire me: https://iglu.net/talent/senior-software-developer/
       </SectionText>
       <Button onClick={() => window.location = "https://www.linkedin.com/in/tahmid-bin-taslim/"}>Learn More</Button>
     </LeftSection>
