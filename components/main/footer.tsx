@@ -12,25 +12,25 @@ export const Footer = () => {
               key={column.title}
               className="min-w-[200px] h-auto flex flex-col items-center justify-start"
             >
-              <h3 className="font-bold text-[16px]">{column.title}</h3>
+              <h3 className="p-2 font-bold text-[18px]">{column.title}</h3>
               {column.data.map(({ icon: Icon, name, link }) => (
                 <Link
                   key={`${column.title}-${name}`}
                   href={link}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="flex flex-row items-center my-[15px]"
+                  className="flex flex-row items-center my-[16px]"
                 >
                   {Icon && <Icon />}
-                  <span className="text-[15px] ml-[6px]">{name}</span>
+                  <span className="text-[16px] ml-[6px]">{name}</span>
                 </Link>
               ))}
             </div>
           ))}
         </div>
 
-        <div className="mb-[20px] text-[15px] text-center">
-          &copy; John Doe {new Date().getFullYear()} Inc. All rights reserved.
+        <div className="w-full max-w-screen-xl mx-auto p-2 md:pt-12 block text-sm text-white-500 sm:text-center dark:text-gray-400">
+          &copy; TBTR {new Date().getFullYear()} Inc. All rights reserved.
         </div>
       </div>
     </div>

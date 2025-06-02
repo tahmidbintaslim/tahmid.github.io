@@ -33,11 +33,11 @@ export const HeroContent = () => {
           className="flex flex-col gap-6 mt-6 text-6xl text-bold text-white max-w-[600px] w-auto h-auto"
         >
           <span>
-            Providing{" "}
+            Welcome to{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
-              the best
+              Tahmid&apos;s
             </span>{" "}
-            project experience.
+            world.
           </span>
         </motion.div>
 
@@ -45,12 +45,17 @@ export const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-lg text-gray-400 my-5 max-w-[600px]"
         >
-          I&apos;m a Full Stack Software Engineer with experience in Website,
-          Mobile, and Software development. Check out my projects and skills.
+          I&apos;m a Senior Full Software Engineer with over 6 years of
+          experience in full-stack development, Mobile, SaaS, cloud-native
+          architecture, AI/ML, e-commerce, and scalable API platforms. ßCheck
+          out my projects and skills.
         </motion.p>
 
         <motion.a
           variants={slideInFromLeft(1)}
+          href="https://iglu.net/talent/senior-software-developer/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="py-2 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
         >
           Learn more

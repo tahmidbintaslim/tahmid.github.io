@@ -1,7 +1,6 @@
-'use client';
-import { useState } from "react";
-import Image from "next/image";
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 import { LINKS, NAV_LINKS, SOCIALS } from "@/constants";
 
@@ -13,19 +12,19 @@ export const Navbar = () => {
       {/* Navbar Container */}
       <div className="w-full h-full flex items-center justify-between m-auto px-[10px]">
         {/* Logo + Name */}
-        <Link
-          href="#about-me"
-          className="flex items-center"
-        >
-          <Image
-            src="/logo.png"
+        <Link href="/" className="flex items-center">
+          {/* <Image
+            src="/logo.svg"
             alt="Logo"
             width={70}
             height={70}
             draggable={false}
             className="cursor-pointer"
-          />
-          <div className="hidden md:flex md:selffont-bold ml-[10px] text-gray-300">John Doe</div>
+          /> */}
+          {/* <div className="hidden md:flex md:selffont-bold ml-[10px] text-gray-300"> */}
+          <div className="md:flex md:selffont-bold ml-[10px] text-gray-300">
+            TBTR
+          </div>
         </Link>
 
         {/* Web Navbar */}

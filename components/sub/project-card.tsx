@@ -21,13 +21,16 @@ export const ProjectCard = ({
       rel="noreferrer noopener"
       className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61]"
     >
-      <Image
-        src={src}
-        alt={title}
-        width={1000}
-        height={1000}
-        className="w-full object-contain"
-      />
+      <div className="relative w-full min-h-[275px]">
+        <Image
+          src={src}
+          alt={title}
+          layout="fill"
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          priority
+        />
+      </div>
 
       <div className="relative p-4">
         <h1 className="text-2xl font-semibold text-white">{title}</h1>

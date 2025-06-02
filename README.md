@@ -78,7 +78,7 @@ space-portfolio/
     |-- hero-bg.svg
     |-- lock-main.png
     |-- lock-top.png
-    |-- logo.png
+    |-- logo.svg
   |- .eslintrc.json
   |- .gitignore
   |- next.config.js
