@@ -273,9 +273,9 @@ export const PROJECTS = [
     link: "https://schollshoesthailand.com/",
   },
   {
-    title: "Relevant Audience Digital Marketing Agency",
+    title: "Relevant Audience",
     description:
-      "While working at Relevant, Developed it's brand website using latest UI/UX. Made with Twig, Php, Wordpress, AlpineJS, and Tailwind CSS.",
+      "While working at Relevant Audience Co. Ltd, Developed it's brand website using latest UI/UX. Made with Twig, Php, Wordpress, AlpineJS, and Tailwind CSS.",
     image: "/projects/RELEVANT-AUDIENCE.png",
     link: "https://www.relevantaudience.com/",
   },
