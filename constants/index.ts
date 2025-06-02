@@ -277,7 +277,7 @@ export const PROJECTS = [
     description:
       "While working at Relevant, Developed it's brand website using latest UI/UX. Made with Twig, Php, Wordpress, AlpineJS, and Tailwind CSS.",
     image: "/projects/RELEVANT-AUDIENCE.png",
-    link: "https://example.com",
+    link: "https://www.relevantaudience.com/",
   },
 ] as const;
 

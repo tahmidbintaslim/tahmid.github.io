@@ -17,7 +17,7 @@ export const Encryption = () => {
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             &
           </span>{" "}
-          security.
+          Security.
         </motion.div>
       </div>
 
@@ -40,7 +40,9 @@ export const Encryption = () => {
         </div>
 
         <div className="Welcome-box px-[15px] py-[4px] z-[20] border my-[20px] border-[#7042F88B] opacity-[0.9]">
-          <h1 className="Welcome-text text-[12px]">Encryption</h1>
+          <h1 className="Welcome-text text-[12px]">
+            Ensure your data is safe.
+          </h1>
         </div>
       </div>
 
