@@ -29,7 +29,7 @@ export const Footer = () => {
           ))}
         </div>
 
-        <div className="w-full max-w-screen-xl mx-auto p-2 md:pt-12 block text-sm text-white-500 sm:text-center dark:text-gray-400">
+        <div className="w-full max-w-screen-xl mx-auto p-2 pt-12 pb-4 block text-sm text-white-500 text-center">
           &copy; TBTR {new Date().getFullYear()} Inc. All rights reserved.
         </div>
       </div>
