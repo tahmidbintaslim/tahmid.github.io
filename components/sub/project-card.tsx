@@ -33,7 +33,7 @@ export const ProjectCard = ({
       </div>
 
       <div className="relative p-4">
-        <h1 className="text-2xl font-semibold text-white">{title}</h1>
+        <h2 className="text-2xl font-semibold text-white">{title}</h2>
         <p className="mt-2 text-gray-300">{description}</p>
       </div>
     </Link>

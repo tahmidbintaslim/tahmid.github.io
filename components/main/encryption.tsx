@@ -40,9 +40,9 @@ export const Encryption = () => {
         </div>
 
         <div className="Welcome-box px-[15px] py-[4px] z-[20] border my-[20px] border-[#7042F88B] opacity-[0.9]">
-          <h1 className="Welcome-text text-[12px]">
+          <h2 className="Welcome-text text-[12px]">
             Ensure your data is safe.
-          </h1>
+          </h2>
         </div>
       </div>
 
