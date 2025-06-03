@@ -47,8 +47,8 @@ export const HeroContent = () => {
         >
           I&apos;m a Senior Full Software Engineer with over 6 years of
           experience in full-stack development, Mobile, SaaS, cloud-native
-          architecture, AI/ML, e-commerce, and scalable API platforms. ßCheck
-          out my projects and skills.
+          architecture, AI/ML, e-commerce, and scalable API platforms. Check out
+          my projects and skills.
         </motion.p>
 
         <motion.a
@@ -58,7 +58,7 @@ export const HeroContent = () => {
           rel="noopener noreferrer"
           className="py-2 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
         >
-          Learn more
+          Hire Me
         </motion.a>
       </div>
 
