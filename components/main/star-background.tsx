@@ -1,16 +1,19 @@
 "use client";
 
-import { Points, PointMaterial } from "@react-three/drei";
+import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, type PointsProps, useFrame } from "@react-three/fiber";
 import * as random from "maath/random";
-import { useState, useRef, Suspense } from "react";
+import { Suspense, useRef, useState } from "react";
 import type { Points as PointsType } from "three";
 
 export const StarBackground = (props: PointsProps) => {
   const ref = useRef<PointsType | null>(null);
-  const [sphere] = useState(() =>
-    random.inSphere(new Float32Array(5000), { radius: 1.2 })
-  );
+  const [sphere] = useState(() => {
+    const arr = random.inSphere(new Float32Array(5000 * 3), { radius: 1.2 });
+    const hasNaN = arr.some((v) => isNaN(v));
+    if (hasNaN) console.warn("Generated sphere has NaN values");
+    return arr;
+  });
 
   useFrame((_state, delta) => {
     if (ref.current) {
