@@ -279,6 +279,27 @@ export const PROJECTS = [
     image: "/projects/RELEVANT-AUDIENCE.png",
     link: "https://www.relevantaudience.com/",
   },
+  {
+    title: "Aroma Group",
+    description:
+      "The brand website of Aroma Group, a leading company in Thailand. Developed while working at Relevant Audience Co. Ltd. Made with Wordpress, AlpineJS, and Tailwind CSS. Also made their HR system with React, Node.js, and MongoDB.",
+    image: "/projects/c1_657976_150817065848_790.jpg",
+    link: "https://aromathailand.com/",
+  },
+  {
+    title: "Chao Doi",
+    description:
+      "Developed Chao Doi Website while working at Relevant. Headless wordpress website with loads of API integration, CRM, Payment, Automation, Delivery & Tracking.",
+    image: "/projects/chao-doi.png",
+    link: "https://chaodoi.co.th/",
+  },
+  {
+    title: "Plantoys Thailand",
+    description:
+      "While working at Relevant Audience Co. Ltd, developed Plantoys Thailand's brand website. Made with Shopify, API integration to CRM, Payment, Automation, Delivery & Tracking.",
+    image: "/projects/plantoys-24.jpg",
+    link: "https://th.plantoys.com/",
+  },
 ] as const;
 
 export const FOOTER_DATA = [
@@ -338,7 +359,7 @@ export const FOOTER_DATA = [
       {
         name: "Contact Me",
         icon: null,
-        link: "mailto:contact@example.com",
+        link: "mailto:tahmidbintaslimrafi@gmail.com",
       },
     ],
   },
