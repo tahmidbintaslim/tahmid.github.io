@@ -17,13 +17,14 @@ export const Projects = () => {
     >
       <motion.div
         variants={slideInFromTop}
-        className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]]"
+        className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
       >
         <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
         <h2 className="Welcome-text text-[13px]">
           Some of the highlights of my work
         </h2>
       </motion.div>
+
       <motion.div
         variants={slideInFromLeft(0.5)}
         className="text-[30px] text-white font-medium mt-[10px] text-center mb-[15px]"
@@ -37,7 +38,8 @@ export const Projects = () => {
       >
         Crafting solutions with creativity and precision.
       </motion.div>
-      <div className="h-full w-full flex flex-col md:flex-row gap-10 px-10">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-10 w-full">
         {PROJECTS.map((project) => (
           <ProjectCard
             key={project.title}
