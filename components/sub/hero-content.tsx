@@ -45,7 +45,7 @@ export const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-lg text-gray-400 my-5 max-w-[600px]"
         >
-          I&apos;m a Senior Full Software Engineer with over 6 years of
+          I&apos;m a Senior Software Engineer with over 6 years of
           experience in full-stack development, Mobile, SaaS, cloud-native
           architecture, AI/ML, e-commerce, and scalable API platforms. Check out
           my projects and skills.
