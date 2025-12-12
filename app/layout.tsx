@@ -5,7 +5,7 @@ import type { PropsWithChildren } from "react";
 
 import { Footer } from "@/components/main/footer";
 import { Navbar } from "@/components/main/navbar";
-import { StarsCanvas } from "@/components/main/star-background";
+import { StarsCanvas } from "@/components/main/stars-canvas-wrapper";
 import { siteConfig } from "@/config";
 import { cn } from "@/lib/utils";
 
