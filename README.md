@@ -1,8 +1,8 @@
 <a name="readme-top"></a>
 
-# Modern Space Theme Portfolio using Next.js 14 and Three.js
+# Modern Space Theme Portfolio using Next.js 15 and Three.js
 
-![Modern Space Theme Portfolio using Next.js 14 and Three.js](/.github/images/img_main.png "Modern Space Theme Portfolio using Next.js 14 and Three.js")
+![Modern Space Theme Portfolio using Next.js 15 and Three.js](/.github/images/img_main.png "Modern Space Theme Portfolio using Next.js 15 and Three.js")
 
 [![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy "Ask Me Anything!")
 [![GitHub license](https://flat.badgen.net/github/license/sanidhyy/space-portfolio?icon=github&color=black&scale=1.01)](https://github.com/sanidhyy/space-portfolio/blob/main/LICENSE "GitHub license")
@@ -127,27 +127,29 @@ You might encounter some bugs while using this app. You are more than welcome to
 
 Useful resources and dependencies that are used in Space Portfolio.
 
-- [@heroicons/react](https://www.npmjs.com/package/@heroicons/react): ^2.1.1
-- [@react-three/drei](https://www.npmjs.com/package/@react-three/drei): ^9.93.0
-- [@react-three/fiber](https://www.npmjs.com/package/@react-three/fiber): ^8.15.13
-- [clsx](https://www.npmjs.com/package/clsx): ^2.1.0
-- [framer-motion](https://www.npmjs.com/package/framer-motion): ^10.17.12
-- [next](https://www.npmjs.com/package/next): 14.0.4
-- [react](https://www.npmjs.com/package/react): ^18
-- [react-dom](https://www.npmjs.com/package/react-dom): ^18
-- [react-icons](https://www.npmjs.com/package/react-icons): ^5.0.1
-- [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer): ^9.5.3
-- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge): ^2.2.0
-- [three](https://www.npmjs.com/package/three): ^0.160.0
-- [@types/node](https://www.npmjs.com/package/@types/node): ^20
-- [@types/react](https://www.npmjs.com/package/@types/react): ^18
-- [@types/react-dom](https://www.npmjs.com/package/@types/react-dom): ^18
-- [autoprefixer](https://www.npmjs.com/package/autoprefixer): ^10.0.1
-- [eslint](https://www.npmjs.com/package/eslint): ^8
-- [eslint-config-next](https://www.npmjs.com/package/eslint-config-next): 14.0.4
-- [postcss](https://www.npmjs.com/package/postcss): ^8
-- [tailwindcss](https://www.npmjs.com/package/tailwindcss): ^3.3.0
-- [typescript](https://www.npmjs.com/package/typescript): ^5
+- [@heroicons/react](https://www.npmjs.com/package/@heroicons/react): ^2.2.0
+- [@react-three/drei](https://www.npmjs.com/package/@react-three/drei): ^9.122.0
+- [@react-three/fiber](https://www.npmjs.com/package/@react-three/fiber): ^8.18.0
+- [@vercel/analytics](https://www.npmjs.com/package/@vercel/analytics): ^1.6.1
+- [clsx](https://www.npmjs.com/package/clsx): ^2.1.1
+- [framer-motion](https://www.npmjs.com/package/framer-motion): ^11.15.0
+- [next](https://www.npmjs.com/package/next): 15.5.9
+- [react](https://www.npmjs.com/package/react): ^18.3.1
+- [react-dom](https://www.npmjs.com/package/react-dom): ^18.3.1
+- [react-icons](https://www.npmjs.com/package/react-icons): ^5.5.0
+- [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer): ^10.0.0
+- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge): ^3.4.0
+- [three](https://www.npmjs.com/package/three): ^0.170.0
+- [@types/node](https://www.npmjs.com/package/@types/node): ^22
+- [@types/react](https://www.npmjs.com/package/@types/react): ^18.3.27
+- [@types/react-dom](https://www.npmjs.com/package/@types/react-dom): ^18.3.7
+- [@types/three](https://www.npmjs.com/package/@types/three): ^0.170.0
+- [autoprefixer](https://www.npmjs.com/package/autoprefixer): ^10.4.22
+- [eslint](https://www.npmjs.com/package/eslint): ^8.57.1
+- [eslint-config-next](https://www.npmjs.com/package/eslint-config-next): 15.5.9
+- [postcss](https://www.npmjs.com/package/postcss): ^8.5.6
+- [tailwindcss](https://www.npmjs.com/package/tailwindcss): ^3.4.19
+- [typescript](https://www.npmjs.com/package/typescript): ^5.9.3
 
 ## :coffee: Buy Me a Coffee
 

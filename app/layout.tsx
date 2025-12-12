@@ -11,7 +11,11 @@ import { cn } from "@/lib/utils";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  fallback: ["system-ui", "arial"],
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   themeColor: "#030014",
