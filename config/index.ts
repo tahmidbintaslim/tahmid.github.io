@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const siteConfig: Metadata = {
-  title: "TBTR | Space Portfolio",
-  description: "Welcome to my full stack Next.js 14 space portfolio.",
+  title: "Tahmid Bin Taslim Rafi | Senior Software Engineer Portfolio",
+  description: "Welcome to my full stack Next.js 15 space portfolio. Senior Software Engineer with 6+ years of experience in React, Next.js, Node.js, TypeScript, GraphQL, AI/ML, cloud-native architecture, and e-commerce solutions.",
   keywords: [
     "reactjs",
     "nextjs",
@@ -33,9 +33,47 @@ export const siteConfig: Metadata = {
     "eslint",
     "html",
     "css",
+    "full-stack developer",
+    "software engineer",
+    "senior developer",
+    "web development",
+    "frontend developer",
+    "backend developer",
+    "tahmid bin taslim",
+    "graphql",
+    "nodejs",
+    "mongodb",
+    "ai ml integration",
+    "cloud native",
+    "saas development",
   ] as Array<string>,
   authors: {
     name: "Tahmid Bin Taslim Rafi",
     url: "https://github.com/tahmidbintaslim/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://tahmidbintaslim.github.io/tahmid.github.io/",
+    title: "Tahmid Bin Taslim Rafi | Senior Software Engineer",
+    description: "Senior Software Engineer with 6+ years of experience in full-stack development, AI/ML, and cloud-native architecture.",
+    siteName: "Tahmid's Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tahmid Bin Taslim Rafi | Senior Software Engineer",
+    description: "Senior Software Engineer with 6+ years of experience in full-stack development, AI/ML, and cloud-native architecture.",
+    creator: "@RAFI_it100",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 } as const;
