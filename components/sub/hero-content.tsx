@@ -45,10 +45,10 @@ export const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-lg text-gray-400 my-5 max-w-[600px]"
         >
-          I&apos;m a Senior Software Engineer with over 6 years of
-          experience in full-stack development, Mobile, SaaS, cloud-native
-          architecture, AI/ML, e-commerce, and scalable API platforms. Check out
-          my projects and skills.
+          I&apos;m a Senior Software Engineer with 6+ years of expertise in full-stack development, 
+          AI/ML integration, cloud-native architecture (AWS, GCP, Azure), microservices, SaaS platforms, 
+          e-commerce solutions, and scalable APIs. Proficient in React, Next.js, Node.js, Python, 
+          TypeScript, and modern DevOps practices.
         </motion.p>
 
         <motion.div

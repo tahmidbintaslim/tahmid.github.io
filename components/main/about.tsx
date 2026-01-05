@@ -16,16 +16,16 @@ export const About = () => {
       label: "Years Experience",
     },
     {
-      number: "50+",
-      label: "Projects Completed",
-    },
-    {
       number: "20+",
-      label: "Technologies",
+      label: "Enterprise Projects",
     },
     {
-      number: "100%",
-      label: "Client Satisfaction",
+      number: "50+",
+      label: "Technologies Mastered",
+    },
+    {
+      number: "99.9%",
+      label: "System Uptime",
     },
   ];
 
@@ -35,28 +35,28 @@ export const About = () => {
       title: "Senior Software Engineer",
       company: "Iglu",
       description:
-        "Leading full-stack development initiatives, architecting cloud-native solutions with AI/ML integration.",
+        "Leading full-stack development initiatives, architecting cloud-native SaaS solutions with AI/ML integration. Building GPT-powered automation systems and scalable microservices on AWS serving 10,000+ users.",
     },
     {
       year: "2022 - 2024",
       title: "Full Stack Developer",
       company: "Relevant Audience Co. Ltd",
       description:
-        "Developed enterprise e-commerce platforms, headless CMS solutions, and integrated complex API systems.",
+        "Developed enterprise e-commerce platforms using Shopify Plus and headless WordPress. Integrated complex API systems (Python, PHP, Ruby), CRM automation, and achieved 99.9% uptime for Fortune 500 clients.",
     },
     {
       year: "2019 - 2022",
       title: "Software Developer",
       company: "Trienpont",
       description:
-        "Built scalable web applications using React, Next.js, and GraphQL. Led team development efforts.",
+        "Built scalable real estate web applications using React, Next.js, and GraphQL with Algolia AI search. Led team development efforts and managed full-stack headless CMS implementations.",
     },
     {
       year: "2018",
       title: "Started Career",
       company: "Freelance",
       description:
-        "Began journey in web development, focusing on modern JavaScript frameworks and responsive design.",
+        "Began journey in web development, focusing on modern JavaScript frameworks, responsive design, and WordPress/Shopify customizations. Built foundation in full-stack development and cloud technologies.",
     },
   ];
 
@@ -125,27 +125,36 @@ export const About = () => {
       >
         <p className="mb-4">
           I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 6 years of hands-on experience 
-          in building modern, scalable, and user-centric applications. My expertise spans across the 
-          entire technology stack - from crafting beautiful, responsive front-ends to architecting 
-          robust, cloud-native back-end systems.
+          in building modern, scalable, and user-centric applications. My expertise spans the 
+          entire technology stack - from crafting beautiful, responsive front-ends with{" "}
+          <span className="text-cyan-400 font-semibold">React, Vue, Next.js, Angular</span> to architecting 
+          robust, cloud-native back-end systems with{" "}
+          <span className="text-cyan-400 font-semibold">Node.js, Django, Flask, FastAPI, Laravel</span>.
         </p>
         <p className="mb-4">
-          Throughout my career, I&apos;ve had the privilege of working with leading companies like{" "}
+          Throughout my career, I&apos;ve delivered <span className="text-purple-400 font-semibold">20+ enterprise projects</span>{" "}
+          across fintech, SaaS, and real estate, working with leading companies like{" "}
           <span className="text-cyan-400 font-semibold">Iglu</span>,{" "}
           <span className="text-cyan-400 font-semibold">Relevant Audience</span>, and{" "}
-          <span className="text-cyan-400 font-semibold">Trienpont</span>, 
-          where I&apos;ve delivered high-impact solutions in e-commerce, SaaS platforms, 
-          AI/ML integration, and enterprise applications.
+          <span className="text-cyan-400 font-semibold">Trienpont</span>. 
+          I specialize in <span className="text-purple-400 font-semibold">AI/ML integration</span> with OpenAI and TensorFlow, 
+          building <span className="text-purple-400 font-semibold">cloud-native solutions</span> on AWS and GCP, 
+          and creating <span className="text-purple-400 font-semibold">scalable microservices architectures</span>.
+        </p>
+        <p className="mb-4">
+          My technical arsenal includes <span className="text-cyan-400 font-semibold">Python, JavaScript, TypeScript, PHP, Rust, Go, Ruby</span> with 
+          expertise in databases like <span className="text-purple-400 font-semibold">PostgreSQL, MongoDB, Redis</span>, 
+          and DevOps tools including <span className="text-purple-400 font-semibold">Docker, Kubernetes, Terraform</span>. 
+          I&apos;ve successfully architected systems serving <span className="text-cyan-400 font-semibold">10,000+ users</span>, 
+          achieved <span className="text-cyan-400 font-semibold">99.9% uptime</span>, and reduced infrastructure costs by{" "}
+          <span className="text-cyan-400 font-semibold">40%</span> through optimization.
         </p>
         <p>
-          I specialize in leveraging cutting-edge technologies like{" "}
-          <span className="text-purple-400 font-semibold">React</span>,{" "}
-          <span className="text-purple-400 font-semibold">Next.js</span>,{" "}
-          <span className="text-purple-400 font-semibold">Node.js</span>,{" "}
-          <span className="text-purple-400 font-semibold">TypeScript</span>,{" "}
-          and <span className="text-purple-400 font-semibold">GraphQL</span> to 
-          transform ideas into reality. I&apos;m driven by challenges and committed to 
-          continuous learning and excellence.
+          I&apos;m driven by challenges and committed to continuous learning and excellence. 
+          Whether it&apos;s building <span className="text-purple-400 font-semibold">GPT-powered chatbots</span>,{" "}
+          <span className="text-purple-400 font-semibold">e-commerce platforms</span> for Fortune 500 clients, or{" "}
+          <span className="text-purple-400 font-semibold">Web3 solutions</span> with Solidity and Ethereum, 
+          I transform ideas into reality with clean architecture and scalable design.
         </p>
       </motion.div>
 
