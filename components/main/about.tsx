@@ -7,6 +7,7 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
 export const About = () => {
   const achievements = [
@@ -167,37 +168,48 @@ export const About = () => {
           {/* Timeline line */}
           <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-cyan-500 to-purple-500" />
 
-          {timeline.map((item, index) => (
-            <motion.div
-              key={item.year}
-              variants={slideInFromLeft(0.5)}
-              transition={{ delay: index * 0.2 }}
-              className={`relative mb-10 ${
-                index % 2 === 0 ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
-              }`}
-            >
-              <div className={`flex items-start ${index % 2 === 0 ? "md:flex-row-reverse" : ""}`}>
-                {/* Timeline dot */}
-                <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full transform -translate-x-1.5 md:-translate-x-2 border-4 border-[#030014]" />
+          {timeline.map((item, index) => {
+            const isEven = index % 2 === 0;
+            
+            return (
+              <motion.div
+                key={item.year}
+                variants={slideInFromLeft(0.5)}
+                transition={{ delay: index * 0.2 }}
+                className={cn(
+                  "relative mb-10",
+                  isEven ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
+                )}
+              >
+                <div className={cn(
+                  "flex items-start",
+                  isEven && "md:flex-row-reverse"
+                )}>
+                  {/* Timeline dot */}
+                  <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full transform -translate-x-1.5 md:-translate-x-2 border-4 border-[#030014]" />
 
-                {/* Content */}
-                <div className={`ml-10 md:ml-0 ${index % 2 === 0 ? "md:mr-12" : "md:ml-12"} p-6 rounded-lg bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/20 backdrop-blur-sm hover:scale-105 transition-transform duration-300 w-full md:w-5/12`}>
-                  <span className="text-purple-400 text-sm font-bold">
-                    {item.year}
-                  </span>
-                  <h4 className="text-xl font-bold text-white mt-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-cyan-400 text-sm font-semibold mt-1">
-                    {item.company}
-                  </p>
-                  <p className="text-gray-300 text-sm mt-3 leading-relaxed">
-                    {item.description}
-                  </p>
+                  {/* Content */}
+                  <div className={cn(
+                    "ml-10 md:ml-0 p-6 rounded-lg bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/20 backdrop-blur-sm hover:scale-105 transition-transform duration-300 w-full md:w-5/12",
+                    isEven ? "md:mr-12" : "md:ml-12"
+                  )}>
+                    <span className="text-purple-400 text-sm font-bold">
+                      {item.year}
+                    </span>
+                    <h4 className="text-xl font-bold text-white mt-2">
+                      {item.title}
+                    </h4>
+                    <p className="text-cyan-400 text-sm font-semibold mt-1">
+                      {item.company}
+                    </p>
+                    <p className="text-gray-300 text-sm mt-3 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>

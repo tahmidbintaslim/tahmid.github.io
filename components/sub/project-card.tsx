@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 type ProjectCardProps = {
   src: string;
   title: string;
   description: string;
   link: string;
-  techStack?: string[];
+  techStack?: readonly string[];
   role?: string;
 };
 
@@ -31,7 +32,12 @@ export const ProjectCard = ({
         href={link}
         target="_blank"
         rel="noreferrer noopener"
-        className="relative overflow-hidden rounded-lg shadow-lg border border-[#2A0E61] hover:border-purple-500/50 transition-all duration-300 block h-full flex flex-col bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e]"
+        className={cn(
+          "relative overflow-hidden rounded-lg shadow-lg",
+          "border border-[#2A0E61] hover:border-purple-500/50",
+          "transition-all duration-300 block h-full flex flex-col",
+          "bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e]"
+        )}
       >
         {/* Image with overlay */}
         <div className="relative w-full min-h-[275px] overflow-hidden">

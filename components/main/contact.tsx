@@ -31,16 +31,16 @@ export const Contact = () => {
     setIsSubmitting(true);
 
     // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormState({ name: "", email: "", subject: "", message: "" });
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsSubmitting(false);
+    setSubmitStatus("success");
+    setFormState({ name: "", email: "", subject: "", message: "" });
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus("idle");
-      }, 5000);
-    }, 1500);
+    // Reset success message after 5 seconds
+    setTimeout(() => {
+      setSubmitStatus("idle");
+    }, 5000);
   };
 
   const contactInfo = [
