@@ -8,7 +8,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001427] backdrop-blur-md z-50 px-10">
+    <nav className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001427] backdrop-blur-md z-50 px-10">
       {/* Navbar Container */}
       <div className="w-full h-full flex items-center justify-between m-auto px-[10px]">
         {/* Logo + Name */}
@@ -61,6 +61,7 @@ export const Navbar = () => {
               target="_blank"
               rel="noreferrer noopener"
               key={name}
+              aria-label={name}
             >
               <Icon className="h-6 w-6 text-white" />
             </Link>
@@ -71,6 +72,8 @@ export const Navbar = () => {
         <button
           className="md:hidden text-white focus:outline-none text-4xl"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
         >
           ☰
         </button>
@@ -80,7 +83,7 @@ export const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="absolute top-[65px] left-0 w-full bg-[#030014] p-5 flex flex-col items-center text-gray-300 md:hidden">
           {/* Links */}
-          <div className="flex flex-col items-center gap-4">
+          <nav className="flex flex-col items-center gap-4">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.title}
@@ -100,7 +103,7 @@ export const Navbar = () => {
             >
               Source Code
             </Link>
-          </div>
+          </nav>
 
           {/* Social Icons */}
           <div className="flex justify-center gap-6 mt-6">
@@ -110,6 +113,7 @@ export const Navbar = () => {
                 target="_blank"
                 rel="noreferrer noopener"
                 key={name}
+                aria-label={name}
               >
                 <Icon className="h-8 w-8 text-white" />
               </Link>
@@ -117,6 +121,6 @@ export const Navbar = () => {
           </div>
         </div>
       )}
-    </div>
+    </nav>
   );
 };
