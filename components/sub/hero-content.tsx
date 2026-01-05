@@ -51,15 +51,25 @@ export const HeroContent = () => {
           my projects and skills.
         </motion.p>
 
-        <motion.a
+        <motion.div
           variants={slideInFromLeft(1)}
-          href="https://iglu.net/talent/senior-software-developer/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="py-2 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
+          className="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
         >
-          Hire Me
-        </motion.a>
+          <a
+            href="https://iglu.net/talent/senior-software-developer/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-2 px-6 button-primary text-center text-white cursor-pointer rounded-lg w-full sm:w-auto hover:scale-105 transition-transform duration-300"
+          >
+            Hire Me
+          </a>
+          <a
+            href="mailto:tahmidbintaslimrafi@gmail.com"
+            className="py-2 px-6 text-center text-white cursor-pointer rounded-lg border-2 border-purple-500/50 hover:bg-purple-500/10 w-full sm:w-auto hover:scale-105 transition-all duration-300"
+          >
+            Download CV
+          </a>
+        </motion.div>
       </div>
 
       <motion.div

@@ -264,6 +264,8 @@ export const PROJECTS = [
       "Using Algolia AI, React, Next.js, Node.js, GraphQL, REST API and Wordpress. While working on Trienpont, I managed a team and build this Full Stack Headless Application.",
     image: "/projects/AP-Logo-on-White-Stack_Final_Hi.webp",
     link: "https://amazingproperties.org/",
+    techStack: ["React", "Next.js", "Node.js", "GraphQL", "Algolia AI", "WordPress"],
+    role: "Team Lead",
   },
   {
     title: "Scholl Thailand",
@@ -271,6 +273,8 @@ export const PROJECTS = [
       "Developed Scholl Thailand Website while working at Relevant. Shopify Plus website with loads of API integration (python, php, ruby), CRM, Payment, Automation, Delivery & Tracking.",
     image: "/projects/HvYrQMU4r6fe7KYdGkhJ.jpg",
     link: "https://schollshoesthailand.com/",
+    techStack: ["Shopify Plus", "Python", "PHP", "Ruby", "CRM", "Payment Gateway"],
+    role: "Full Stack Developer",
   },
   {
     title: "Relevant Audience",
@@ -278,6 +282,8 @@ export const PROJECTS = [
       "While working at Relevant Audience Co. Ltd, Developed it's brand website using latest UI/UX. Made with Twig, Php, Wordpress, AlpineJS, and Tailwind CSS.",
     image: "/projects/RELEVANT-AUDIENCE.png",
     link: "https://www.relevantaudience.com/",
+    techStack: ["WordPress", "PHP", "AlpineJS", "Tailwind CSS", "Twig"],
+    role: "Full Stack Developer",
   },
   {
     title: "Aroma Group",
@@ -285,6 +291,8 @@ export const PROJECTS = [
       "The brand website of Aroma Group, a leading company in Thailand. Developed while working at Relevant Audience Co. Ltd. Made with Wordpress, AlpineJS, and Tailwind CSS. Also made their HR system with React, Node.js, and MongoDB.",
     image: "/projects/c1_657976_150817065848_790.jpg",
     link: "https://aromathailand.com/",
+    techStack: ["WordPress", "React", "Node.js", "MongoDB", "Tailwind CSS"],
+    role: "Full Stack Developer",
   },
   {
     title: "Chao Doi",
@@ -292,6 +300,8 @@ export const PROJECTS = [
       "Developed Chao Doi Website while working at Relevant. Headless wordpress website with loads of API integration, CRM, Payment, Automation, Delivery & Tracking.",
     image: "/projects/chao-doi.png",
     link: "https://chaodoi.co.th/",
+    techStack: ["WordPress", "Headless CMS", "API Integration", "CRM"],
+    role: "Full Stack Developer",
   },
   {
     title: "Plantoys Thailand",
@@ -299,8 +309,10 @@ export const PROJECTS = [
       "While working at Relevant Audience Co. Ltd, developed Plantoys Thailand's brand website. Made with Shopify, API integration to CRM, Payment, Automation, Delivery & Tracking.",
     image: "/projects/plantoys-24.jpg",
     link: "https://th.plantoys.com/",
+    techStack: ["Shopify", "API Integration", "CRM", "Payment Gateway"],
+    role: "Full Stack Developer",
   },
-] as const;
+];
 
 export const FOOTER_DATA = [
   {
@@ -377,6 +389,10 @@ export const NAV_LINKS = [
   {
     title: "Projects",
     link: "#projects",
+  },
+  {
+    title: "Contact",
+    link: "#contact",
   },
 ] as const;
 
