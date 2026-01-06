@@ -190,24 +190,24 @@ const Blog = () => {
   return (
     <section
       id="blog"
-      className="flex flex-col items-center justify-center py-16 md:py-20 px-4"
+      className="flex flex-col items-center justify-center py-12 md:py-16 lg:py-20 px-4"
     >
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[40px] md:text-[50px] font-bold text-center mb-4">
+            <h1 className="text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center mb-3 md:mb-4 leading-tight">
               <span className="text-white">Latest Articles </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
                 & Insights
               </span>
             </h1>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto px-4">
               Sharing knowledge and experiences on full-stack development, cloud architecture,
               and modern web technologies
             </p>
@@ -242,14 +242,20 @@ const Blog = () => {
               </button>
 
               {/* Sort - More prominent */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
-                className="px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors cursor-pointer min-h-[44px]"
-              >
-                <option value="latest">📅 Latest First</option>
-                <option value="oldest">📅 Oldest First</option>
-              </select>
+              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px]">
+                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
+                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6"
+                >
+                  <option value="latest">Latest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+                <svg className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
 
             <div className="flex items-center gap-4 flex-wrap">
@@ -360,17 +366,28 @@ const Blog = () => {
                   >
                     <div className="h-full bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e] border border-purple-500/30 rounded-lg overflow-hidden hover:border-purple-500/60 transition-all duration-300 flex flex-col">
                       {/* Cover Image */}
-                      {post.coverImage && (
-                        <div className="relative w-full h-48 overflow-hidden">
-                          <Image
-                            src={post.coverImage}
-                            alt={post.title}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
-                        </div>
-                      )}
+                      <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-purple-500/20 to-cyan-500/20">
+                        {post.coverImage ? (
+                          <>
+                            <Image
+                              src={post.coverImage}
+                              alt={post.title}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                              onError={(e) => {
+                                // Hide image on error and show gradient background
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
+                          </>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <BookOpenIcon className="w-16 h-16 text-purple-400/40" />
+                          </div>
+                        )}
+                      </div>
 
                       {/* Content */}
                       <div className="p-6 flex flex-col flex-1">
