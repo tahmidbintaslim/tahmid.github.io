@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { slideInFromTop } from "@/lib/motion";
 import { SparklesIcon, BuildingOfficeIcon, CalendarIcon, BriefcaseIcon } from "@heroicons/react/24/solid";
+import { FaUtensils, FaBuilding, FaChartBar, FaPaintBrush, FaComments, FaRocket } from "react-icons/fa";
 
 export const JourneyHorizontal = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,7 +30,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-purple-500/10",
       techBadgeText: "text-purple-300",
       techBadgeBorder: "border-purple-500/30",
-      logo: "🍴",
+      logo: FaUtensils,
     },
     {
       year: "May 2023 - February 2024",
@@ -49,7 +50,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-cyan-500/10",
       techBadgeText: "text-cyan-300",
       techBadgeBorder: "border-cyan-500/30",
-      logo: "🏢",
+      logo: FaBuilding,
     },
     {
       year: "November 2021 - May 2023",
@@ -69,7 +70,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-green-500/10",
       techBadgeText: "text-green-300",
       techBadgeBorder: "border-green-500/30",
-      logo: "📊",
+      logo: FaChartBar,
     },
     {
       year: "June 2021 - September 2021",
@@ -89,7 +90,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-blue-500/10",
       techBadgeText: "text-blue-300",
       techBadgeBorder: "border-blue-500/30",
-      logo: "🎨",
+      logo: FaPaintBrush,
     },
     {
       year: "April 2021 - September 2021",
@@ -109,7 +110,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-pink-500/10",
       techBadgeText: "text-pink-300",
       techBadgeBorder: "border-pink-500/30",
-      logo: "💬",
+      logo: FaComments,
     },
     {
       year: "September 2020 - June 2021",
@@ -129,7 +130,7 @@ export const JourneyHorizontal = () => {
       techBadgeBg: "bg-yellow-500/10",
       techBadgeText: "text-yellow-300",
       techBadgeBorder: "border-yellow-500/30",
-      logo: "🚀",
+      logo: FaRocket,
     },
   ];
 
@@ -222,8 +223,8 @@ export const JourneyHorizontal = () => {
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   {/* Company Logo/Icon */}
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {item.logo}
+                  <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <item.logo className={`text-6xl ${item.iconColor}`} />
                   </div>
 
                   {/* Year Badge */}
@@ -332,7 +333,7 @@ export const JourneyHorizontal = () => {
                 className="p-5 rounded-xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-cyan-500/50 transition-all duration-300 cursor-pointer"
               >
                 {/* Logo */}
-                <div className="text-4xl mb-3">{item.logo}</div>
+                <div className="mb-3"><item.logo className={`text-4xl ${item.iconColor}`} /></div>
 
                 {/* Year */}
                 <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full ${item.badgeBg} border ${item.badgeBorder} mb-3`}>
