@@ -23,8 +23,12 @@ interface WeatherData {
   icon: string;
 }
 
-export default function LocationWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+interface LocationWidgetProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export default function LocationWidget({ isOpen, setIsOpen }: LocationWidgetProps) {
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);

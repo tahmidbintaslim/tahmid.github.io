@@ -12,8 +12,12 @@ interface NewsArticle {
   description: string;
 }
 
-export default function NewsWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+interface NewsWidgetProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export default function NewsWidget({ isOpen, setIsOpen }: NewsWidgetProps) {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
 
