@@ -218,7 +218,7 @@ const ProjectsEnhanced = () => {
           </div>
         ) : (
           <div className="text-center py-20">
-            <div className="text-6xl mb-4">🔍</div>
+            <MagnifyingGlassIcon className="w-24 h-24 mx-auto text-purple-400 mb-4" />
             <h3 className="text-2xl text-gray-300 mb-2">No projects found</h3>
             <p className="text-gray-400 mb-6">
               Try adjusting your search or filters

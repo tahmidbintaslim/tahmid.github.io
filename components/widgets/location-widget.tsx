@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { IoLocationSharp, IoTimeOutline, IoClose } from "react-icons/io5";
+import { IoLocationSharp, IoTimeOutline, IoClose, IoCloudOutline, IoWaterOutline } from "react-icons/io5";
+import { WiHumidity, WiStrongWind } from "react-icons/wi";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface LocationData {
@@ -9,11 +10,23 @@ interface LocationData {
   country: string;
   timezone: string;
   localTime: string;
+  latitude?: number;
+  longitude?: number;
+  region?: string;
+}
+
+interface WeatherData {
+  temperature: number;
+  condition: string;
+  humidity: number;
+  windSpeed: number;
+  icon: string;
 }
 
 export default function LocationWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [locationData, setLocationData] = useState<LocationData | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,7 +47,44 @@ export default function LocationWidget() {
           country: data.country_name || "Unknown",
           timezone: data.timezone || "UTC",
           localTime,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          region: data.region,
         });
+
+        // Fetch weather data using Open-Meteo API (free, no API key required)
+        if (data.latitude && data.longitude) {
+          try {
+            const weatherResponse = await fetch(
+              `https://api.open-meteo.com/v1/forecast?latitude=${data.latitude}&longitude=${data.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=celsius&timezone=auto`
+            );
+            const weatherJson = await weatherResponse.json();
+            
+            // Map weather codes to conditions
+            const getWeatherCondition = (code: number) => {
+              if (code === 0) return { condition: "Clear", icon: "☀️" };
+              if (code <= 3) return { condition: "Partly Cloudy", icon: "⛅" };
+              if (code <= 67) return { condition: "Rainy", icon: "🌧️" };
+              if (code <= 77) return { condition: "Snowy", icon: "❄️" };
+              if (code <= 99) return { condition: "Stormy", icon: "⛈️" };
+              return { condition: "Unknown", icon: "🌤️" };
+            };
+
+            const weatherCode = weatherJson.current?.weather_code || 0;
+            const weatherInfo = getWeatherCondition(weatherCode);
+
+            setWeatherData({
+              temperature: Math.round(weatherJson.current?.temperature_2m || 0),
+              condition: weatherInfo.condition,
+              humidity: weatherJson.current?.relative_humidity_2m || 0,
+              windSpeed: Math.round(weatherJson.current?.wind_speed_10m || 0),
+              icon: weatherInfo.icon,
+            });
+          } catch (weatherError) {
+            console.error("Failed to fetch weather:", weatherError);
+          }
+        }
+
         setLoading(false);
       } catch (error) {
         console.error("Failed to fetch location:", error);
@@ -134,6 +184,9 @@ export default function LocationWidget() {
                             {locationData.city}
                           </p>
                           <p className="text-sm text-gray-300">{locationData.country}</p>
+                          {locationData.region && (
+                            <p className="text-xs text-gray-400 mt-1">{locationData.region}</p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -152,6 +205,33 @@ export default function LocationWidget() {
                         </div>
                       </div>
                     </div>
+
+                    {weatherData && (
+                      <div className="rounded-xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 backdrop-blur-md border border-white/10 p-4">
+                        <div className="flex items-start space-x-3">
+                          <div className="rounded-lg bg-blue-500/20 p-2 text-3xl">
+                            {weatherData.icon}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-400">Current Weather</p>
+                            <p className="text-3xl font-bold text-white">
+                              {weatherData.temperature}°C
+                            </p>
+                            <p className="text-sm text-gray-300">{weatherData.condition}</p>
+                            <div className="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                              <div className="flex items-center gap-1">
+                                <IoWaterOutline className="text-blue-400" />
+                                <span>{weatherData.humidity}%</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <WiStrongWind className="text-cyan-400 text-lg" />
+                                <span>{weatherData.windSpeed} km/h</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="rounded-xl bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-md border border-white/10 p-4">
                       <p className="text-sm text-gray-300 leading-relaxed">

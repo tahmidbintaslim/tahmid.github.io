@@ -13,6 +13,7 @@ type BlogPost = {
   description: string;
   platform: "Medium" | "Dev.to";
   readTime?: string;
+  coverImage?: string;
 };
 
 const Blog = () => {
@@ -36,6 +37,7 @@ const Blog = () => {
             description: "Learn how to architect and develop high-performance e-commerce solutions using Shopify Plus, Remix, and modern web technologies.",
             platform: "Medium",
             readTime: "8 min read",
+            coverImage: "/blog/shopify-ecommerce.jpg",
           },
           {
             title: "Integrating AI/ML into Web Applications with OpenAI",
@@ -44,6 +46,7 @@ const Blog = () => {
             description: "A comprehensive guide to integrating GPT-3 and GPT-4 models into your web applications for enhanced user experiences.",
             platform: "Dev.to",
             readTime: "12 min read",
+            coverImage: "/blog/ai-ml-integration.jpg",
           },
           {
             title: "Building Real-time Systems with Node.js and Redis",
@@ -52,6 +55,7 @@ const Blog = () => {
             description: "Explore the architecture and implementation of real-time systems using Node.js, Redis, and WebSockets for scalable applications.",
             platform: "Medium",
             readTime: "10 min read",
+            coverImage: "/blog/nodejs-realtime.jpg",
           },
           {
             title: "Modern Full-Stack Development with Next.js 14",
@@ -60,6 +64,7 @@ const Blog = () => {
             description: "Discover the latest features and best practices for building full-stack applications with Next.js 14, TypeScript, and Tailwind CSS.",
             platform: "Dev.to",
             readTime: "15 min read",
+            coverImage: "/blog/nextjs-fullstack.jpg",
           },
           {
             title: "Cloud-Native Architecture with AWS and Docker",
@@ -68,6 +73,7 @@ const Blog = () => {
             description: "Learn how to design and deploy cloud-native applications using AWS services, Docker containers, and Kubernetes orchestration.",
             platform: "Medium",
             readTime: "11 min read",
+            coverImage: "/blog/cloud-aws.jpg",
           },
           {
             title: "Optimizing React Performance for Large Applications",
@@ -76,6 +82,7 @@ const Blog = () => {
             description: "Deep dive into React performance optimization techniques including code splitting, lazy loading, and memoization strategies.",
             platform: "Dev.to",
             readTime: "9 min read",
+            coverImage: "/blog/react-performance.jpg",
           },
         ];
 
@@ -165,43 +172,59 @@ const Blog = () => {
                     rel="noopener noreferrer"
                     className="block h-full"
                   >
-                    <div className="h-full bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e] border border-purple-500/30 rounded-lg p-6 hover:border-purple-500/60 transition-all duration-300 flex flex-col">
-                      {/* Platform Badge */}
-                      <div className="flex items-center justify-between mb-4">
-                        <span
-                          className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                            post.platform === "Medium"
-                              ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                              : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                          }`}
-                        >
-                          {post.platform}
-                        </span>
-                        <BookOpenIcon className="w-5 h-5 text-gray-400" />
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2">
-                        {post.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
-                        {post.description}
-                      </p>
-
-                      {/* Footer */}
-                      <div className="flex items-center justify-between text-sm text-gray-400 pt-4 border-t border-gray-700">
-                        <div className="flex items-center gap-4">
-                          <span>{formatDate(post.pubDate)}</span>
-                          {post.readTime && (
-                            <div className="flex items-center gap-1">
-                              <ClockIcon className="w-4 h-4" />
-                              <span>{post.readTime}</span>
-                            </div>
-                          )}
+                    <div className="h-full bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e] border border-purple-500/30 rounded-lg overflow-hidden hover:border-purple-500/60 transition-all duration-300 flex flex-col">
+                      {/* Cover Image */}
+                      {post.coverImage && (
+                        <div className="relative w-full h-48 overflow-hidden">
+                          <Image
+                            src={post.coverImage}
+                            alt={post.title}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
                         </div>
-                        <ArrowTopRightOnSquareIcon className="w-5 h-5 group-hover:text-cyan-400 transition-colors" />
+                      )}
+
+                      {/* Content */}
+                      <div className="p-6 flex flex-col flex-1">
+                        {/* Platform Badge */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span
+                            className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                              post.platform === "Medium"
+                                ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                                : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                            }`}
+                          >
+                            {post.platform}
+                          </span>
+                          <BookOpenIcon className="w-5 h-5 text-gray-400" />
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2">
+                          {post.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+                          {post.description}
+                        </p>
+
+                        {/* Footer */}
+                        <div className="flex items-center justify-between text-sm text-gray-400 pt-4 border-t border-gray-700">
+                          <div className="flex items-center gap-4">
+                            <span>{formatDate(post.pubDate)}</span>
+                            {post.readTime && (
+                              <div className="flex items-center gap-1">
+                                <ClockIcon className="w-4 h-4" />
+                                <span>{post.readTime}</span>
+                              </div>
+                            )}
+                          </div>
+                          <ArrowTopRightOnSquareIcon className="w-5 h-5 group-hover:text-cyan-400 transition-colors" />
+                        </div>
                       </div>
                     </div>
                   </Link>

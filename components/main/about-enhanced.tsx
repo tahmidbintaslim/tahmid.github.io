@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { SparklesIcon, CheckBadgeIcon, RocketLaunchIcon, CodeBracketIcon, CloudIcon } from "@heroicons/react/24/solid";
+import { CodeBracketSquareIcon, ShoppingCartIcon, CpuChipIcon, CloudIcon as CloudIconSolid } from "@heroicons/react/24/solid";
 import {
   slideInFromLeft,
   slideInFromRight,
@@ -42,24 +43,28 @@ export const AboutEnhanced = () => {
       label: "Years Experience",
       icon: RocketLaunchIcon,
       color: "from-purple-500 to-pink-500",
+      bgGradient: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
     },
     {
       number: "20+",
       label: "Enterprise Projects",
       icon: CheckBadgeIcon,
       color: "from-cyan-500 to-blue-500",
+      bgGradient: "bg-gradient-to-br from-cyan-500/20 to-blue-500/20",
     },
     {
       number: "50+",
       label: "Technologies Mastered",
       icon: CodeBracketIcon,
       color: "from-green-500 to-emerald-500",
+      bgGradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
     },
     {
       number: "99.9%",
       label: "System Uptime",
-      icon: CloudIcon,
+      icon: CloudIconSolid,
       color: "from-yellow-500 to-orange-500",
+      bgGradient: "bg-gradient-to-br from-yellow-500/20 to-orange-500/20",
     },
   ];
 
@@ -67,26 +72,34 @@ export const AboutEnhanced = () => {
     {
       title: "Full-Stack Mastery",
       description: "React, Vue, Next.js, Remix, Node.js, Python, Ruby on Rails, TypeScript",
-      icon: "💻",
-      colorClass: "text-purple-400 group-hover:text-purple-300",
+      icon: CodeBracketSquareIcon,
+      colorClass: "text-purple-400",
+      bgGradient: "bg-gradient-to-br from-purple-500/10 to-pink-500/10",
+      borderColor: "border-purple-500/30",
     },
     {
       title: "E-commerce Expert",
       description: "Shopify/Plus, WordPress, Headless CMS, ~40% sales growth achieved",
-      icon: "🛒",
-      colorClass: "text-cyan-400 group-hover:text-cyan-300",
+      icon: ShoppingCartIcon,
+      colorClass: "text-cyan-400",
+      bgGradient: "bg-gradient-to-br from-cyan-500/10 to-blue-500/10",
+      borderColor: "border-cyan-500/30",
     },
     {
       title: "AI/ML Integration",
       description: "OpenAI, GPT-3/4, TensorFlow, PyTorch, Custom chatbots",
-      icon: "🤖",
-      colorClass: "text-green-400 group-hover:text-green-300",
+      icon: CpuChipIcon,
+      colorClass: "text-green-400",
+      bgGradient: "bg-gradient-to-br from-green-500/10 to-emerald-500/10",
+      borderColor: "border-green-500/30",
     },
     {
       title: "Cloud Native",
       description: "AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD",
-      icon: "☁️",
-      colorClass: "text-blue-400 group-hover:text-blue-300",
+      icon: CloudIconSolid,
+      colorClass: "text-blue-400",
+      bgGradient: "bg-gradient-to-br from-blue-500/10 to-indigo-500/10",
+      borderColor: "border-blue-500/30",
     },
   ];
 
@@ -226,7 +239,7 @@ export const AboutEnhanced = () => {
         </span>
       </motion.h2>
 
-      {/* Bento Grid: Statistics Cards with varying sizes */}
+      {/* Bento Grid: Statistics Cards with improved layout */}
       <motion.div
         ref={statsRef}
         initial="hidden"
@@ -234,17 +247,12 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mt-10 mb-16 relative z-10"
       >
-        {/* Bento Grid Layout - inspired by Apple's design */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 auto-rows-[140px] md:auto-rows-[180px]">
+        {/* Proper Bento Grid Layout - 3 columns on desktop, responsive on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {achievements.map((achievement, index) => {
             const Icon = achievement.icon;
-            // Bento Grid varying sizes: Large, Medium, Medium, Large pattern
-            const sizes = [
-              "md:col-span-3 md:row-span-2", // Large (top-left)
-              "md:col-span-2 md:row-span-1", // Medium (top-right)
-              "md:col-span-2 md:row-span-1", // Medium (middle-right)
-              "md:col-span-3 md:row-span-2", // Large (bottom-left)
-            ];
+            // First card spans 2 rows
+            const isLarge = index === 0;
             
             return (
               <motion.div
@@ -253,28 +261,38 @@ export const AboutEnhanced = () => {
                 animate={statsInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
                 whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 5,
-                  rotateX: 5,
+                  scale: 1.03,
+                  y: -8,
                 }}
-                className={`flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 cursor-pointer group relative overflow-hidden ${sizes[index]} col-span-2`}
-                style={{
-                  transformStyle: "preserve-3d",
-                }}
+                className={`${isLarge ? 'md:row-span-2 md:col-span-1' : 'md:col-span-1'} flex flex-col items-center justify-center p-8 md:p-10 rounded-3xl ${achievement.bgGradient} border border-purple-500/30 backdrop-blur-xl hover:border-purple-500/60 transition-all duration-500 cursor-pointer group relative overflow-hidden shadow-2xl hover:shadow-purple-500/20`}
               >
-                {/* Glassmorphism effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 group-hover:from-white/10 group-hover:to-white/0 transition-all duration-300" />
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:to-cyan-500/20 rounded-2xl transition-all duration-300" />
+                {/* Glassmorphism layers */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                {/* Animated gradient orb */}
+                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${achievement.color} opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700`} />
                 
                 {/* Content */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <Icon className={`w-14 h-14 md:w-16 md:h-16 mb-4 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`} />
-                  <h3 className={`text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-110 transition-transform duration-300`}>
+                <div className="relative z-10 flex flex-col items-center text-center">
+                  <div className={`p-5 rounded-2xl ${achievement.bgGradient} border border-purple-500/20 mb-6 group-hover:scale-110 transition-all duration-500`}>
+                    <Icon className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent`} />
+                  </div>
+                  
+                  <h3 className={`text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-105 transition-transform duration-300 mb-4`}>
                     {achievement.number}
                   </h3>
-                  <p className="text-gray-300 text-sm md:text-base mt-3 text-center group-hover:text-white transition-colors duration-300 font-medium">
+                  
+                  <p className="text-gray-300 text-base md:text-lg font-semibold group-hover:text-white transition-colors duration-300">
                     {achievement.label}
                   </p>
+                  
+                  {/* Add descriptive text for large card */}
+                  {isLarge && (
+                    <p className="text-gray-400 text-sm mt-4 leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300">
+                      Building scalable, high-performance applications with modern technologies and best practices
+                    </p>
+                  )}
                 </div>
               </motion.div>
             );
@@ -282,7 +300,7 @@ export const AboutEnhanced = () => {
         </div>
       </motion.div>
 
-      {/* Bento Grid: Quick Facts with varying sizes */}
+      {/* Proper Bento Grid: Quick Facts */}
       <motion.div
         ref={quickFactsRef}
         variants={slideInFromLeft(0.5)}
@@ -291,49 +309,59 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mb-16 relative z-10"
       >
-        <h3 className="text-3xl font-bold text-white mb-8 text-center">
+        <h3 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
           Quick{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Facts
           </span>
         </h3>
-        {/* Bento Grid for Quick Facts */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[160px]">
+        
+        {/* Proper Bento Grid - 2 columns layout with first item spanning full width */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {quickFacts.map((fact, index) => {
-            // Bento Grid varying sizes: wide, medium, medium, wide pattern
-            const sizes = [
-              "md:col-span-2",  // Wide
-              "md:col-span-1",  // Medium
-              "md:col-span-1",  // Medium
-              "md:col-span-2",  // Wide
-            ];
+            // First item spans full width
+            const isWide = index === 0;
             
             return (
               <motion.div
                 key={fact.title}
                 initial={{ x: -100, opacity: 0 }}
                 animate={quickFactsInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
-                transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
-                whileHover={{ scale: 1.03 }}
-                className={`group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
+                transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -5,
+                }}
+                className={`${isWide ? 'md:col-span-2' : 'md:col-span-1'} group p-8 md:p-10 rounded-3xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-xl hover:border-opacity-100 transition-all duration-500 cursor-pointer relative overflow-hidden shadow-2xl hover:shadow-3xl`}
               >
-                {/* Liquid Glass UI effect */}
-                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Glassmorphism layers */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className="text-5xl group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg">
-                    {fact.icon}
+                {/* Floating gradient orb */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                
+                <div className="relative z-10 flex items-start gap-6">
+                  {/* Icon Container */}
+                  <div className={`flex-shrink-0 ${fact.colorClass} group-hover:scale-110 transition-all duration-500`}>
+                    <div className={`p-5 rounded-2xl ${fact.bgGradient} border ${fact.borderColor}`}>
+                      <fact.icon className="w-12 h-12 md:w-14 md:h-14" />
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className={`text-xl md:text-2xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
+                  
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${fact.colorClass} transition-all duration-300 leading-tight`}>
                       {fact.title}
                     </h4>
-                    <p className="text-gray-300 text-sm md:text-base leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <p className="text-gray-300 text-base md:text-lg leading-relaxed group-hover:text-white transition-colors duration-300">
                       {fact.description}
                     </p>
                   </div>
                 </div>
+                
+                {/* Subtle glow effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
               </motion.div>
             );
           })}
@@ -432,13 +460,13 @@ export const AboutEnhanced = () => {
         </div>
       </motion.div>
 
-      {/* Professional Summary */}
+      {/* Professional Summary - Same width as Quick Facts */}
       <motion.div
         variants={slideInFromLeft(0.5)}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-lg text-gray-300 max-w-5xl text-center mb-8 leading-relaxed relative z-10"
+        className="w-full max-w-7xl text-lg text-gray-300 text-center mb-8 leading-relaxed relative z-10"
       >
         <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md">
           <p className="mb-4">
