@@ -118,25 +118,8 @@ export const siteConfig: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    other: [
-      {
-        rel: "icon",
-        url: "/icon1.png",
-      },
-      {
-        rel: "icon",
-        url: "/icon2.png",
-      },
-    ],
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   manifest: "/site.webmanifest",
   alternates: {
