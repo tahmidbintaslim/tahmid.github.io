@@ -15,7 +15,6 @@ export const structuredData = {
     sameAs: [
       "https://github.com/tahmidbintaslim",
       "https://twitter.com/RAFI_it100",
-      "https://www.linkedin.com/in/tahmidbintaslim", // Add if available
     ],
     jobTitle: "Senior Software Engineer",
     worksFor: {
@@ -39,7 +38,6 @@ export const structuredData = {
       "SaaS Development",
       "Full-Stack Development",
     ],
-    email: "mailto:tahmidbintaslim@example.com", // Update with actual email
   },
 
   // Website schema
@@ -55,14 +53,6 @@ export const structuredData = {
       name: "Tahmid Bin Taslim Rafi",
     },
     inLanguage: "en-US",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: "https://tahmid.space?search={search_term_string}",
-      },
-      "query-input": "required name=search_term_string",
-    },
   },
 
   // Professional Service schema

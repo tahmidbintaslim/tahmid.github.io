@@ -1,13 +1,10 @@
-# Allow all crawlers
+# Allow all crawlers with crawl-delay
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
 # Sitemap location
 Sitemap: https://tahmid.space/sitemap.xml
-
-# Crawl-delay for aggressive bots
-User-agent: *
-Crawl-delay: 1
 
 # Disallow specific paths if needed (currently allowing all)
 # Disallow: /api/

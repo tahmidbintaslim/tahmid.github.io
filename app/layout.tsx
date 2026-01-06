@@ -24,11 +24,16 @@ export const metadata: Metadata = siteConfig;
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <head>
+      <body
+        className={cn(
+          "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
+        )}
+      >
         {/* Structured Data for SEO and AEO */}
         <Script
           id="structured-data-person"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData.person),
           }}
@@ -36,6 +41,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Script
           id="structured-data-website"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData.website),
           }}
@@ -43,6 +49,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Script
           id="structured-data-service"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData.professionalService),
           }}
@@ -50,16 +57,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Script
           id="structured-data-breadcrumb"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData.breadcrumb),
           }}
         />
-      </head>
-      <body
-        className={cn(
-          "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
-        )}
-      >
+        
         <StarsCanvas />
         <Navbar />
         {children}
