@@ -41,6 +41,7 @@ export const AboutEnhanced = () => {
     {
       number: "6+",
       label: "Years Experience",
+      description: "Building scalable, high-performance applications with modern technologies and best practices",
       icon: RocketLaunchIcon,
       color: "from-purple-500 to-pink-500",
       bgGradient: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
@@ -48,6 +49,7 @@ export const AboutEnhanced = () => {
     {
       number: "20+",
       label: "Enterprise Projects",
+      description: "Successfully delivered complex enterprise solutions across various industries",
       icon: CheckBadgeIcon,
       color: "from-cyan-500 to-blue-500",
       bgGradient: "bg-gradient-to-br from-cyan-500/20 to-blue-500/20",
@@ -55,6 +57,7 @@ export const AboutEnhanced = () => {
     {
       number: "50+",
       label: "Technologies Mastered",
+      description: "Expert proficiency in modern frameworks, languages, and development tools",
       icon: CodeBracketIcon,
       color: "from-green-500 to-emerald-500",
       bgGradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
@@ -62,16 +65,25 @@ export const AboutEnhanced = () => {
     {
       number: "99.9%",
       label: "System Uptime",
+      description: "Reliable architecture ensuring maximum availability and performance",
       icon: CloudIconSolid,
       color: "from-yellow-500 to-orange-500",
       bgGradient: "bg-gradient-to-br from-yellow-500/20 to-orange-500/20",
+    },
+    {
+      number: "10K+",
+      label: "Active Users",
+      description: "Built applications serving thousands of users worldwide daily",
+      icon: SparklesIcon,
+      color: "from-pink-500 to-rose-500",
+      bgGradient: "bg-gradient-to-br from-pink-500/20 to-rose-500/20",
     },
   ];
 
   const quickFacts = [
     {
-      title: "Full-Stack Mastery",
-      description: "React, Vue, Next.js, Remix, Node.js, Python, Ruby on Rails, TypeScript",
+      title: "SaaS & Software Architecture Expert",
+      description: "Expert in SDLC, Agile methodologies, microservices architecture, scalable SaaS platforms, and end-to-end software development lifecycle management",
       icon: CodeBracketSquareIcon,
       colorClass: "text-purple-400",
       bgGradient: "bg-gradient-to-br from-purple-500/10 to-pink-500/10",
@@ -95,7 +107,7 @@ export const AboutEnhanced = () => {
     },
     {
       title: "Cloud Native",
-      description: "AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD",
+      description: "AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD pipelines, serverless architecture, and infrastructure as code",
       icon: CloudIconSolid,
       colorClass: "text-blue-400",
       bgGradient: "bg-gradient-to-br from-blue-500/10 to-indigo-500/10",
@@ -247,11 +259,22 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mt-10 mb-16 relative z-10"
       >
-        {/* Proper Bento Grid Layout - 3 columns on desktop, responsive on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Proper Bento Grid Layout - More visually appealing with mixed sizes */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
           {achievements.map((achievement, index) => {
             const Icon = achievement.icon;
-            // First card spans 2 rows
+            // First card (0) spans 2 columns and 2 rows (large)
+            // Cards 1 and 2 span 2 columns each
+            // Cards 3 and 4 span 3 columns each (on second row)
+            let gridClass = '';
+            if (index === 0) {
+              gridClass = 'md:col-span-2 md:row-span-2';
+            } else if (index === 1 || index === 2) {
+              gridClass = 'md:col-span-2';
+            } else if (index === 3 || index === 4) {
+              gridClass = 'md:col-span-3';
+            }
+            
             const isLarge = index === 0;
             
             return (
@@ -264,7 +287,7 @@ export const AboutEnhanced = () => {
                   scale: 1.03,
                   y: -8,
                 }}
-                className={`${isLarge ? 'md:row-span-2 md:col-span-1' : 'md:col-span-1'} flex flex-col items-center justify-center p-8 md:p-10 rounded-3xl ${achievement.bgGradient} border border-purple-500/30 backdrop-blur-xl hover:border-purple-500/60 transition-all duration-500 cursor-pointer group relative overflow-hidden shadow-2xl hover:shadow-purple-500/20`}
+                className={`${gridClass} flex flex-col items-center justify-center p-8 md:p-10 rounded-3xl ${achievement.bgGradient} border border-purple-500/30 backdrop-blur-xl hover:border-purple-500/60 transition-all duration-500 cursor-pointer group relative overflow-hidden shadow-2xl hover:shadow-purple-500/20`}
               >
                 {/* Glassmorphism layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
@@ -283,16 +306,14 @@ export const AboutEnhanced = () => {
                     {achievement.number}
                   </h3>
                   
-                  <p className="text-gray-300 text-base md:text-lg font-semibold group-hover:text-white transition-colors duration-300">
+                  <p className="text-gray-300 text-base md:text-lg font-semibold group-hover:text-white transition-colors duration-300 mb-3">
                     {achievement.label}
                   </p>
                   
-                  {/* Add descriptive text for large card */}
-                  {isLarge && (
-                    <p className="text-gray-400 text-sm mt-4 leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300">
-                      Building scalable, high-performance applications with modern technologies and best practices
-                    </p>
-                  )}
+                  {/* Add descriptive text for all cards */}
+                  <p className="text-gray-400 text-sm leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300">
+                    {achievement.description}
+                  </p>
                 </div>
               </motion.div>
             );
@@ -316,11 +337,11 @@ export const AboutEnhanced = () => {
           </span>
         </h3>
         
-        {/* Proper Bento Grid - 2 columns layout with first item spanning full width */}
+        {/* Proper Bento Grid - First item full width, then 2 columns, last item full width */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {quickFacts.map((fact, index) => {
-            // First item spans full width
-            const isWide = index === 0;
+            // First item and last item span full width
+            const isWide = index === 0 || index === 3;
             
             return (
               <motion.div
