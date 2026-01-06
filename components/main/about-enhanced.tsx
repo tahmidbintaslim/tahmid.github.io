@@ -295,7 +295,7 @@ export const AboutEnhanced = () => {
         </div>
       </motion.div>
 
-      {/* Bento Grid: Quick Facts with varying sizes */}
+      {/* Modern Bento Grid: Quick Facts */}
       <motion.div
         ref={quickFactsRef}
         variants={slideInFromLeft(0.5)}
@@ -304,48 +304,63 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mb-16 relative z-10"
       >
-        <h3 className="text-3xl font-bold text-white mb-8 text-center">
+        <h3 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
           Quick{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Facts
           </span>
         </h3>
-        {/* Bento Grid for Quick Facts */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[160px]">
+        {/* Modern Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[180px]">
           {quickFacts.map((fact, index) => {
-            // Bento Grid varying sizes: wide, medium, medium, wide pattern
+            // Modern Bento Grid pattern: 2-1-1, 1-1-2
             const sizes = [
-              "md:col-span-2",  // Wide
-              "md:col-span-1",  // Medium
-              "md:col-span-1",  // Medium
-              "md:col-span-2",  // Wide
+              "md:col-span-2 md:row-span-2",  // Large (Full height, half width)
+              "md:col-span-1 md:row-span-1",  // Small
+              "md:col-span-1 md:row-span-1",  // Small
+              "md:col-span-2 md:row-span-2",  // Large (Full height, half width)
             ];
+            
+            const isLarge = index === 0 || index === 3;
             
             return (
               <motion.div
                 key={fact.title}
                 initial={{ x: -100, opacity: 0 }}
                 animate={quickFactsInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
-                transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
-                whileHover={{ scale: 1.03 }}
-                className={`group p-6 rounded-2xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-sm hover:border-opacity-80 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
+                transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -5,
+                }}
+                className={`group p-8 rounded-3xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-xl hover:border-opacity-100 transition-all duration-500 cursor-pointer relative overflow-hidden ${sizes[index]} shadow-2xl hover:shadow-3xl`}
               >
-                {/* Liquid Glass UI effect */}
-                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Modern Glassmorphism effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                <div className="relative z-10 flex items-start gap-4">
-                  <div className={`${fact.colorClass} group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg`}>
-                    <fact.icon className="w-12 h-12" />
+                {/* Floating particles effect */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                
+                <div className={`relative z-10 flex ${isLarge ? 'flex-col justify-between h-full' : 'flex-row items-start gap-4'}`}>
+                  <div className={`${fact.colorClass} group-hover:scale-110 transition-all duration-500 ${isLarge ? 'mb-6' : ''}`}>
+                    <div className={`p-4 rounded-2xl ${fact.bgGradient} border ${fact.borderColor}`}>
+                      <fact.icon className={`${isLarge ? 'w-16 h-16' : 'w-10 h-10'}`} />
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h4 className={`text-xl md:text-2xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
+                  <div className={`flex-1 ${isLarge ? 'flex flex-col justify-end' : ''}`}>
+                    <h4 className={`${isLarge ? 'text-2xl md:text-3xl' : 'text-lg md:text-xl'} font-bold mb-3 ${fact.colorClass} transition-all duration-300 leading-tight`}>
                       {fact.title}
                     </h4>
-                    <p className="text-gray-300 text-sm md:text-base leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <p className={`text-gray-300 ${isLarge ? 'text-base md:text-lg' : 'text-sm'} leading-relaxed group-hover:text-white transition-colors duration-300`}>
                       {fact.description}
                     </p>
                   </div>
+                </div>
+                
+                {/* Shine effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:animate-shine" />
                 </div>
               </motion.div>
             );
@@ -445,13 +460,13 @@ export const AboutEnhanced = () => {
         </div>
       </motion.div>
 
-      {/* Professional Summary */}
+      {/* Professional Summary - Same width as Quick Facts */}
       <motion.div
         variants={slideInFromLeft(0.5)}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-lg text-gray-300 max-w-5xl text-center mb-8 leading-relaxed relative z-10"
+        className="w-full max-w-7xl text-lg text-gray-300 text-center mb-8 leading-relaxed relative z-10"
       >
         <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md">
           <p className="mb-4">

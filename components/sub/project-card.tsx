@@ -62,14 +62,17 @@ export const ProjectCard = ({
             </div>
           )}
 
-          {/* Company & Year Badge */}
+          {/* Company & Year Badges with Modern Design */}
           {company && (
-            <div className="absolute bottom-4 left-4 flex flex-col gap-2">
-              <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-cyan-500/30 text-white text-xs font-medium shadow-lg">
-                <span className="text-cyan-400">@</span> {company}
+            <div className="absolute bottom-4 left-4 flex flex-col gap-2.5">
+              <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-md border border-cyan-400/40 text-white text-sm font-semibold shadow-xl hover:shadow-cyan-500/50 transition-all duration-300">
+                <span className="text-cyan-300">@</span> {company}
               </div>
               {year && (
-                <div className="px-3 py-1 rounded-lg bg-black/60 backdrop-blur-sm border border-purple-500/30 text-purple-300 text-xs font-medium shadow-lg">
+                <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-purple-400/40 text-purple-200 text-sm font-bold shadow-xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                  </svg>
                   {year}
                 </div>
               )}

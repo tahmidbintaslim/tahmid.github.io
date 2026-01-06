@@ -198,102 +198,110 @@ export const JourneyHorizontal = () => {
             {/* Timeline line */}
             <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 via-green-500 via-blue-500 via-pink-500 to-yellow-500" />
 
-            {timeline.map((item, index) => (
-              <motion.div
-                key={item.company}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                className="relative flex-shrink-0 w-96"
-              >
-                {/* Timeline dot */}
-                <div className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                  <motion.div
-                    whileHover={{ scale: 1.2 }}
-                    className={`w-6 h-6 rounded-full bg-gradient-to-r ${item.dotGradient} border-4 border-[#030014] cursor-pointer shadow-lg ${item.dotShadow}`}
-                  />
-                </div>
-
-                {/* Card */}
+            {timeline.map((item, index) => {
+              // Extract year from the date range (e.g., "March 2024 - Present" -> "2024")
+              const yearMatch = item.year.match(/(\d{4})/);
+              const displayYear = yearMatch ? yearMatch[1] : item.year.split(' ')[item.year.split(' ').length - 1];
+              
+              return (
                 <motion.div
-                  whileHover={{ scale: 1.05, rotateY: 5 }}
-                  onClick={() => setSelectedJob(selectedJob === index ? null : index)}
-                  className="mt-36 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-cyan-500/50 transition-all duration-300 cursor-pointer group"
-                  style={{ transformStyle: "preserve-3d" }}
+                  key={item.company}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="relative flex-shrink-0 w-96"
                 >
-                  {/* Company Logo/Icon */}
-                  <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <item.logo className={`text-6xl ${item.iconColor}`} />
-                  </div>
-
-                  {/* Year Badge */}
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${item.badgeBg} border ${item.badgeBorder} mb-4`}>
-                    <CalendarIcon className={`w-4 h-4 ${item.iconColor}`} />
-                    <span className={`text-xs font-bold ${item.badgeText}`}>{item.year}</span>
-                  </div>
-
-                  {/* Title */}
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors duration-300">
-                    {item.title}
-                  </h4>
-
-                  {/* Company */}
-                  <div className="flex items-center gap-2 mb-3">
-                    <BuildingOfficeIcon className={`w-5 h-5 ${item.iconColor}`} />
-                    <p className={`${item.iconColor} font-semibold`}>{item.company}</p>
-                  </div>
-
-                  {/* Location */}
-                  <p className="text-gray-400 text-sm mb-4">{item.location}</p>
-
-                  {/* Description */}
-                  <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
-                    {item.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {item.technologies.slice(0, 4).map((tech) => (
-                      <span
-                        key={tech}
-                        className={`px-2 py-1 rounded-md text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {item.technologies.length > 4 && (
-                      <span className="px-2 py-1 rounded-md text-xs bg-gray-500/10 text-gray-300">
-                        +{item.technologies.length - 4} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Achievements (on hover/click) */}
-                  {selectedJob === index && (
+                  {/* Year Marker replacing timeline dot */}
+                  <div className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                     <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="border-t border-purple-500/20 pt-4"
+                      whileHover={{ scale: 1.15 }}
+                      className={`px-4 py-2 rounded-xl bg-gradient-to-r ${item.dotGradient} border-2 border-[#030014] cursor-pointer shadow-2xl ${item.dotShadow} backdrop-blur-sm`}
                     >
-                      <h5 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
-                        <BriefcaseIcon className="w-4 h-4 text-cyan-400" />
-                        Key Achievements
-                      </h5>
-                      <ul className="space-y-2">
-                        {item.achievements.map((achievement) => (
-                          <li key={achievement} className="text-sm text-gray-300 flex items-start gap-2">
-                            <span className="text-cyan-400 mt-1">✓</span>
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <span className="text-white font-bold text-lg">{displayYear}</span>
                     </motion.div>
-                  )}
+                  </div>
+
+                  {/* Card */}
+                  <motion.div
+                    whileHover={{ scale: 1.05, rotateY: 5 }}
+                    onClick={() => setSelectedJob(selectedJob === index ? null : index)}
+                    className="mt-36 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-cyan-500/50 transition-all duration-300 cursor-pointer group"
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    {/* Company Logo/Icon */}
+                    <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <item.logo className={`text-6xl ${item.iconColor}`} />
+                    </div>
+
+                    {/* Year Badge */}
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${item.badgeBg} border ${item.badgeBorder} mb-4`}>
+                      <CalendarIcon className={`w-4 h-4 ${item.iconColor}`} />
+                      <span className={`text-xs font-bold ${item.badgeText}`}>{item.year}</span>
+                    </div>
+
+                    {/* Title */}
+                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors duration-300">
+                      {item.title}
+                    </h4>
+
+                    {/* Company */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <BuildingOfficeIcon className={`w-5 h-5 ${item.iconColor}`} />
+                      <p className={`${item.iconColor} font-semibold`}>{item.company}</p>
+                    </div>
+
+                    {/* Location */}
+                    <p className="text-gray-400 text-sm mb-4">{item.location}</p>
+
+                    {/* Description */}
+                    <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+                      {item.description}
+                    </p>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {item.technologies.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className={`px-2 py-1 rounded-md text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {item.technologies.length > 4 && (
+                        <span className="px-2 py-1 rounded-md text-xs bg-gray-500/10 text-gray-300">
+                          +{item.technologies.length - 4} more
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Achievements (on hover/click) */}
+                    {selectedJob === index && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="border-t border-purple-500/20 pt-4"
+                      >
+                        <h5 className="text-sm font-bold text-white mb-2 flex items-center gap-2">
+                          <BriefcaseIcon className="w-4 h-4 text-cyan-400" />
+                          Key Achievements
+                        </h5>
+                        <ul className="space-y-2">
+                          {item.achievements.map((achievement) => (
+                            <li key={achievement} className="text-sm text-gray-300 flex items-start gap-2">
+                              <span className="text-cyan-400 mt-1">✓</span>
+                              <span>{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
