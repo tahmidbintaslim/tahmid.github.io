@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { SparklesIcon, CheckBadgeIcon, RocketLaunchIcon, CodeBracketIcon, CloudIcon } from "@heroicons/react/24/solid";
+import { CodeBracketSquareIcon, ShoppingCartIcon, CpuChipIcon, CloudIcon as CloudIconSolid } from "@heroicons/react/24/solid";
 import {
   slideInFromLeft,
   slideInFromRight,
@@ -42,24 +43,28 @@ export const AboutEnhanced = () => {
       label: "Years Experience",
       icon: RocketLaunchIcon,
       color: "from-purple-500 to-pink-500",
+      bgGradient: "bg-gradient-to-br from-purple-500/20 to-pink-500/20",
     },
     {
       number: "20+",
       label: "Enterprise Projects",
       icon: CheckBadgeIcon,
       color: "from-cyan-500 to-blue-500",
+      bgGradient: "bg-gradient-to-br from-cyan-500/20 to-blue-500/20",
     },
     {
       number: "50+",
       label: "Technologies Mastered",
       icon: CodeBracketIcon,
       color: "from-green-500 to-emerald-500",
+      bgGradient: "bg-gradient-to-br from-green-500/20 to-emerald-500/20",
     },
     {
       number: "99.9%",
       label: "System Uptime",
-      icon: CloudIcon,
+      icon: CloudIconSolid,
       color: "from-yellow-500 to-orange-500",
+      bgGradient: "bg-gradient-to-br from-yellow-500/20 to-orange-500/20",
     },
   ];
 
@@ -67,26 +72,34 @@ export const AboutEnhanced = () => {
     {
       title: "Full-Stack Mastery",
       description: "React, Vue, Next.js, Remix, Node.js, Python, Ruby on Rails, TypeScript",
-      icon: "💻",
-      colorClass: "text-purple-400 group-hover:text-purple-300",
+      icon: CodeBracketSquareIcon,
+      colorClass: "text-purple-400",
+      bgGradient: "bg-gradient-to-br from-purple-500/10 to-pink-500/10",
+      borderColor: "border-purple-500/30",
     },
     {
       title: "E-commerce Expert",
       description: "Shopify/Plus, WordPress, Headless CMS, ~40% sales growth achieved",
-      icon: "🛒",
-      colorClass: "text-cyan-400 group-hover:text-cyan-300",
+      icon: ShoppingCartIcon,
+      colorClass: "text-cyan-400",
+      bgGradient: "bg-gradient-to-br from-cyan-500/10 to-blue-500/10",
+      borderColor: "border-cyan-500/30",
     },
     {
       title: "AI/ML Integration",
       description: "OpenAI, GPT-3/4, TensorFlow, PyTorch, Custom chatbots",
-      icon: "🤖",
-      colorClass: "text-green-400 group-hover:text-green-300",
+      icon: CpuChipIcon,
+      colorClass: "text-green-400",
+      bgGradient: "bg-gradient-to-br from-green-500/10 to-emerald-500/10",
+      borderColor: "border-green-500/30",
     },
     {
       title: "Cloud Native",
       description: "AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD",
-      icon: "☁️",
-      colorClass: "text-blue-400 group-hover:text-blue-300",
+      icon: CloudIconSolid,
+      colorClass: "text-blue-400",
+      bgGradient: "bg-gradient-to-br from-blue-500/10 to-indigo-500/10",
+      borderColor: "border-blue-500/30",
     },
   ];
 
@@ -315,15 +328,15 @@ export const AboutEnhanced = () => {
                 animate={quickFactsInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
                 whileHover={{ scale: 1.03 }}
-                className={`group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
+                className={`group p-6 rounded-2xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-sm hover:border-opacity-80 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
               >
                 {/* Liquid Glass UI effect */}
                 <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="text-5xl group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg">
-                    {fact.icon}
+                  <div className={`${fact.colorClass} group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg`}>
+                    <fact.icon className="w-12 h-12" />
                   </div>
                   <div className="flex-1">
                     <h4 className={`text-xl md:text-2xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
