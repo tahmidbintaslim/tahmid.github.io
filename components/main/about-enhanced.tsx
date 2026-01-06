@@ -331,8 +331,8 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mt-12 mb-20 relative z-10"
       >
-        <h3 className="text-[32px] md:text-[40px] font-bold text-white mb-10 text-center">
-          Quick{" "}
+        <h3 className="text-[32px] md:text-[40px] font-bold text-center mb-10">
+          <span className="text-white">Quick </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Facts
           </span>
@@ -399,8 +399,8 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mt-12 mb-20 relative z-10"
       >
-        <h3 className="text-[32px] md:text-[40px] font-bold text-white mb-10 text-center">
-          Technical{" "}
+        <h3 className="text-[32px] md:text-[40px] font-bold text-center mb-10">
+          <span className="text-white">Technical </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Expertise
           </span>

@@ -201,8 +201,11 @@ const Blog = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[40px] md:text-[50px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 mb-4">
-              Latest Articles & Insights
+            <h1 className="text-[40px] md:text-[50px] font-bold text-center mb-4">
+              <span className="text-white">Latest Articles </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+                & Insights
+              </span>
             </h1>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               Sharing knowledge and experiences on full-stack development, cloud architecture,
@@ -229,25 +232,27 @@ const Blog = () => {
 
           {/* Filter and Sort Controls */}
           <div className="flex items-center justify-between gap-4 flex-wrap">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors"
-            >
-              <FunnelIcon className="w-5 h-5" />
-              <span>Filters</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 px-4 py-3 md:py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors min-h-[44px]"
+              >
+                <FunnelIcon className="w-5 h-5" />
+                <span>Filters</span>
+              </button>
 
-            <div className="flex items-center gap-4 flex-wrap">
-              {/* Sort */}
+              {/* Sort - More prominent */}
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
-                className="px-4 py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors cursor-pointer"
+                className="px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors cursor-pointer min-h-[44px]"
               >
-                <option value="latest">Latest First</option>
-                <option value="oldest">Oldest First</option>
+                <option value="latest">📅 Latest First</option>
+                <option value="oldest">📅 Oldest First</option>
               </select>
+            </div>
 
+            <div className="flex items-center gap-4 flex-wrap">
               {/* Article Count */}
               <span className="text-gray-400 text-sm">
                 Showing {paginatedPosts.length} of {filteredAndSortedPosts.length} articles
@@ -256,7 +261,7 @@ const Blog = () => {
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm"
+                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm min-h-[44px]"
                 >
                   Reset Filters
                 </button>
@@ -384,12 +389,12 @@ const Blog = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2">
+                        <h3 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2 leading-tight">
                           {post.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+                        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 flex-1 line-clamp-3">
                           {post.description}
                         </p>
 
@@ -415,11 +420,12 @@ const Blog = () => {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-8">
+              <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
                 <button
                   onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors"
+                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label="Previous page"
                 >
                   <ChevronLeftIcon className="w-5 h-5" />
                 </button>
@@ -428,11 +434,13 @@ const Blog = () => {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
+                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${
                       currentPage === page
-                        ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white"
+                        ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
                         : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
                     }`}
+                    aria-label={`Go to page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
                   >
                     {page}
                   </button>
@@ -441,7 +449,8 @@ const Blog = () => {
                 <button
                   onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors"
+                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label="Next page"
                 >
                   <ChevronRightIcon className="w-5 h-5" />
                 </button>

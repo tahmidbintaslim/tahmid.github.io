@@ -76,8 +76,11 @@ const ProjectsEnhanced = () => {
     >
       <div className="w-full max-w-7xl px-4">
         {/* Header */}
-        <h1 className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 py-10 text-center">
-          Featured Projects
+        <h1 className="text-[40px] md:text-[50px] font-bold text-center py-10">
+          <span className="text-white">Featured </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+            Projects
+          </span>
         </h1>
 
         {/* Search and Filter Bar */}
@@ -96,20 +99,36 @@ const ProjectsEnhanced = () => {
             />
           </div>
 
-          {/* Filter Toggle Button */}
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors"
-            >
-              <FunnelIcon className="h-5 w-5" />
-              <span>Filters</span>
-              {hasActiveFilters && (
-                <span className="ml-2 px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
-                  Active
-                </span>
-              )}
-            </button>
+          {/* Filter Toggle Button and Sort */}
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px]"
+              >
+                <FunnelIcon className="h-5 w-5" />
+                <span>Filters</span>
+                {hasActiveFilters && (
+                  <span className="ml-2 px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
+                    Active
+                  </span>
+                )}
+              </button>
+
+              {/* Sort Dropdown */}
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className="px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors cursor-pointer min-h-[44px]"
+              >
+                <option value="all">📅 All Years (Latest First)</option>
+                {years.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="text-gray-400 text-sm">
               Showing{" "}
