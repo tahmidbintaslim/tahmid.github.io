@@ -7,15 +7,8 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from "@/lib/motion";
-import { useRef, useState, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef, useState } from "react";
 import * as SimpleIcons from "simple-icons";
-
-// Register GSAP plugins
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // Helper to get Simple Icon SVG
 const getSimpleIconSvg = (iconName: string) => {
@@ -34,67 +27,14 @@ export const AboutEnhanced = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [expandedSection, setExpandedSection] = useState<string | null>("all"); // Open all by default
-  const bentoContainerRef = useRef(null);
   const statsRef = useRef(null);
   const quickFactsRef = useRef(null);
   const expertiseRef = useRef(null);
   
-  // GSAP Scrollytelling animations
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    
-    const ctx = gsap.context(() => {
-      // Animate stats cards on scroll - stay visible after animation
-      if (statsRef.current) {
-        gsap.from(".stat-card", {
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none", // Play once, stay visible
-          },
-          y: 100,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "power3.out",
-        });
-      }
-      
-      // Animate quick facts on scroll - stay visible after animation
-      if (quickFactsRef.current) {
-        gsap.from(".quick-fact-card", {
-          scrollTrigger: {
-            trigger: quickFactsRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none", // Play once, stay visible
-          },
-          x: -100,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power3.out",
-        });
-      }
-      
-      // Animate expertise section - stay visible after animation
-      if (expertiseRef.current) {
-        gsap.from(".expertise-card", {
-          scrollTrigger: {
-            trigger: expertiseRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none", // Play once, stay visible
-          },
-          scale: 0.8,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: "back.out(1.2)",
-        });
-      }
-    });
-    
-    return () => ctx.revert();
-  }, []);
+  // Use Framer Motion's useInView for scroll animations
+  const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
+  const quickFactsInView = useInView(quickFactsRef, { once: true, amount: 0.2 });
+  const expertiseInView = useInView(expertiseRef, { once: true, amount: 0.2 });
 
   const achievements = [
     {
@@ -309,14 +249,15 @@ export const AboutEnhanced = () => {
             return (
               <motion.div
                 key={achievement.label}
-                variants={slideInFromTop}
-                transition={{ delay: index * 0.1 }}
+                initial={{ y: 100, opacity: 0 }}
+                animate={statsInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
                 whileHover={{ 
                   scale: 1.05,
                   rotateY: 5,
                   rotateX: 5,
                 }}
-                className={`stat-card flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 cursor-pointer group relative overflow-hidden ${sizes[index]} col-span-2`}
+                className={`flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 cursor-pointer group relative overflow-hidden ${sizes[index]} col-span-2`}
                 style={{
                   transformStyle: "preserve-3d",
                 }}
@@ -370,10 +311,11 @@ export const AboutEnhanced = () => {
             return (
               <motion.div
                 key={fact.title}
-                variants={slideInFromLeft(0.5)}
-                transition={{ delay: index * 0.1 }}
+                initial={{ x: -100, opacity: 0 }}
+                animate={quickFactsInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
+                transition={{ delay: index * 0.15, duration: 0.8, ease: "easeOut" }}
                 whileHover={{ scale: 1.03 }}
-                className={`quick-fact-card group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
+                className={`group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
               >
                 {/* Liquid Glass UI effect */}
                 <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
@@ -420,9 +362,10 @@ export const AboutEnhanced = () => {
             return (
               <motion.div
                 key={category.id}
-                variants={slideInFromRight(0.5)}
-                transition={{ delay: index * 0.1 }}
-                className="expertise-card p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-md hover:border-cyan-500/40 transition-all duration-300 relative overflow-hidden"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={expertiseInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
+                className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-md hover:border-cyan-500/40 transition-all duration-300 relative overflow-hidden"
               >
                 {/* Liquid Glass effect */}
                 <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
