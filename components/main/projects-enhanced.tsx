@@ -53,7 +53,7 @@ const ProjectsEnhanced = () => {
         selectedCompany === "all" || project.company === selectedCompany;
 
       return matchesSearch && matchesYear && matchesTech && matchesCompany;
-    });
+    }).sort((a, b) => b.year - a.year); // Sort by year descending (latest first)
   }, [searchQuery, selectedYear, selectedTech, selectedCompany]);
 
   const resetFilters = () => {

@@ -194,7 +194,7 @@ export const AboutEnhanced = () => {
     <section
       id="about-me"
       ref={ref}
-      className="flex flex-col items-center justify-center py-20 px-6 md:px-20 relative overflow-hidden"
+      className="flex flex-col items-center justify-center py-16 md:py-20 px-6 md:px-20 relative overflow-hidden"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -257,22 +257,20 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-7xl mt-10 mb-16 relative z-10"
+        className="w-full max-w-7xl mt-10 mb-20 relative z-10"
       >
-        {/* Proper Bento Grid Layout - More visually appealing with mixed sizes */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+        {/* Proper Bento Grid Layout - 3-column responsive grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {achievements.map((achievement, index) => {
             const Icon = achievement.icon;
-            // First card (0) spans 2 columns and 2 rows (large)
-            // Cards 1 and 2 span 2 columns each
-            // Cards 3 and 4 span 3 columns each (on second row)
+            // First card (6+ Years) spans 2 columns and 2 rows (large)
+            // Next 2 cards (20+, 50+) are normal size on top row
+            // Last 2 cards (99.9%, 10K+) are normal size on bottom row beside the large card
             let gridClass = '';
             if (index === 0) {
-              gridClass = 'md:col-span-2 md:row-span-2';
-            } else if (index === 1 || index === 2) {
-              gridClass = 'md:col-span-2';
-            } else if (index === 3 || index === 4) {
-              gridClass = 'md:col-span-3';
+              gridClass = 'md:col-span-1 md:row-span-2'; // Large card takes 2 rows, 1 column
+            } else {
+              gridClass = 'md:col-span-1'; // Regular cards
             }
             
             const isLarge = index === 0;
@@ -287,7 +285,7 @@ export const AboutEnhanced = () => {
                   scale: 1.03,
                   y: -8,
                 }}
-                className={`${gridClass} flex flex-col items-center justify-center p-8 md:p-10 rounded-3xl ${achievement.bgGradient} border border-purple-500/30 backdrop-blur-xl hover:border-purple-500/60 transition-all duration-500 cursor-pointer group relative overflow-hidden shadow-2xl hover:shadow-purple-500/20`}
+                className={`${gridClass} flex flex-col items-center justify-center p-8 ${isLarge ? 'md:p-12' : 'md:p-8'} rounded-3xl ${achievement.bgGradient} border border-purple-500/30 backdrop-blur-xl hover:border-purple-500/60 transition-all duration-500 cursor-pointer group relative overflow-hidden shadow-2xl hover:shadow-purple-500/20`}
               >
                 {/* Glassmorphism layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
@@ -298,20 +296,23 @@ export const AboutEnhanced = () => {
                 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className={`p-5 rounded-2xl ${achievement.bgGradient} border border-purple-500/20 mb-6 group-hover:scale-110 transition-all duration-500`}>
-                    <Icon className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent`} />
+                  {/* Icon with proper rendering using fill color */}
+                  <div className={`p-5 rounded-2xl ${achievement.bgGradient} border border-purple-500/20 mb-6 group-hover:scale-110 transition-all duration-500 flex items-center justify-center`}>
+                    <div className={`bg-gradient-to-r ${achievement.color} p-1 rounded-xl`}>
+                      <Icon className={`${isLarge ? 'w-14 h-14 md:w-16 md:h-16' : 'w-10 h-10 md:w-12 md:h-12'} text-white`} />
+                    </div>
                   </div>
                   
-                  <h3 className={`text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-105 transition-transform duration-300 mb-4`}>
+                  <h3 className={`${isLarge ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl'} font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-105 transition-transform duration-300 mb-4`}>
                     {achievement.number}
                   </h3>
                   
-                  <p className="text-gray-300 text-base md:text-lg font-semibold group-hover:text-white transition-colors duration-300 mb-3">
+                  <p className={`text-gray-300 ${isLarge ? 'text-lg md:text-xl' : 'text-base md:text-lg'} font-semibold group-hover:text-white transition-colors duration-300 mb-3`}>
                     {achievement.label}
                   </p>
                   
                   {/* Add descriptive text for all cards */}
-                  <p className="text-gray-400 text-sm leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300">
+                  <p className={`text-gray-400 ${isLarge ? 'text-sm md:text-base' : 'text-xs md:text-sm'} leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300`}>
                     {achievement.description}
                   </p>
                 </div>
@@ -328,9 +329,9 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-7xl mb-16 relative z-10"
+        className="w-full max-w-7xl mt-12 mb-20 relative z-10"
       >
-        <h3 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
+        <h3 className="text-[32px] md:text-[40px] font-bold text-white mb-10 text-center">
           Quick{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Facts
@@ -396,9 +397,9 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-7xl mb-16 relative z-10"
+        className="w-full max-w-7xl mt-12 mb-20 relative z-10"
       >
-        <h3 className="text-3xl font-bold text-white mb-8 text-center">
+        <h3 className="text-[32px] md:text-[40px] font-bold text-white mb-10 text-center">
           Technical{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Expertise
