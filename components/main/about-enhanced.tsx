@@ -46,25 +46,25 @@ export const AboutEnhanced = () => {
       title: "Full-Stack Mastery",
       description: "React, Vue, Next.js, Remix, Node.js, Python, Ruby on Rails, TypeScript",
       icon: "💻",
-      color: "purple",
+      colorClass: "text-purple-400 group-hover:text-purple-300",
     },
     {
       title: "E-commerce Expert",
       description: "Shopify/Plus, WordPress, Headless CMS, ~40% sales growth achieved",
       icon: "🛒",
-      color: "cyan",
+      colorClass: "text-cyan-400 group-hover:text-cyan-300",
     },
     {
       title: "AI/ML Integration",
       description: "OpenAI, GPT-3/4, TensorFlow, PyTorch, Custom chatbots",
       icon: "🤖",
-      color: "green",
+      colorClass: "text-green-400 group-hover:text-green-300",
     },
     {
       title: "Cloud Native",
       description: "AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD",
       icon: "☁️",
-      color: "blue",
+      colorClass: "text-blue-400 group-hover:text-blue-300",
     },
   ];
 
@@ -73,25 +73,41 @@ export const AboutEnhanced = () => {
       id: "languages",
       title: "Programming Languages",
       items: ["Python", "JavaScript", "TypeScript", "PHP", "Rust", "Go", "Ruby"],
-      color: "purple",
+      titleColor: "text-purple-400",
+      badgeBg: "bg-purple-500/10",
+      badgeText: "text-purple-300",
+      badgeBorder: "border-purple-500/30",
+      badgeBgHover: "hover:bg-purple-500/20",
     },
     {
       id: "frontend",
       title: "Frontend Frameworks",
       items: ["React", "Vue.js", "Next.js", "Remix", "Angular", "Tailwind CSS", "Material UI"],
-      color: "cyan",
+      titleColor: "text-cyan-400",
+      badgeBg: "bg-cyan-500/10",
+      badgeText: "text-cyan-300",
+      badgeBorder: "border-cyan-500/30",
+      badgeBgHover: "hover:bg-cyan-500/20",
     },
     {
       id: "backend",
       title: "Backend Frameworks",
       items: ["Node.js", "Django", "Flask", "FastAPI", "Laravel", "Ruby on Rails", "Express.js"],
-      color: "green",
+      titleColor: "text-green-400",
+      badgeBg: "bg-green-500/10",
+      badgeText: "text-green-300",
+      badgeBorder: "border-green-500/30",
+      badgeBgHover: "hover:bg-green-500/20",
     },
     {
       id: "cloud",
       title: "Cloud & DevOps",
       items: ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "CI/CD"],
-      color: "blue",
+      titleColor: "text-blue-400",
+      badgeBg: "bg-blue-500/10",
+      badgeText: "text-blue-300",
+      badgeBorder: "border-blue-500/30",
+      badgeBgHover: "hover:bg-blue-500/20",
     },
   ];
 
@@ -221,7 +237,7 @@ export const AboutEnhanced = () => {
                   {fact.icon}
                 </div>
                 <div className="flex-1">
-                  <h4 className={`text-xl font-bold mb-2 text-${fact.color}-400 group-hover:text-${fact.color}-300 transition-colors duration-300`}>
+                  <h4 className={`text-xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
                     {fact.title}
                   </h4>
                   <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
@@ -260,7 +276,7 @@ export const AboutEnhanced = () => {
                 onClick={() => setExpandedSection(expandedSection === category.id ? null : category.id)}
                 className="w-full text-left"
               >
-                <h4 className={`text-lg font-bold mb-4 text-${category.color}-400 flex items-center justify-between`}>
+                <h4 className={`text-lg font-bold mb-4 ${category.titleColor} flex items-center justify-between`}>
                   {category.title}
                   <span className="text-2xl">{expandedSection === category.id ? "−" : "+"}</span>
                 </h4>
@@ -278,7 +294,7 @@ export const AboutEnhanced = () => {
                   {category.items.map((item) => (
                     <span
                       key={item}
-                      className={`px-3 py-1 rounded-full text-xs bg-${category.color}-500/10 text-${category.color}-300 border border-${category.color}-500/30 hover:bg-${category.color}-500/20 transition-colors duration-200`}
+                      className={`px-3 py-1 rounded-full text-xs ${category.badgeBg} ${category.badgeText} border ${category.badgeBorder} ${category.badgeBgHover} transition-colors duration-200`}
                     >
                       {item}
                     </span>

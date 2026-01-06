@@ -20,7 +20,15 @@ export const JourneyHorizontal = () => {
         "Leading full-stack Shopify Headless development with Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development, optimized e-commerce pipelines achieving ~40% sales boost, architected internal SaaS solutions, and built scalable Klaviyo integration APIs for advanced marketing automation.",
       technologies: ["Remix", "Node.js", "TypeScript", "Rust", "Shopify", "Klaviyo"],
       achievements: ["~40% sales boost", "Internal SaaS architecture", "Klaviyo API integration"],
-      color: "purple",
+      dotGradient: "from-purple-500 to-purple-600",
+      dotShadow: "shadow-purple-500/50",
+      badgeBg: "bg-purple-500/20",
+      badgeBorder: "border-purple-500/30",
+      badgeText: "text-purple-300",
+      iconColor: "text-purple-400",
+      techBadgeBg: "bg-purple-500/10",
+      techBadgeText: "text-purple-300",
+      techBadgeBorder: "border-purple-500/30",
       logo: "🍴",
     },
     {
@@ -32,7 +40,15 @@ export const JourneyHorizontal = () => {
         "Led Full Stack Development team for real estate project, architecting robust Node.js APIs and Next.js/React front-ends. Optimized cloud deployments for enhanced performance, developed custom WordPress APIs/plugins, contributed to Ruby on Rails projects, and implemented comprehensive CI/CD workflows.",
       technologies: ["Node.js", "Next.js", "React", "Ruby on Rails", "WordPress", "CI/CD"],
       achievements: ["Led Full Stack team", "Cloud optimization", "CI/CD implementation"],
-      color: "cyan",
+      dotGradient: "from-cyan-500 to-cyan-600",
+      dotShadow: "shadow-cyan-500/50",
+      badgeBg: "bg-cyan-500/20",
+      badgeBorder: "border-cyan-500/30",
+      badgeText: "text-cyan-300",
+      iconColor: "text-cyan-400",
+      techBadgeBg: "bg-cyan-500/10",
+      techBadgeText: "text-cyan-300",
+      techBadgeBorder: "border-cyan-500/30",
       logo: "🏢",
     },
     {
@@ -44,7 +60,15 @@ export const JourneyHorizontal = () => {
         "Directed technical team on high-impact projects. Engineered complex TCAS System using Node.js, TypeScript, Vue.js, TypeORM, Redis, MongoDB, AWS. Built custom e-commerce on WordPress/Shopify, developed AI-driven SEO tools in Python, and integrated enterprise solutions (Cal.com, Chatwoot, Outline).",
       technologies: ["Vue.js", "TypeScript", "TypeORM", "Redis", "MongoDB", "AWS", "Python"],
       achievements: ["TCAS System architecture", "AI-driven SEO tools", "Enterprise integrations"],
-      color: "green",
+      dotGradient: "from-green-500 to-green-600",
+      dotShadow: "shadow-green-500/50",
+      badgeBg: "bg-green-500/20",
+      badgeBorder: "border-green-500/30",
+      badgeText: "text-green-300",
+      iconColor: "text-green-400",
+      techBadgeBg: "bg-green-500/10",
+      techBadgeText: "text-green-300",
+      techBadgeBorder: "border-green-500/30",
       logo: "📊",
     },
     {
@@ -56,7 +80,15 @@ export const JourneyHorizontal = () => {
         "Drove 20% sales increase through e-commerce pipeline optimization on Shopify. Developed custom themes, executed comprehensive architectural revamp of Bettr Men's Facial Care website, and managed full website architecture for various e-commerce projects.",
       technologies: ["Shopify", "JavaScript", "CSS", "E-commerce"],
       achievements: ["20% sales increase", "Bettr website revamp", "Custom theme development"],
-      color: "blue",
+      dotGradient: "from-blue-500 to-blue-600",
+      dotShadow: "shadow-blue-500/50",
+      badgeBg: "bg-blue-500/20",
+      badgeBorder: "border-blue-500/30",
+      badgeText: "text-blue-300",
+      iconColor: "text-blue-400",
+      techBadgeBg: "bg-blue-500/10",
+      techBadgeText: "text-blue-300",
+      techBadgeBorder: "border-blue-500/30",
       logo: "🎨",
     },
     {
@@ -68,7 +100,15 @@ export const JourneyHorizontal = () => {
         "Led strategic redesign of Adaptivity's brand website, revitalized WordPress theme. Developed custom chat application using OpenAI API and Python, integrated GPT-3/GPT-3.5 models into internal systems, and implemented comprehensive performance improvements.",
       technologies: ["OpenAI", "Python", "GPT-3", "WordPress"],
       achievements: ["GPT chat application", "Website redesign", "OpenAI integration"],
-      color: "pink",
+      dotGradient: "from-pink-500 to-pink-600",
+      dotShadow: "shadow-pink-500/50",
+      badgeBg: "bg-pink-500/20",
+      badgeBorder: "border-pink-500/30",
+      badgeText: "text-pink-300",
+      iconColor: "text-pink-400",
+      techBadgeBg: "bg-pink-500/10",
+      techBadgeText: "text-pink-300",
+      techBadgeBorder: "border-pink-500/30",
       logo: "💬",
     },
     {
@@ -80,7 +120,15 @@ export const JourneyHorizontal = () => {
         "Successfully delivered 20+ custom web development projects for leading conglomerate agency. Demonstrated expertise in WordPress, Shopify, and custom solutions across restaurants, real estate, fashion, finance, and trading sectors.",
       technologies: ["WordPress", "Shopify", "HTML", "CSS", "JavaScript"],
       achievements: ["20+ projects delivered", "Multi-sector expertise", "Custom solutions"],
-      color: "yellow",
+      dotGradient: "from-yellow-500 to-yellow-600",
+      dotShadow: "shadow-yellow-500/50",
+      badgeBg: "bg-yellow-500/20",
+      badgeBorder: "border-yellow-500/30",
+      badgeText: "text-yellow-300",
+      iconColor: "text-yellow-400",
+      techBadgeBg: "bg-yellow-500/10",
+      techBadgeText: "text-yellow-300",
+      techBadgeBorder: "border-yellow-500/30",
       logo: "🚀",
     },
   ];
@@ -162,7 +210,7 @@ export const JourneyHorizontal = () => {
                 <div className="absolute top-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
                   <motion.div
                     whileHover={{ scale: 1.2 }}
-                    className={`w-6 h-6 rounded-full bg-gradient-to-r from-${item.color}-500 to-${item.color}-600 border-4 border-[#030014] cursor-pointer shadow-lg shadow-${item.color}-500/50`}
+                    className={`w-6 h-6 rounded-full bg-gradient-to-r ${item.dotGradient} border-4 border-[#030014] cursor-pointer shadow-lg ${item.dotShadow}`}
                   />
                 </div>
 
@@ -179,9 +227,9 @@ export const JourneyHorizontal = () => {
                   </div>
 
                   {/* Year Badge */}
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-${item.color}-500/20 border border-${item.color}-500/30 mb-4`}>
-                    <CalendarIcon className="w-4 h-4 text-${item.color}-400" />
-                    <span className={`text-xs font-bold text-${item.color}-300`}>{item.year}</span>
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${item.badgeBg} border ${item.badgeBorder} mb-4`}>
+                    <CalendarIcon className={`w-4 h-4 ${item.iconColor}`} />
+                    <span className={`text-xs font-bold ${item.badgeText}`}>{item.year}</span>
                   </div>
 
                   {/* Title */}
@@ -191,8 +239,8 @@ export const JourneyHorizontal = () => {
 
                   {/* Company */}
                   <div className="flex items-center gap-2 mb-3">
-                    <BuildingOfficeIcon className={`w-5 h-5 text-${item.color}-400`} />
-                    <p className={`text-${item.color}-400 font-semibold`}>{item.company}</p>
+                    <BuildingOfficeIcon className={`w-5 h-5 ${item.iconColor}`} />
+                    <p className={`${item.iconColor} font-semibold`}>{item.company}</p>
                   </div>
 
                   {/* Location */}
@@ -208,7 +256,7 @@ export const JourneyHorizontal = () => {
                     {item.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className={`px-2 py-1 rounded-md text-xs bg-${item.color}-500/10 text-${item.color}-300 border border-${item.color}-500/30`}
+                        className={`px-2 py-1 rounded-md text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
                       >
                         {tech}
                       </span>
@@ -275,7 +323,7 @@ export const JourneyHorizontal = () => {
               className="relative mb-8 pl-12"
             >
               {/* Timeline dot */}
-              <div className={`absolute left-4 top-8 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-${item.color}-500 to-${item.color}-600 border-4 border-[#030014] shadow-lg shadow-${item.color}-500/50`} />
+              <div className={`absolute left-4 top-8 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r ${item.dotGradient} border-4 border-[#030014] shadow-lg ${item.dotShadow}`} />
 
               {/* Card */}
               <motion.div
@@ -287,9 +335,9 @@ export const JourneyHorizontal = () => {
                 <div className="text-4xl mb-3">{item.logo}</div>
 
                 {/* Year */}
-                <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full bg-${item.color}-500/20 border border-${item.color}-500/30 mb-3`}>
-                  <CalendarIcon className="w-3 h-3" />
-                  <span className="text-xs font-bold">{item.year}</span>
+                <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full ${item.badgeBg} border ${item.badgeBorder} mb-3`}>
+                  <CalendarIcon className={`w-3 h-3 ${item.iconColor}`} />
+                  <span className={`text-xs font-bold ${item.badgeText}`}>{item.year}</span>
                 </div>
 
                 {/* Title */}
@@ -297,8 +345,8 @@ export const JourneyHorizontal = () => {
 
                 {/* Company */}
                 <div className="flex items-center gap-2 mb-3">
-                  <BuildingOfficeIcon className={`w-4 h-4 text-${item.color}-400`} />
-                  <p className={`text-${item.color}-400 font-semibold text-sm`}>{item.company}</p>
+                  <BuildingOfficeIcon className={`w-4 h-4 ${item.iconColor}`} />
+                  <p className={`${item.iconColor} font-semibold text-sm`}>{item.company}</p>
                 </div>
 
                 {/* Description */}
@@ -311,7 +359,7 @@ export const JourneyHorizontal = () => {
                   {item.technologies.slice(0, 3).map((tech) => (
                     <span
                       key={tech}
-                      className={`px-2 py-1 rounded-md text-xs bg-${item.color}-500/10 text-${item.color}-300 border border-${item.color}-500/30`}
+                      className={`px-2 py-1 rounded-md text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
                     >
                       {tech}
                     </span>
