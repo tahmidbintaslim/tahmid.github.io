@@ -358,10 +358,8 @@ export const AboutEnhanced = () => {
                   </div>
                 </div>
                 
-                {/* Shine effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:animate-shine" />
-                </div>
+                {/* Subtle glow effect on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
               </motion.div>
             );
           })}

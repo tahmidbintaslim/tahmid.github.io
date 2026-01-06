@@ -199,9 +199,9 @@ export const JourneyHorizontal = () => {
             <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 via-green-500 via-blue-500 via-pink-500 to-yellow-500" />
 
             {timeline.map((item, index) => {
-              // Extract year from the date range (e.g., "March 2024 - Present" -> "2024")
+              // Extract year from the date range with robust fallback
               const yearMatch = item.year.match(/(\d{4})/);
-              const displayYear = yearMatch ? yearMatch[1] : item.year.split(' ')[item.year.split(' ').length - 1];
+              const displayYear = yearMatch ? yearMatch[1] : new Date().getFullYear().toString();
               
               return (
                 <motion.div
