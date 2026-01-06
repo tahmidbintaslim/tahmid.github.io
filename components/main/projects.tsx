@@ -47,6 +47,8 @@ export const Projects = () => {
             title={project.title}
             description={project.description}
             link={project.link}
+            techStack={project.techStack}
+            role={project.role}
           />
         ))}
       </div>
