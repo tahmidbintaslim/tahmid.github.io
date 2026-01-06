@@ -99,7 +99,7 @@ const Blog = () => {
             description: "Building scalable microservices with Node.js, Docker, and Kubernetes for enterprise applications.",
             platform: "Medium",
             readTime: "13 min read",
-            coverImage: "/blog/microservices.jpg",
+            coverImage: "/blog/nodejs-realtime.jpg",
           },
           {
             title: "TypeScript Best Practices for 2024",
@@ -108,7 +108,7 @@ const Blog = () => {
             description: "Essential TypeScript patterns and practices for building maintainable and type-safe applications.",
             platform: "Dev.to",
             readTime: "7 min read",
-            coverImage: "/blog/typescript.jpg",
+            coverImage: "/blog/nextjs-fullstack.jpg",
           },
           {
             title: "Serverless Functions with AWS Lambda",
@@ -117,7 +117,7 @@ const Blog = () => {
             description: "Complete guide to building and deploying serverless functions using AWS Lambda and API Gateway.",
             platform: "Medium",
             readTime: "14 min read",
-            coverImage: "/blog/serverless.jpg",
+            coverImage: "/blog/cloud-aws.jpg",
           },
         ];
 
