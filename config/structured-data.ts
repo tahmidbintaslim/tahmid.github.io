@@ -108,41 +108,6 @@ export const structuredData = {
     },
   },
 
-  // Breadcrumb for navigation
-  breadcrumb: {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://tahmid.space",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "About",
-        item: "https://tahmid.space/#about",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Skills",
-        item: "https://tahmid.space/#skills",
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: "Projects",
-        item: "https://tahmid.space/#projects",
-      },
-      {
-        "@type": "ListItem",
-        position: 5,
-        name: "Contact",
-        item: "https://tahmid.space/#contact",
-      },
-    ],
-  },
+  // Note: Breadcrumb schema removed for single-page application
+  // Breadcrumbs should only be used for multi-page sites with actual navigation hierarchy
 };

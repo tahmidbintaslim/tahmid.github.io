@@ -60,10 +60,10 @@ export const Footer = () => {
               <span className="text-xs font-medium text-gray-300">SSL Secured</span>
             </div>
 
-            {/* WCAG Accessibility Badge */}
+            {/* Accessibility Badge */}
             <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300">
               <FaUniversalAccess className="text-blue-400 text-lg" />
-              <span className="text-xs font-medium text-gray-300">WCAG Compliant</span>
+              <span className="text-xs font-medium text-gray-300">Accessibility-Focused</span>
             </div>
 
             {/* AI-Ready Badge */}
@@ -72,16 +72,11 @@ export const Footer = () => {
               <span className="text-xs font-medium text-gray-300">AI-Ready (LLM.txt)</span>
             </div>
 
-            {/* Google Cloud Certified */}
-            <a
-              href="https://www.cloudskillsboost.google/"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-400/10 to-cyan-400/10 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 cursor-pointer"
-            >
+            {/* Google Cloud Expertise */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-400/10 to-cyan-400/10 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300">
               <SiGooglecloud className="text-blue-400 text-lg" />
               <span className="text-xs font-medium text-gray-300">Google Cloud</span>
-            </a>
+            </div>
 
             {/* OpenAI Integration */}
             <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-green-400/10 to-emerald-400/10 border border-green-400/30 hover:border-green-400/60 transition-all duration-300">

@@ -15,14 +15,23 @@ const nextConfig = {
   // Strict mode for better development
   reactStrictMode: true,
   
-  // Image optimization
+  // Image optimization with quality settings
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
-  // Headers for SEO and security
+  // Experimental features for performance
+  experimental: {
+    optimizePackageImports: ['react-icons', '@heroicons/react', 'framer-motion'],
+  },
+  
+  // Headers for SEO, security, and performance
   async headers() {
     return [
       {
@@ -50,9 +59,18 @@ const nextConfig = {
           },
         ],
       },
+      // Cache static assets aggressively
+      {
+        source: '/(.*)\\.(png|jpg|jpeg|gif|webp|avif|ico|svg)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
     ];
   },
 }
 
 export default nextConfig
-

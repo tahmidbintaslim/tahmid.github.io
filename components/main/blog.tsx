@@ -4,7 +4,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon, MagnifyingGlassIcon, FunnelIcon, ArrowsUpDownIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon, MagnifyingGlassIcon, FunnelIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 type BlogPost = {
   title: string;

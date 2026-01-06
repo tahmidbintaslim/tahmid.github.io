@@ -524,7 +524,7 @@ export const FOOTER_DATA = [
         link: "https://www.buymeacoffee.com/09071998",
       },
       {
-        name: "Github",
+        name: "GitHub",
         icon: RxGithubLogo,
         link: "https://github.com/tahmidbintaslim/",
       },

@@ -13,11 +13,11 @@ The website has been optimized to rank on the first page of Google and improve v
 #### Robots.txt (`/public/robots.txt`)
 - Allows all crawlers to index the site
 - Includes sitemap reference
-- Implements crawl-delay for bot management
+- Note: Crawl-delay directive removed (not supported by Google)
 
 #### XML Sitemap (`/app/sitemap.ts`)
 - Auto-generated dynamic sitemap
-- Includes all main sections with proper priorities
+- Includes base URL only (single-page application)
 - Updates lastModified dates automatically
 - Accessible at: `https://tahmid.space/sitemap.xml`
 
@@ -37,7 +37,6 @@ Located in `/config/structured-data.ts`, includes:
 - **Person Schema**: Professional profile information
 - **Website Schema**: Site-wide information
 - **Professional Service Schema**: Service offerings
-- **Breadcrumb Schema**: Navigation hierarchy
 
 Benefits:
 - Rich snippets in search results
@@ -49,7 +48,7 @@ Benefits:
 
 - Compression enabled for faster loading
 - Image optimization (AVIF, WebP)
-- Security headers (X-Frame-Options, CSP, etc.)
+- Security headers (X-Frame-Options, X-Content-Type-Options, Referrer-Policy)
 - Performance optimizations
 - ETags for better caching
 

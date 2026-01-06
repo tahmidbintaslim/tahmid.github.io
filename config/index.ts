@@ -21,7 +21,7 @@ export const siteConfig: Metadata = {
     "React Developer",
     "Next.js Developer",
     
-    // Technology expertise
+    // Technology expertise (consolidated, removed duplicates)
     "React",
     "Next.js 15",
     "Node.js",
@@ -52,8 +52,6 @@ export const siteConfig: Metadata = {
     "UI/UX Design",
     
     // Frameworks and tools
-    "React.js",
-    "Next.js",
     "Express.js",
     "Tailwind CSS",
     "Framer Motion",
@@ -118,8 +116,8 @@ export const siteConfig: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
   manifest: "/site.webmanifest",
   alternates: {
