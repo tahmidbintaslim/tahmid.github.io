@@ -1,0 +1,71 @@
+# Tahmid Bin Taslim Rafi - Senior Software Engineer
+
+## About
+Tahmid Bin Taslim Rafi is a Senior Software Engineer with 6+ years of experience specializing in full-stack development, AI/ML integration, cloud-native architecture, and e-commerce solutions. Based in Bangkok, Thailand, he has worked with leading companies delivering scalable, high-performance applications.
+
+## Professional Experience
+- **Marion's Kitchen Group** (March 2024 - Present): Senior Software Developer leading Shopify Headless development with Remix, Node.js, TypeScript, and Rust
+- **Trienpont International** (May 2023 - February 2024): Senior Software Developer leading full-stack development teams
+- **Relevant Audience** (November 2021 - May 2023): Full Stack Developer directing technical teams on high-impact projects
+- **INFINITE AGENCY BKK** (June 2021 - September 2021): Full Stack Developer specializing in e-commerce optimization
+- **Adaptivity** (April 2021 - September 2021): Full Stack Developer working with AI/ML integration
+- **Scalia Ventures** (September 2020 - June 2021): Software Developer delivering custom web solutions
+
+## Technical Expertise
+### Languages
+JavaScript, TypeScript, Python, PHP, Rust, Go, Ruby
+
+### Frontend
+React, Next.js, Vue.js, Remix, Angular, Tailwind CSS, Material UI
+
+### Backend
+Node.js, Express.js, Django, Flask, FastAPI, Laravel, Ruby on Rails
+
+### Databases
+MongoDB, PostgreSQL, MySQL, Redis, Prisma, Firebase, TypeORM
+
+### Cloud & DevOps
+AWS, GCP, Azure, Docker, Kubernetes, Terraform, CI/CD
+
+### E-commerce
+Shopify/Plus, WordPress, Headless CMS
+
+### AI/ML
+OpenAI, TensorFlow, PyTorch
+
+## Key Achievements
+- 6+ Years of professional experience
+- 20+ Enterprise projects delivered
+- 50+ Technologies mastered
+- 99.9% System uptime achieved
+- 10,000+ Active users served
+- ~40% Sales growth through e-commerce optimizations
+
+## Contact
+- Email: tahmidbintaslimrafi@gmail.com
+- GitHub: https://github.com/tahmidbintaslim
+- LinkedIn: https://www.linkedin.com/in/tahmid-bin-taslim/
+- Twitter: https://twitter.com/RAFI_it100
+- Website: https://tahmid.space
+
+## Services
+- Full-Stack Web Development (React, Next.js, Node.js, TypeScript)
+- AI/ML Integration (OpenAI, GPT-3/4, TensorFlow, PyTorch)
+- Cloud-Native Architecture (AWS, GCP, Azure, Kubernetes)
+- E-commerce Solutions (Shopify/Plus, WordPress, Headless CMS)
+- SaaS Platform Development
+- Microservices Architecture
+- Software Development Lifecycle Management
+
+## Recent Projects
+- Marion's Kitchen Shopify Headless Platform (Remix, Node.js, TypeScript, Rust)
+- Klaviyo Marketing Integration APIs
+- Amazing Properties (Algolia AI, React, Next.js, GraphQL)
+- TCAS System (Node.js, TypeScript, Vue.js, MongoDB, AWS)
+- Scholl Thailand E-commerce Platform (Shopify Plus)
+
+## Availability
+Available for freelance and contract work through Iglu (https://iglu.net/talent/senior-software-developer/)
+
+---
+Last Updated: January 2026
