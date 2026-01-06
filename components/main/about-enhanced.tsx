@@ -7,12 +7,97 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from "@/lib/motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import * as SimpleIcons from "simple-icons";
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Helper to get Simple Icon SVG
+const getSimpleIconSvg = (iconName: string) => {
+  try {
+    const icon = (SimpleIcons as any)[iconName];
+    if (icon) {
+      return icon.svg;
+    }
+  } catch (e) {
+    console.warn(`Icon ${iconName} not found`);
+  }
+  return null;
+};
 
 export const AboutEnhanced = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [expandedSection, setExpandedSection] = useState<string | null>("all"); // Open all by default
+  const bentoContainerRef = useRef(null);
+  const statsRef = useRef(null);
+  const quickFactsRef = useRef(null);
+  const expertiseRef = useRef(null);
+  
+  // GSAP Scrollytelling animations
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    
+    const ctx = gsap.context(() => {
+      // Animate stats cards on scroll
+      if (statsRef.current) {
+        gsap.from(".stat-card", {
+          scrollTrigger: {
+            trigger: statsRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+          y: 100,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      }
+      
+      // Animate quick facts on scroll
+      if (quickFactsRef.current) {
+        gsap.from(".quick-fact-card", {
+          scrollTrigger: {
+            trigger: quickFactsRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+          x: -100,
+          opacity: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      }
+      
+      // Animate expertise section
+      if (expertiseRef.current) {
+        gsap.from(".expertise-card", {
+          scrollTrigger: {
+            trigger: expertiseRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+          scale: 0.8,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "back.out(1.2)",
+        });
+      }
+    });
+    
+    return () => ctx.revert();
+  }, []);
 
   const achievements = [
     {
@@ -72,7 +157,15 @@ export const AboutEnhanced = () => {
     {
       id: "languages",
       title: "Programming Languages",
-      items: ["Python", "JavaScript", "TypeScript", "PHP", "Rust", "Go", "Ruby"],
+      items: [
+        { name: "Python", icon: "siPython" },
+        { name: "JavaScript", icon: "siJavascript" },
+        { name: "TypeScript", icon: "siTypescript" },
+        { name: "PHP", icon: "siPhp" },
+        { name: "Rust", icon: "siRust" },
+        { name: "Go", icon: "siGo" },
+        { name: "Ruby", icon: "siRuby" },
+      ],
       titleColor: "text-purple-400",
       badgeBg: "bg-purple-500/10",
       badgeText: "text-purple-300",
@@ -82,7 +175,15 @@ export const AboutEnhanced = () => {
     {
       id: "frontend",
       title: "Frontend Frameworks",
-      items: ["React", "Vue.js", "Next.js", "Remix", "Angular", "Tailwind CSS", "Material UI"],
+      items: [
+        { name: "React", icon: "siReact" },
+        { name: "Vue.js", icon: "siVuedotjs" },
+        { name: "Next.js", icon: "siNextdotjs" },
+        { name: "Remix", icon: "siRemix" },
+        { name: "Angular", icon: "siAngular" },
+        { name: "Tailwind CSS", icon: "siTailwindcss" },
+        { name: "Material UI", icon: "siMui" },
+      ],
       titleColor: "text-cyan-400",
       badgeBg: "bg-cyan-500/10",
       badgeText: "text-cyan-300",
@@ -92,7 +193,15 @@ export const AboutEnhanced = () => {
     {
       id: "backend",
       title: "Backend Frameworks",
-      items: ["Node.js", "Django", "Flask", "FastAPI", "Laravel", "Ruby on Rails", "Express.js"],
+      items: [
+        { name: "Node.js", icon: "siNodedotjs" },
+        { name: "Django", icon: "siDjango" },
+        { name: "Flask", icon: "siFlask" },
+        { name: "FastAPI", icon: "siFastapi" },
+        { name: "Laravel", icon: "siLaravel" },
+        { name: "Ruby on Rails", icon: "siRubyonrails" },
+        { name: "Express.js", icon: "siExpress" },
+      ],
       titleColor: "text-green-400",
       badgeBg: "bg-green-500/10",
       badgeText: "text-green-300",
@@ -102,7 +211,15 @@ export const AboutEnhanced = () => {
     {
       id: "cloud",
       title: "Cloud & DevOps",
-      items: ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "CI/CD"],
+      items: [
+        { name: "AWS", icon: "siAmazonaws" },
+        { name: "GCP", icon: "siGooglecloud" },
+        { name: "Azure", icon: "siMicrosoftazure" },
+        { name: "Docker", icon: "siDocker" },
+        { name: "Kubernetes", icon: "siKubernetes" },
+        { name: "Terraform", icon: "siTerraform" },
+        { name: "CI/CD", icon: "siGithubactions" },
+      ],
       titleColor: "text-blue-400",
       badgeBg: "bg-blue-500/10",
       badgeText: "text-blue-300",
@@ -172,50 +289,69 @@ export const AboutEnhanced = () => {
         </span>
       </motion.h2>
 
-      {/* 3D Animated Statistics Cards */}
+      {/* Bento Grid: Statistics Cards with varying sizes */}
       <motion.div
+        ref={statsRef}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl mt-10 mb-16 relative z-10"
+        className="w-full max-w-7xl mt-10 mb-16 relative z-10"
       >
-        {achievements.map((achievement, index) => {
-          const Icon = achievement.icon;
-          return (
-            <motion.div
-              key={achievement.label}
-              variants={slideInFromTop}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ 
-                scale: 1.1,
-                rotateY: 10,
-                rotateX: 10,
-              }}
-              className="flex flex-col items-center justify-center p-6 rounded-xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 cursor-pointer group perspective-1000"
-              style={{
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:to-cyan-500/20 rounded-xl transition-all duration-300" />
-              <Icon className={`w-12 h-12 mb-3 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent`} />
-              <h3 className={`text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-110 transition-transform duration-300`}>
-                {achievement.number}
-              </h3>
-              <p className="text-gray-300 text-sm md:text-base mt-2 text-center group-hover:text-white transition-colors duration-300">
-                {achievement.label}
-              </p>
-            </motion.div>
-          );
-        })}
+        {/* Bento Grid Layout - inspired by Apple's design */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 auto-rows-[140px] md:auto-rows-[180px]">
+          {achievements.map((achievement, index) => {
+            const Icon = achievement.icon;
+            // Bento Grid varying sizes: Large, Medium, Medium, Large pattern
+            const sizes = [
+              "md:col-span-3 md:row-span-2", // Large (top-left)
+              "md:col-span-2 md:row-span-1", // Medium (top-right)
+              "md:col-span-2 md:row-span-1", // Medium (middle-right)
+              "md:col-span-3 md:row-span-2", // Large (bottom-left)
+            ];
+            
+            return (
+              <motion.div
+                key={achievement.label}
+                variants={slideInFromTop}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 5,
+                  rotateX: 5,
+                }}
+                className={`stat-card flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 cursor-pointer group relative overflow-hidden ${sizes[index]} col-span-2`}
+                style={{
+                  transformStyle: "preserve-3d",
+                }}
+              >
+                {/* Glassmorphism effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 group-hover:from-white/10 group-hover:to-white/0 transition-all duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-cyan-500/0 group-hover:from-purple-500/20 group-hover:to-cyan-500/20 rounded-2xl transition-all duration-300" />
+                
+                {/* Content */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <Icon className={`w-14 h-14 md:w-16 md:h-16 mb-4 bg-gradient-to-r ${achievement.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`} />
+                  <h3 className={`text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-110 transition-transform duration-300`}>
+                    {achievement.number}
+                  </h3>
+                  <p className="text-gray-300 text-sm md:text-base mt-3 text-center group-hover:text-white transition-colors duration-300 font-medium">
+                    {achievement.label}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </motion.div>
 
-      {/* Quick Facts Grid */}
+      {/* Bento Grid: Quick Facts with varying sizes */}
       <motion.div
+        ref={quickFactsRef}
         variants={slideInFromLeft(0.5)}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-6xl mb-16 relative z-10"
+        className="w-full max-w-7xl mb-16 relative z-10"
       >
         <h3 className="text-3xl font-bold text-white mb-8 text-center">
           Quick{" "}
@@ -223,40 +359,56 @@ export const AboutEnhanced = () => {
             Facts
           </span>
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {quickFacts.map((fact, index) => (
-            <motion.div
-              key={fact.title}
-              variants={slideInFromLeft(0.5)}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.05 }}
-              className="group p-6 rounded-xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer"
-            >
-              <div className="flex items-start gap-4">
-                <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                  {fact.icon}
+        {/* Bento Grid for Quick Facts */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[160px]">
+          {quickFacts.map((fact, index) => {
+            // Bento Grid varying sizes: wide, medium, medium, wide pattern
+            const sizes = [
+              "md:col-span-2",  // Wide
+              "md:col-span-1",  // Medium
+              "md:col-span-1",  // Medium
+              "md:col-span-2",  // Wide
+            ];
+            
+            return (
+              <motion.div
+                key={fact.title}
+                variants={slideInFromLeft(0.5)}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.03 }}
+                className={`quick-fact-card group p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300 cursor-pointer relative overflow-hidden ${sizes[index]}`}
+              >
+                {/* Liquid Glass UI effect */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative z-10 flex items-start gap-4">
+                  <div className="text-5xl group-hover:scale-125 transition-transform duration-300 filter drop-shadow-lg">
+                    {fact.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h4 className={`text-xl md:text-2xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
+                      {fact.title}
+                    </h4>
+                    <p className="text-gray-300 text-sm md:text-base leading-relaxed group-hover:text-white transition-colors duration-300">
+                      {fact.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h4 className={`text-xl font-bold mb-2 ${fact.colorClass} transition-colors duration-300`}>
-                    {fact.title}
-                  </h4>
-                  <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
-                    {fact.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
 
-      {/* Expertise Sections with Progress Bars */}
+      {/* Technical Expertise with Icons - Open by Default */}
       <motion.div
+        ref={expertiseRef}
         variants={slideInFromRight(0.5)}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-6xl mb-16 relative z-10"
+        className="w-full max-w-7xl mb-16 relative z-10"
       >
         <h3 className="text-3xl font-bold text-white mb-8 text-center">
           Technical{" "}
@@ -265,44 +417,78 @@ export const AboutEnhanced = () => {
           </span>
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {expertise.map((category, index) => (
-            <motion.div
-              key={category.id}
-              variants={slideInFromRight(0.5)}
-              transition={{ delay: index * 0.1 }}
-              className="p-6 rounded-xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300"
-            >
-              <button
-                onClick={() => setExpandedSection(expandedSection === category.id ? null : category.id)}
-                className="w-full text-left"
-              >
-                <h4 className={`text-lg font-bold mb-4 ${category.titleColor} flex items-center justify-between`}>
-                  {category.title}
-                  <span className="text-2xl">{expandedSection === category.id ? "−" : "+"}</span>
-                </h4>
-              </button>
+          {expertise.map((category, index) => {
+            const isOpen = expandedSection === "all" || expandedSection === category.id;
+            
+            return (
               <motion.div
-                initial={false}
-                animate={{
-                  height: expandedSection === category.id ? "auto" : "0",
-                  opacity: expandedSection === category.id ? 1 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+                key={category.id}
+                variants={slideInFromRight(0.5)}
+                transition={{ delay: index * 0.1 }}
+                className="expertise-card p-6 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-500/20 backdrop-blur-md hover:border-cyan-500/40 transition-all duration-300 relative overflow-hidden"
               >
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className={`px-3 py-1 rounded-full text-xs ${category.badgeBg} ${category.badgeText} border ${category.badgeBorder} ${category.badgeBgHover} transition-colors duration-200`}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+                {/* Liquid Glass effect */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
+                
+                <button
+                  onClick={() => setExpandedSection(expandedSection === category.id ? "all" : category.id)}
+                  className="w-full text-left relative z-10"
+                >
+                  <h4 className={`text-xl font-bold mb-4 ${category.titleColor} flex items-center justify-between hover:scale-105 transition-transform duration-200`}>
+                    {category.title}
+                    <span className="text-2xl">{isOpen ? "−" : "+"}</span>
+                  </h4>
+                </button>
+                
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: isOpen ? "auto" : "0",
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="overflow-hidden relative z-10"
+                >
+                  <div className="grid grid-cols-4 md:grid-cols-5 gap-4 pt-2">
+                    {category.items.map((item) => {
+                      const iconSvg = getSimpleIconSvg(item.icon);
+                      
+                      return (
+                        <div
+                          key={item.name}
+                          className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/5 to-white/0 hover:from-white/10 hover:to-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer relative"
+                          title={item.name}
+                        >
+                          {/* Icon */}
+                          {iconSvg ? (
+                            <div 
+                              className={`w-10 h-10 ${category.badgeText} group-hover:scale-110 transition-transform duration-300`}
+                              dangerouslySetInnerHTML={{ __html: iconSvg }}
+                              style={{ fill: "currentColor" }}
+                            />
+                          ) : (
+                            <div className={`w-10 h-10 rounded-lg ${category.badgeBg} flex items-center justify-center ${category.badgeText} font-bold text-sm`}>
+                              {item.name.substring(0, 2).toUpperCase()}
+                            </div>
+                          )}
+                          
+                          {/* Label */}
+                          <span className={`text-xs ${category.badgeText} text-center leading-tight group-hover:text-white transition-colors duration-200`}>
+                            {item.name}
+                          </span>
+                          
+                          {/* Tooltip */}
+                          <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
+                            {item.name}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
 
