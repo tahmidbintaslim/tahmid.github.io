@@ -35,7 +35,7 @@ export const ProjectCard = ({
         className={cn(
           "relative overflow-hidden rounded-lg shadow-lg",
           "border border-[#2A0E61] hover:border-purple-500/50",
-          "transition-all duration-300 block h-full flex flex-col",
+          "transition-all duration-300 h-full flex flex-col",
           "bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e]"
         )}
       >
@@ -90,6 +90,7 @@ export const ProjectCard = ({
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"

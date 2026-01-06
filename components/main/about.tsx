@@ -204,7 +204,7 @@ export const About = () => {
                 transition={{ delay: index * 0.2 }}
                 className={cn(
                   "relative mb-10",
-                  isEven ? "md:pr-1/2 md:text-right" : "md:pl-1/2 md:ml-auto"
+                  isEven ? "md:pr-[50%] md:text-right" : "md:pl-[50%] md:ml-auto"
                 )}
               >
                 <div className={cn(

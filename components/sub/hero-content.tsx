@@ -67,7 +67,7 @@ export const HeroContent = () => {
             href="mailto:tahmidbintaslimrafi@gmail.com"
             className="py-2 px-6 text-center text-white cursor-pointer rounded-lg border-2 border-purple-500/50 hover:bg-purple-500/10 w-full sm:w-auto hover:scale-105 transition-all duration-300"
           >
-            Download CV
+            Contact via Email
           </a>
         </motion.div>
       </div>
