@@ -36,6 +36,22 @@ export const SkillDataProvider = ({
 
   const animationDelay = 0.1;
 
+  // Infinite color change animation for the icon container
+  const colorChangeAnimation = {
+    filter: [
+      "hue-rotate(0deg) saturate(1)",
+      "hue-rotate(45deg) saturate(1.2)",
+      "hue-rotate(90deg) saturate(1.4)",
+      "hue-rotate(135deg) saturate(1.2)",
+      "hue-rotate(180deg) saturate(1)",
+      "hue-rotate(225deg) saturate(1.2)",
+      "hue-rotate(270deg) saturate(1.4)",
+      "hue-rotate(315deg) saturate(1.2)",
+      "hue-rotate(360deg) saturate(1)",
+    ],
+    scale: [1, 1.05, 1, 1.05, 1, 1.05, 1, 1.05, 1],
+  };
+
   // Get SVG icon component based on name
   const getSvgIcon = () => {
     if (!svgIcon) return null;
@@ -87,23 +103,34 @@ export const SkillDataProvider = ({
       aria-label={`${name} skill`}
       title={name}
     >
-      {src ? (
-        <Image 
-          src={`/skills/${src}`} 
-          width={width} 
-          height={height} 
-          alt={`${name} logo`}
-          className="transition-transform duration-300 hover:scale-110"
-        />
-      ) : svgIconComponent ? (
-        <div className="flex items-center justify-center transition-transform duration-300 hover:scale-110">
-          {svgIconComponent}
-        </div>
-      ) : (
-        <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300 hover:scale-110">
-          {name}
-        </div>
-      )}
+      <motion.div
+        animate={colorChangeAnimation}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "linear",
+          delay: index * 0.5, // Stagger the animation start for each icon
+        }}
+        className="flex items-center justify-center"
+      >
+        {src ? (
+          <Image 
+            src={`/skills/${src}`} 
+            width={width} 
+            height={height} 
+            alt={`${name} logo`}
+            className="transition-transform duration-300 hover:scale-110"
+          />
+        ) : svgIconComponent ? (
+          <div className="flex items-center justify-center transition-transform duration-300 hover:scale-110">
+            {svgIconComponent}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300 hover:scale-110">
+            {name}
+          </div>
+        )}
+      </motion.div>
       
       {/* Tooltip for SEO and accessibility */}
       {showTooltip && (
