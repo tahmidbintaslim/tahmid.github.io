@@ -143,13 +143,15 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                   onClick={item.action}
                   whileTap={{ scale: 0.9 }}
                   className="group relative"
+                  aria-label={item.label}
+                  title={item.label}
                 >
                   {/* Glow effect */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${item.gradient} rounded-xl blur opacity-0 group-hover:opacity-50 group-active:opacity-70 transition-opacity duration-300`} />
                   
-                  {/* Button */}
+                  {/* Button - Icon Only */}
                   <div className={`
-                    relative flex items-center gap-2 px-6 py-2.5 rounded-xl
+                    relative flex items-center justify-center w-10 h-10 rounded-xl
                     bg-gradient-to-r ${item.gradient} bg-opacity-10
                     border border-white/20
                     backdrop-blur-sm
@@ -157,8 +159,7 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                     group-hover:border-white/30
                     group-active:scale-95
                   `}>
-                    <Icon className="h-4 w-4 text-white" />
-                    <span className="text-sm font-medium text-white">{item.label}</span>
+                    <Icon className="h-5 w-5 text-white" />
                   </div>
                 </motion.button>
               );

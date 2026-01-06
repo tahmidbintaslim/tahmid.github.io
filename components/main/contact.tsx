@@ -5,6 +5,7 @@ import { SparklesIcon } from "@heroicons/react/24/solid";
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/24/outline";
 import { slideInFromLeft, slideInFromRight, slideInFromTop } from "@/lib/motion";
 import { useState, useEffect, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 export const Contact = () => {
   const [formState, setFormState] = useState({
@@ -39,18 +40,62 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus("idle");
 
-    // Simulate form submission (Note: This is a demo form and doesn't actually send messages)
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setSubmitStatus("success");
-    setFormState({ name: "", email: "", subject: "", message: "" });
+    try {
+      // EmailJS configuration
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
 
-    // Reset success message after 5 seconds
-    timeoutRef.current = setTimeout(() => {
-      setSubmitStatus("idle");
-    }, 5000);
+      // Check if EmailJS is configured
+      if (!serviceId || !templateId || !publicKey) {
+        console.error('EmailJS is not configured. Please set up environment variables.');
+        setSubmitStatus("error");
+        setIsSubmitting(false);
+        
+        // Reset error message after 5 seconds
+        timeoutRef.current = setTimeout(() => {
+          setSubmitStatus("idle");
+        }, 5000);
+        return;
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formState.name,
+        from_email: formState.email,
+        subject: formState.subject,
+        message: formState.message,
+        to_email: 'tahmidbintaslimrafi@gmail.com',
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+      
+      setIsSubmitting(false);
+      setSubmitStatus("success");
+      setFormState({ name: "", email: "", subject: "", message: "" });
+
+      // Reset success message after 5 seconds
+      timeoutRef.current = setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 5000);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setIsSubmitting(false);
+      setSubmitStatus("error");
+      
+      // Reset error message after 5 seconds
+      timeoutRef.current = setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 5000);
+    }
   };
 
   const contactInfo = [
@@ -277,9 +322,22 @@ export const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 text-center"
               >
-                <p className="font-semibold">Form submitted successfully!</p>
+                <p className="font-semibold">Message sent successfully!</p>
                 <p className="text-sm mt-1 text-green-300">
-                  Note: This is a demo form. Please contact me directly via email for actual inquiries.
+                  Thank you for reaching out! I&apos;ll get back to you soon.
+                </p>
+              </motion.div>
+            )}
+
+            {submitStatus === "error" && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-center"
+              >
+                <p className="font-semibold">Failed to send message</p>
+                <p className="text-sm mt-1 text-red-300">
+                  Please try again or contact me directly at tahmidbintaslimrafi@gmail.com
                 </p>
               </motion.div>
             )}
