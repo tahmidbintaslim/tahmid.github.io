@@ -44,13 +44,13 @@ const partners = [
 
 export default function PartnersScroll() {
   return (
-    <section className="w-full py-16 overflow-hidden bg-gradient-to-b from-transparent via-[#030014] to-transparent">
-      <div className="w-full px-6">
+    <section className="w-full py-16 bg-gradient-to-b from-transparent via-[#030014] to-transparent">
+      <div className="w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-12 px-6"
         >
           <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">
             Partnered With
@@ -61,19 +61,19 @@ export default function PartnersScroll() {
         </motion.div>
 
         {/* Infinite Scroll Container */}
-        <div className="relative">
-          {/* Improved Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-[#030014] via-[#030014]/90 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-[#030014] via-[#030014]/90 to-transparent z-10 pointer-events-none" />
+        <div className="relative overflow-hidden">
+          {/* Enhanced Gradient Overlays - Full width edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-48 md:w-64 bg-gradient-to-r from-[#030014] via-[#030014]/95 via-[#030014]/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-48 md:w-64 bg-gradient-to-l from-[#030014] via-[#030014]/95 via-[#030014]/80 to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling Partner Cards */}
-          <div className="flex animate-scroll-infinite">
-            {partners.concat(partners).map((partner, index) => {
+          <div className="flex animate-scroll-infinite py-4">
+            {partners.concat(partners).concat(partners).map((partner, index) => {
               const Icon = partner.icon;
               return (
                 <div
                   key={`partner-${index}`}
-                  className="flex-shrink-0 mx-6 flex items-center justify-center"
+                  className="flex-shrink-0 mx-4 flex items-center justify-center"
                   style={{ width: "280px" }}
                 >
                   <div className={`rounded-2xl bg-gradient-to-br ${partner.bgGradient} backdrop-blur-xl border border-white/10 p-6 hover:border-white/30 hover:bg-white/5 transition-all duration-300 hover:scale-105 hover:shadow-2xl w-full h-36 flex flex-col items-center justify-center gap-3 group`}>
@@ -103,12 +103,12 @@ export default function PartnersScroll() {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(calc(-100% / 3));
           }
         }
 
         .animate-scroll-infinite {
-          animation: scroll-infinite 40s linear infinite;
+          animation: scroll-infinite 60s linear infinite;
           width: max-content;
         }
 

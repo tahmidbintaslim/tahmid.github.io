@@ -1,4 +1,4 @@
-import { FaFacebook, FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaYoutube, FaCoffee, FaEnvelope } from "react-icons/fa";
 import {
   RxDiscordLogo,
   RxGithubLogo,
@@ -520,17 +520,17 @@ export const FOOTER_DATA = [
     data: [
       {
         name: "Buy Me a Coffee",
-        icon: null,
+        icon: FaCoffee,
         link: "https://www.buymeacoffee.com/09071998",
       },
       {
-        name: "Github",
-        icon: null,
+        name: "GitHub",
+        icon: RxGithubLogo,
         link: "https://github.com/tahmidbintaslim/",
       },
       {
         name: "Contact Me",
-        icon: null,
+        icon: FaEnvelope,
         link: "mailto:tahmidbintaslimrafi@gmail.com",
       },
     ],

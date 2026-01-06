@@ -23,8 +23,12 @@ interface WeatherData {
   icon: string;
 }
 
-export default function LocationWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+interface LocationWidgetProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export default function LocationWidget({ isOpen, setIsOpen }: LocationWidgetProps) {
   const [locationData, setLocationData] = useState<LocationData | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -127,7 +131,7 @@ export default function LocationWidget() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-6 top-32 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
+        className="hidden md:flex fixed right-4 md:right-6 top-32 z-[45] h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
         aria-label="Toggle location widget"
       >
         <IoLocationSharp className="h-5 w-5 text-purple-400" />
@@ -141,7 +145,7 @@ export default function LocationWidget() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[44]"
             />
 
             <motion.div
@@ -149,7 +153,7 @@ export default function LocationWidget() {
               animate={{ x: 0 }}
               exit={{ x: 400 }}
               transition={{ type: "spring", damping: 25 }}
-              className="fixed right-0 top-0 h-full w-80 bg-[#030014]/95 backdrop-blur-xl border-l border-white/10 z-50 overflow-y-auto"
+              className="fixed right-0 top-0 h-full w-full sm:w-80 max-w-md bg-[#030014]/95 backdrop-blur-xl border-l border-white/10 z-[45] overflow-y-auto"
             >
               <div className="sticky top-0 bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 p-6">
                 <div className="flex items-center justify-between">

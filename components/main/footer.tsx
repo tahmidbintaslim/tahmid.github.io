@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { FOOTER_DATA } from "@/constants";
+import { SiGooglecloud, SiOpenai } from "react-icons/si";
+import { FaLock, FaUniversalAccess, FaRobot } from "react-icons/fa";
 
 export const Footer = () => {
   return (
@@ -48,6 +50,45 @@ export const Footer = () => {
         {/* Divider */}
         <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent mb-8" />
 
+        {/* Certifications & Badges Section */}
+        <div className="flex flex-col items-center gap-6 mb-8">
+          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Certifications & Compliance</h3>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {/* Security Badge */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/30 hover:border-green-500/60 transition-all duration-300">
+              <FaLock className="text-green-400 text-lg" />
+              <span className="text-xs font-medium text-gray-300">SSL Secured</span>
+            </div>
+
+            {/* Accessibility Badge */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300">
+              <FaUniversalAccess className="text-blue-400 text-lg" />
+              <span className="text-xs font-medium text-gray-300">Accessibility-Focused</span>
+            </div>
+
+            {/* AI-Ready Badge */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300">
+              <FaRobot className="text-purple-400 text-lg" />
+              <span className="text-xs font-medium text-gray-300">AI-Ready (LLM.txt)</span>
+            </div>
+
+            {/* Google Cloud Expertise */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-blue-400/10 to-cyan-400/10 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300">
+              <SiGooglecloud className="text-blue-400 text-lg" />
+              <span className="text-xs font-medium text-gray-300">Google Cloud</span>
+            </div>
+
+            {/* OpenAI Integration */}
+            <div className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-green-400/10 to-emerald-400/10 border border-green-400/30 hover:border-green-400/60 transition-all duration-300">
+              <SiOpenai className="text-green-400 text-lg" />
+              <span className="text-xs font-medium text-gray-300">OpenAI Expert</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent mb-8" />
+
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Copyright */}
@@ -55,13 +96,30 @@ export const Footer = () => {
             &copy; {new Date().getFullYear()} <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 font-semibold">TBTR</span>. All rights reserved.
           </div>
 
-          {/* Social Links or Additional Info */}
+          {/* Links */}
           <div className="flex items-center gap-6">
             <a 
               href="mailto:tahmidbintaslimrafi@gmail.com" 
               className="text-sm text-gray-400 hover:text-purple-400 transition-colors duration-300"
             >
               Contact
+            </a>
+            <a 
+              href="/sitemap.xml" 
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-sm text-gray-400 hover:text-cyan-400 transition-colors duration-300"
+            >
+              Sitemap
+            </a>
+            <a 
+              href="/llm.txt" 
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-300"
+              title="AI/LLM-ready information file"
+            >
+              LLM.txt
             </a>
             <a 
               href="https://github.com/tahmidbintaslim/tahmid.github.io" 

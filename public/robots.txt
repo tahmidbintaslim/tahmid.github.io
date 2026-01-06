@@ -1,0 +1,13 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Note: Crawl-delay is not supported by all search engines (Google ignores this directive)
+# For Google, control crawl rate through Google Search Console
+
+# Sitemap location
+Sitemap: https://tahmid.space/sitemap.xml
+
+# Disallow specific paths if needed (currently allowing all)
+# Disallow: /api/
+# Disallow: /admin/

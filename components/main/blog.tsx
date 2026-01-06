@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon, MagnifyingGlassIcon, FunnelIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 
 type BlogPost = {
   title: string;
@@ -20,15 +21,22 @@ const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Filter and sort states
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPlatform, setSelectedPlatform] = useState<"all" | "Medium" | "Dev.to">("all");
+  const [sortBy, setSortBy] = useState<"latest" | "oldest">("latest");
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 9;
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        // Since we can't directly fetch RSS feeds due to CORS, we'll use a proxy or mock data
-        // In production, you'd want to use a serverless function or backend API
-        
-        // For now, we'll use mock data - in production, replace with actual RSS feed fetching
+        // Mock data - in production, replace with actual RSS feed fetching
         const mockPosts: BlogPost[] = [
           {
             title: "Building Scalable E-commerce Platforms with Shopify Plus",
@@ -84,6 +92,33 @@ const Blog = () => {
             readTime: "9 min read",
             coverImage: "/blog/react-performance.jpg",
           },
+          {
+            title: "Microservices Architecture with Node.js",
+            link: "https://medium.com/@tahmidbintaslimrafi",
+            pubDate: "2023-07-15",
+            description: "Building scalable microservices with Node.js, Docker, and Kubernetes for enterprise applications.",
+            platform: "Medium",
+            readTime: "13 min read",
+            coverImage: "/blog/nodejs-realtime.jpg",
+          },
+          {
+            title: "TypeScript Best Practices for 2024",
+            link: "https://dev.to/tahmidbintaslim",
+            pubDate: "2023-06-10",
+            description: "Essential TypeScript patterns and practices for building maintainable and type-safe applications.",
+            platform: "Dev.to",
+            readTime: "7 min read",
+            coverImage: "/blog/nextjs-fullstack.jpg",
+          },
+          {
+            title: "Serverless Functions with AWS Lambda",
+            link: "https://medium.com/@tahmidbintaslimrafi",
+            pubDate: "2023-05-20",
+            description: "Complete guide to building and deploying serverless functions using AWS Lambda and API Gateway.",
+            platform: "Medium",
+            readTime: "14 min read",
+            coverImage: "/blog/cloud-aws.jpg",
+          },
         ];
 
         setPosts(mockPosts);
@@ -99,6 +134,42 @@ const Blog = () => {
     fetchBlogs();
   }, []);
 
+  // Filter, sort and paginate posts
+  const filteredAndSortedPosts = useMemo(() => {
+    let filtered = posts.filter((post) => {
+      const matchesSearch =
+        searchQuery === "" ||
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesPlatform =
+        selectedPlatform === "all" || post.platform === selectedPlatform;
+
+      return matchesSearch && matchesPlatform;
+    });
+
+    // Sort posts
+    filtered.sort((a, b) => {
+      const dateA = new Date(a.pubDate).getTime();
+      const dateB = new Date(b.pubDate).getTime();
+      return sortBy === "latest" ? dateB - dateA : dateA - dateB;
+    });
+
+    return filtered;
+  }, [posts, searchQuery, selectedPlatform, sortBy]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedPosts.length / articlesPerPage);
+  const paginatedPosts = filteredAndSortedPosts.slice(
+    (currentPage - 1) * articlesPerPage,
+    currentPage * articlesPerPage
+  );
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedPlatform, sortBy]);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -108,28 +179,150 @@ const Blog = () => {
     });
   };
 
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedPlatform("all");
+    setSortBy("latest");
+    setCurrentPage(1);
+  };
+
+  const hasActiveFilters = searchQuery !== "" || selectedPlatform !== "all" || sortBy !== "latest";
+
   return (
     <section
       id="blog"
-      className="flex flex-col items-center justify-center py-20 px-4"
+      className="flex flex-col items-center justify-center py-12 md:py-16 lg:py-20 px-4"
     >
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[40px] font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500 mb-4">
-              Latest Articles & Insights
+            <h1 className="text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center mb-3 md:mb-4 leading-tight">
+              <span className="text-white">Latest Articles </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+                & Insights
+              </span>
             </h1>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto px-4">
               Sharing knowledge and experiences on full-stack development, cloud architecture,
               and modern web technologies
             </p>
           </motion.div>
+        </div>
+
+        {/* Search, Filter, and Sort Bar */}
+        <div className="mb-8 space-y-4">
+          {/* Search Bar */}
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              type="text"
+              className="w-full pl-10 pr-4 py-3 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+              placeholder="Search articles by title or description..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          {/* Filter and Sort Controls */}
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 px-4 py-3 md:py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors min-h-[44px]"
+              >
+                <FunnelIcon className="w-5 h-5" />
+                <span>Filters</span>
+              </button>
+
+              {/* Sort - More prominent */}
+              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px]">
+                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
+                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6"
+                >
+                  <option value="latest">Latest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+                <svg className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Article Count */}
+              <span className="text-gray-400 text-sm">
+                Showing {paginatedPosts.length} of {filteredAndSortedPosts.length} articles
+              </span>
+
+              {hasActiveFilters && (
+                <button
+                  onClick={resetFilters}
+                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm min-h-[44px]"
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Filter Options (Collapsible) */}
+          {showFilters && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="p-4 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg space-y-4"
+            >
+              {/* Platform Filter */}
+              <div>
+                <label className="block text-gray-300 text-sm font-semibold mb-2">Platform</label>
+                <div className="flex gap-2 flex-wrap">
+                  <button
+                    onClick={() => setSelectedPlatform("all")}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      selectedPlatform === "all"
+                        ? "bg-purple-500 text-white"
+                        : "bg-purple-500/20 text-gray-300 hover:bg-purple-500/30"
+                    }`}
+                  >
+                    All
+                  </button>
+                  <button
+                    onClick={() => setSelectedPlatform("Medium")}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      selectedPlatform === "Medium"
+                        ? "bg-green-500 text-white"
+                        : "bg-green-500/20 text-gray-300 hover:bg-green-500/30"
+                    }`}
+                  >
+                    Medium
+                  </button>
+                  <button
+                    onClick={() => setSelectedPlatform("Dev.to")}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      selectedPlatform === "Dev.to"
+                        ? "bg-purple-600 text-white"
+                        : "bg-purple-600/20 text-gray-300 hover:bg-purple-600/30"
+                    }`}
+                  >
+                    Dev.to
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Loading State */}
@@ -153,12 +346,12 @@ const Blog = () => {
         )}
 
         {/* Blog Posts Grid */}
-        {!loading && !error && posts.length > 0 && (
+        {!loading && !error && paginatedPosts.length > 0 && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {posts.map((post, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {paginatedPosts.map((post, index) => (
                 <motion.div
-                  key={index}
+                  key={`${post.title}-${index}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -174,17 +367,28 @@ const Blog = () => {
                   >
                     <div className="h-full bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e] border border-purple-500/30 rounded-lg overflow-hidden hover:border-purple-500/60 transition-all duration-300 flex flex-col">
                       {/* Cover Image */}
-                      {post.coverImage && (
-                        <div className="relative w-full h-48 overflow-hidden">
-                          <Image
-                            src={post.coverImage}
-                            alt={post.title}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
-                        </div>
-                      )}
+                      <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-purple-500/20 to-cyan-500/20">
+                        {post.coverImage ? (
+                          <>
+                            <Image
+                              src={post.coverImage}
+                              alt={post.title}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                              onError={(e) => {
+                                // Hide image on error and show gradient background
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
+                          </>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <BookOpenIcon className="w-16 h-16 text-purple-400/40" />
+                          </div>
+                        )}
+                      </div>
 
                       {/* Content */}
                       <div className="p-6 flex flex-col flex-1">
@@ -203,12 +407,12 @@ const Blog = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2">
+                        <h3 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2 leading-tight">
                           {post.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-1 line-clamp-3">
+                        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 flex-1 line-clamp-3">
                           {post.description}
                         </p>
 
@@ -232,8 +436,47 @@ const Blog = () => {
               ))}
             </div>
 
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                  disabled={currentPage === 1}
+                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeftIcon className="w-5 h-5" />
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${
+                      currentPage === page
+                        ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
+                        : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
+                    }`}
+                    aria-label={`Go to page ${page}`}
+                    aria-current={currentPage === page ? "page" : undefined}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                <button
+                  onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label="Next page"
+                >
+                  <ChevronRightIcon className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+
             {/* View All Links */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
               <Link
                 href="https://medium.com/@tahmidbintaslimrafi"
                 target="_blank"
@@ -254,6 +497,19 @@ const Blog = () => {
               </Link>
             </div>
           </>
+        )}
+
+        {/* No Results State */}
+        {!loading && !error && paginatedPosts.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-gray-400 text-lg mb-4">No articles found matching your criteria.</p>
+            <button
+              onClick={resetFilters}
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+            >
+              Reset Filters
+            </button>
+          </div>
         )}
       </div>
     </section>

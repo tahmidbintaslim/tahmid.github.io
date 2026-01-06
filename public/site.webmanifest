@@ -1,0 +1,28 @@
+{
+  "name": "Tahmid Bin Taslim Rafi - Senior Software Engineer",
+  "short_name": "Tahmid's Portfolio",
+  "description": "Senior Software Engineer with 6+ years of experience in full-stack development, AI/ML, and cloud-native architecture.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#030014",
+  "background_color": "#030014",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "developer", "technology"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
