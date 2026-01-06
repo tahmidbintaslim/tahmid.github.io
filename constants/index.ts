@@ -7,48 +7,13 @@ import {
   RxTwitterLogo,
 } from "react-icons/rx";
 
-export const SKILL_DATA = [
-  {
-    skill_name: "HTML",
-    image: "html.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "CSS",
-    image: "css.png",
-    width: 80,
-    height: 80,
-  },
+// Core Languages - No duplicates, organized properly
+export const LANGUAGES_SKILL = [
   {
     skill_name: "JavaScript",
     image: "js.png",
     width: 65,
     height: 65,
-  },
-  {
-    skill_name: "Tailwind CSS",
-    image: "tailwind.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "React",
-    image: "react.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "Redux",
-    image: "redux.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "React Query",
-    image: "reactquery.png",
-    width: 80,
-    height: 80,
   },
   {
     skill_name: "TypeScript",
@@ -57,34 +22,26 @@ export const SKILL_DATA = [
     height: 80,
   },
   {
-    skill_name: "Next.js 14",
-    image: "next.png",
+    skill_name: "Python",
+    category: "language",
+  },
+  {
+    skill_name: "PHP",
+    category: "language",
+  },
+  {
+    skill_name: "Rust",
+    category: "language",
+  },
+  {
+    skill_name: "Go",
+    image: "go.png",
     width: 80,
     height: 80,
   },
   {
-    skill_name: "Framer Motion",
-    image: "framer.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "Stripe",
-    image: "stripe.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "Node.js",
-    image: "node.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "MongoDB",
-    image: "mongodb.png",
-    width: 40,
-    height: 40,
+    skill_name: "Ruby",
+    category: "language",
   },
 ] as const;
 
@@ -116,18 +73,6 @@ export const FRONTEND_SKILL = [
   {
     skill_name: "CSS",
     image: "css.png",
-    width: 80,
-    height: 80,
-  },
-  {
-    skill_name: "JavaScript",
-    image: "js.png",
-    width: 65,
-    height: 65,
-  },
-  {
-    skill_name: "TypeScript",
-    image: "ts.png",
     width: 80,
     height: 80,
   },
@@ -167,6 +112,18 @@ export const FRONTEND_SKILL = [
     width: 80,
     height: 80,
   },
+  {
+    skill_name: "Vue.js",
+    category: "frontend",
+  },
+  {
+    skill_name: "Remix",
+    category: "frontend",
+  },
+  {
+    skill_name: "Angular",
+    category: "frontend",
+  },
 ] as const;
 
 export const BACKEND_SKILL = [
@@ -188,6 +145,29 @@ export const BACKEND_SKILL = [
     width: 80,
     height: 80,
   },
+  {
+    skill_name: "Django",
+    category: "backend",
+  },
+  {
+    skill_name: "Flask",
+    category: "backend",
+  },
+  {
+    skill_name: "FastAPI",
+    category: "backend",
+  },
+  {
+    skill_name: "Laravel",
+    category: "backend",
+  },
+  {
+    skill_name: "Ruby on Rails",
+    category: "backend",
+  },
+] as const;
+
+export const DATABASE_SKILL = [
   {
     skill_name: "MongoDB",
     image: "mongodb.png",
@@ -218,18 +198,83 @@ export const BACKEND_SKILL = [
     width: 55,
     height: 55,
   },
+  {
+    skill_name: "Redis",
+    category: "database",
+  },
+  {
+    skill_name: "TypeORM",
+    category: "database",
+  },
 ] as const;
 
-export const FULLSTACK_SKILL = [
+export const CLOUD_DEVOPS_SKILL = [
   {
-    skill_name: "React Native",
-    image: "reactnative.png",
+    skill_name: "Docker",
+    image: "docker.png",
     width: 70,
     height: 70,
   },
   {
-    skill_name: "Docker",
-    image: "docker.png",
+    skill_name: "AWS",
+    category: "cloud",
+  },
+  {
+    skill_name: "GCP",
+    category: "cloud",
+  },
+  {
+    skill_name: "Azure",
+    category: "cloud",
+  },
+  {
+    skill_name: "Kubernetes",
+    category: "devops",
+  },
+  {
+    skill_name: "Terraform",
+    category: "devops",
+  },
+  {
+    skill_name: "CI/CD",
+    category: "devops",
+  },
+] as const;
+
+export const ECOMMERCE_SKILL = [
+  {
+    skill_name: "Shopify/Plus",
+    category: "ecommerce",
+  },
+  {
+    skill_name: "WordPress",
+    category: "ecommerce",
+  },
+  {
+    skill_name: "Headless CMS",
+    category: "ecommerce",
+  },
+] as const;
+
+export const AI_ML_SKILL = [
+  {
+    skill_name: "OpenAI",
+    category: "ai",
+  },
+  {
+    skill_name: "TensorFlow",
+    category: "ai",
+  },
+  {
+    skill_name: "PyTorch",
+    category: "ai",
+  },
+] as const;
+
+export const TOOLS_OTHER_SKILL = [
+  {
+    skill_name: "React Native",
+    image: "reactnative.png",
     width: 70,
     height: 70,
   },
@@ -245,14 +290,11 @@ export const FULLSTACK_SKILL = [
     width: 70,
     height: 70,
   },
-] as const;
-
-export const OTHER_SKILL = [
   {
-    skill_name: "Go",
-    image: "go.png",
-    width: 60,
-    height: 60,
+    skill_name: "Stripe",
+    image: "stripe.png",
+    width: 80,
+    height: 80,
   },
 ] as const;
 
