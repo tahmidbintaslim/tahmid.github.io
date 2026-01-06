@@ -12,9 +12,13 @@ import {
   TOOLS_OTHER_SKILL,
 } from "@/constants";
 
-// Helper to safely extract image property
+// Helper to safely extract properties
 const getSkillImage = (skill: any): string | undefined => {
   return "image" in skill ? skill.image : undefined;
+};
+
+const getSkillSvgIcon = (skill: any): string | undefined => {
+  return "svgIcon" in skill ? skill.svgIcon : undefined;
 };
 
 const getSkillWidth = (skill: any): number => {
@@ -44,6 +48,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -63,6 +68,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -82,6 +88,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -101,6 +108,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -120,6 +128,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -139,6 +148,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -158,6 +168,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}
@@ -177,6 +188,7 @@ export const Skills = () => {
             <SkillDataProvider
               key={skill.skill_name}
               src={getSkillImage(skill)}
+              svgIcon={getSkillSvgIcon(skill)}
               name={skill.skill_name}
               width={getSkillWidth(skill)}
               height={getSkillHeight(skill)}

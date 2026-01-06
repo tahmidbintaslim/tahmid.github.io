@@ -23,15 +23,21 @@ export const LANGUAGES_SKILL = [
   },
   {
     skill_name: "Python",
-    category: "language",
+    svgIcon: "python",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "PHP",
-    category: "language",
+    svgIcon: "php",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Rust",
-    category: "language",
+    svgIcon: "rust",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Go",
@@ -41,7 +47,9 @@ export const LANGUAGES_SKILL = [
   },
   {
     skill_name: "Ruby",
-    category: "language",
+    svgIcon: "ruby",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
@@ -114,15 +122,21 @@ export const FRONTEND_SKILL = [
   },
   {
     skill_name: "Vue.js",
-    category: "frontend",
+    svgIcon: "vue",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Remix",
-    category: "frontend",
+    svgIcon: "remix",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Angular",
-    category: "frontend",
+    svgIcon: "angular",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
@@ -147,23 +161,33 @@ export const BACKEND_SKILL = [
   },
   {
     skill_name: "Django",
-    category: "backend",
+    svgIcon: "django",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Flask",
-    category: "backend",
+    svgIcon: "flask",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "FastAPI",
-    category: "backend",
+    svgIcon: "fastapi",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Laravel",
-    category: "backend",
+    svgIcon: "laravel",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Ruby on Rails",
-    category: "backend",
+    svgIcon: "laravel",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
@@ -200,11 +224,15 @@ export const DATABASE_SKILL = [
   },
   {
     skill_name: "Redis",
-    category: "database",
+    svgIcon: "redis",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "TypeORM",
-    category: "database",
+    svgIcon: "typeorm",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
@@ -217,57 +245,81 @@ export const CLOUD_DEVOPS_SKILL = [
   },
   {
     skill_name: "AWS",
-    category: "cloud",
+    svgIcon: "aws",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "GCP",
-    category: "cloud",
+    svgIcon: "gcp",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Azure",
-    category: "cloud",
+    svgIcon: "azure",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Kubernetes",
-    category: "devops",
+    svgIcon: "kubernetes",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Terraform",
-    category: "devops",
+    svgIcon: "cicd",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "CI/CD",
-    category: "devops",
+    svgIcon: "cicd",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
 export const ECOMMERCE_SKILL = [
   {
     skill_name: "Shopify/Plus",
-    category: "ecommerce",
+    svgIcon: "shopify",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "WordPress",
-    category: "ecommerce",
+    svgIcon: "wordpress",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "Headless CMS",
-    category: "ecommerce",
+    svgIcon: "shopify",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
 export const AI_ML_SKILL = [
   {
     skill_name: "OpenAI",
-    category: "ai",
+    svgIcon: "openai",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "TensorFlow",
-    category: "ai",
+    svgIcon: "tensorflow",
+    width: 70,
+    height: 70,
   },
   {
     skill_name: "PyTorch",
-    category: "ai",
+    svgIcon: "pytorch",
+    width: 70,
+    height: 70,
   },
 ] as const;
 
