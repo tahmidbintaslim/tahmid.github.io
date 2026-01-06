@@ -150,7 +150,9 @@ export const About = () => {
           across e-commerce, SaaS, real estate, and marketing technology, working with companies like{" "}
           <span className="text-cyan-400 font-semibold">Marion&apos;s Kitchen Group</span>,{" "}
           <span className="text-cyan-400 font-semibold">Trienpont International</span>,{" "}
-          <span className="text-cyan-400 font-semibold">Relevant Audience</span>, and more. 
+          <span className="text-cyan-400 font-semibold">Relevant Audience</span>, and more.
+        </p>
+        <p className="mb-4">
           I also offer specialized services through <span className="text-cyan-400 font-semibold">Iglu</span> as a freelancing partner.
           I specialize in <span className="text-purple-400 font-semibold">Shopify/Shopify Plus development</span>, 
           <span className="text-purple-400 font-semibold"> AI/ML integration</span> with OpenAI and GPT models, 
