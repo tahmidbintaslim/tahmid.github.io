@@ -1,4 +1,5 @@
 import { About } from "@/components/main/about";
+import Blog from "@/components/main/blog";
 import { Contact } from "@/components/main/contact";
 import { Encryption } from "@/components/main/encryption";
 import { Hero } from "@/components/main/hero";
@@ -14,6 +15,7 @@ export default function Home() {
         <Skills />
         <Encryption />
         <ProjectsEnhanced />
+        <Blog />
         <Contact />
       </div>
     </main>
