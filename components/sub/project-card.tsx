@@ -12,6 +12,8 @@ type ProjectCardProps = {
   link: string;
   techStack?: readonly string[];
   role?: string;
+  company?: string;
+  year?: number;
 };
 
 export const ProjectCard = ({
@@ -21,6 +23,8 @@ export const ProjectCard = ({
   link,
   techStack = [],
   role,
+  company,
+  year,
 }: ProjectCardProps) => {
   return (
     <motion.div
@@ -53,8 +57,22 @@ export const ProjectCard = ({
           
           {/* Role Badge */}
           {role && (
-            <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-semibold">
+            <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-semibold shadow-lg">
               {role}
+            </div>
+          )}
+
+          {/* Company & Year Badge */}
+          {company && (
+            <div className="absolute bottom-4 left-4 flex flex-col gap-2">
+              <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-cyan-500/30 text-white text-xs font-medium shadow-lg">
+                <span className="text-cyan-400">@</span> {company}
+              </div>
+              {year && (
+                <div className="px-3 py-1 rounded-lg bg-black/60 backdrop-blur-sm border border-purple-500/30 text-purple-300 text-xs font-medium shadow-lg">
+                  {year}
+                </div>
+              )}
             </div>
           )}
         </div>

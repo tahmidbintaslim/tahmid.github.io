@@ -359,6 +359,8 @@ export const PROJECTS = [
     link: "https://amazingproperties.org/",
     techStack: ["React", "Next.js", "Node.js", "GraphQL", "Algolia AI", "WordPress"] as const,
     role: "Team Lead",
+    company: "Trienpont International",
+    year: 2023,
   },
   {
     title: "Scholl Thailand",
@@ -368,6 +370,8 @@ export const PROJECTS = [
     link: "https://schollshoesthailand.com/",
     techStack: ["Shopify Plus", "Python", "PHP", "Ruby", "CRM", "Payment Gateway"] as const,
     role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
   },
   {
     title: "Relevant Audience",
@@ -377,6 +381,8 @@ export const PROJECTS = [
     link: "https://www.relevantaudience.com/",
     techStack: ["WordPress", "PHP", "AlpineJS", "Tailwind CSS", "Twig"] as const,
     role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
   },
   {
     title: "Aroma Group",
@@ -386,6 +392,8 @@ export const PROJECTS = [
     link: "https://aromathailand.com/",
     techStack: ["WordPress", "React", "Node.js", "MongoDB", "Tailwind CSS"] as const,
     role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
   },
   {
     title: "Chao Doi",
@@ -395,6 +403,8 @@ export const PROJECTS = [
     link: "https://chaodoi.co.th/",
     techStack: ["WordPress", "Headless CMS", "API Integration", "CRM"] as const,
     role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
   },
   {
     title: "Plantoys Thailand",
@@ -404,6 +414,63 @@ export const PROJECTS = [
     link: "https://th.plantoys.com/",
     techStack: ["Shopify", "API Integration", "CRM", "Payment Gateway"] as const,
     role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
+  },
+  {
+    title: "Marion's Kitchen Shopify Headless",
+    description:
+      "Leading the development of full-stack Shopify Headless e-commerce platform using Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development and achieved ~40% sales boost through optimizations.",
+    image: "/projects/marions-kitchen.jpg",
+    link: "https://marions.co.th/",
+    techStack: ["Remix", "Node.js", "TypeScript", "Rust", "Shopify Plus"] as const,
+    role: "Senior Software Developer",
+    company: "Marion's Kitchen Group",
+    year: 2024,
+  },
+  {
+    title: "Klaviyo Marketing Integration",
+    description:
+      "Built scalable APIs for Klaviyo integrations at Marion's Kitchen, enabling advanced marketing personalization and campaign management with real-time data synchronization.",
+    image: "/projects/klaviyo-integration.jpg",
+    link: "https://marions.co.th/",
+    techStack: ["Node.js", "TypeScript", "Klaviyo API", "REST API"] as const,
+    role: "Senior Software Developer",
+    company: "Marion's Kitchen Group",
+    year: 2024,
+  },
+  {
+    title: "TCAS System",
+    description:
+      "Engineered a complex TCAS (Thai University Central Admission System) using Node.js, TypeScript, Vue.js, TypeORM, Redis, MongoDB, and AWS for scalable and robust performance.",
+    image: "/projects/tcas-system.jpg",
+    link: "#",
+    techStack: ["Node.js", "TypeScript", "Vue.js", "TypeORM", "Redis", "MongoDB", "AWS"] as const,
+    role: "Full Stack Developer",
+    company: "Relevant Audience",
+    year: 2022,
+  },
+  {
+    title: "Bettr Men's Facial Care",
+    description:
+      "Complete architectural revamp of Bettr's e-commerce website while at INFINITE AGENCY BKK. Developed custom Shopify theme and drove 20% sales increase through optimization.",
+    image: "/projects/bettr.jpg",
+    link: "#",
+    techStack: ["Shopify", "Liquid", "JavaScript", "CSS"] as const,
+    role: "Full Stack Developer",
+    company: "INFINITE AGENCY BKK",
+    year: 2021,
+  },
+  {
+    title: "Adaptivity GPT Chat Application",
+    description:
+      "Developed a custom chat application using OpenAI API and Python. Integrated GPT-3/GPT-3.5 models into internal systems for advanced conversational AI capabilities.",
+    image: "/projects/adaptivity-gpt.jpg",
+    link: "#",
+    techStack: ["Python", "OpenAI API", "GPT-3", "FastAPI"] as const,
+    role: "Full Stack Developer",
+    company: "Adaptivity",
+    year: 2021,
   },
 ] as const;
 
