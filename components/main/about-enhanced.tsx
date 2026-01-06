@@ -44,14 +44,13 @@ export const AboutEnhanced = () => {
     if (typeof window === "undefined") return;
     
     const ctx = gsap.context(() => {
-      // Animate stats cards on scroll
+      // Animate stats cards on scroll - stay visible after animation
       if (statsRef.current) {
         gsap.from(".stat-card", {
           scrollTrigger: {
             trigger: statsRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none", // Play once, stay visible
           },
           y: 100,
           opacity: 0,
@@ -61,14 +60,13 @@ export const AboutEnhanced = () => {
         });
       }
       
-      // Animate quick facts on scroll
+      // Animate quick facts on scroll - stay visible after animation
       if (quickFactsRef.current) {
         gsap.from(".quick-fact-card", {
           scrollTrigger: {
             trigger: quickFactsRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none", // Play once, stay visible
           },
           x: -100,
           opacity: 0,
@@ -78,14 +76,13 @@ export const AboutEnhanced = () => {
         });
       }
       
-      // Animate expertise section
+      // Animate expertise section - stay visible after animation
       if (expertiseRef.current) {
         gsap.from(".expertise-card", {
           scrollTrigger: {
             trigger: expertiseRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none", // Play once, stay visible
           },
           scale: 0.8,
           opacity: 0,
