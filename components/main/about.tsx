@@ -31,32 +31,46 @@ export const About = () => {
 
   const timeline = [
     {
-      year: "2024 - Present",
-      title: "Senior Software Engineer",
-      company: "Iglu",
+      year: "March 2024 - Present",
+      title: "Senior Software Developer",
+      company: "Marion's Kitchen Group",
       description:
-        "Leading full-stack development initiatives, architecting cloud-native SaaS solutions with AI/ML integration. Building GPT-powered automation systems and scalable microservices on AWS serving 10,000+ users.",
+        "Leading full-stack Shopify Headless development with Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development, optimized e-commerce pipelines achieving ~40% sales boost, architected internal SaaS solutions, and built scalable Klaviyo integration APIs for advanced marketing automation.",
     },
     {
-      year: "2022 - 2024",
+      year: "May 2023 - February 2024",
+      title: "Senior Software Developer",
+      company: "Trienpont International",
+      description:
+        "Led Full Stack Development team for real estate project, architecting robust Node.js APIs and Next.js/React front-ends. Optimized cloud deployments for enhanced performance, developed custom WordPress APIs/plugins, contributed to Ruby on Rails projects, and implemented comprehensive CI/CD workflows.",
+    },
+    {
+      year: "November 2021 - May 2023",
       title: "Full Stack Developer",
-      company: "Relevant Audience Co. Ltd",
+      company: "Relevant Audience",
       description:
-        "Developed enterprise e-commerce platforms using Shopify Plus and headless WordPress. Integrated complex API systems (Python, PHP, Ruby), CRM automation, and achieved 99.9% uptime for Fortune 500 clients.",
+        "Directed technical team on high-impact projects. Engineered complex TCAS System using Node.js, TypeScript, Vue.js, TypeORM, Redis, MongoDB, AWS. Built custom e-commerce on WordPress/Shopify, developed AI-driven SEO tools in Python, and integrated enterprise solutions (Cal.com, Chatwoot, Outline).",
     },
     {
-      year: "2019 - 2022",
+      year: "June 2021 - September 2021",
+      title: "Full Stack Developer",
+      company: "INFINITE AGENCY BKK",
+      description:
+        "Drove 20% sales increase through e-commerce pipeline optimization on Shopify. Developed custom themes, executed comprehensive architectural revamp of Bettr Men's Facial Care website, and managed full website architecture for various e-commerce projects.",
+    },
+    {
+      year: "April 2021 - September 2021",
+      title: "Full Stack Developer",
+      company: "Adaptivity",
+      description:
+        "Led strategic redesign of Adaptivity's brand website, revitalized WordPress theme. Developed custom chat application using OpenAI API and Python, integrated GPT-3/GPT-3.5 models into internal systems, and implemented comprehensive performance improvements.",
+    },
+    {
+      year: "September 2020 - June 2021",
       title: "Software Developer",
-      company: "Trienpont",
+      company: "Scalia Ventures",
       description:
-        "Built scalable real estate web applications using React, Next.js, and GraphQL with Algolia AI search. Led team development efforts and managed full-stack headless CMS implementations.",
-    },
-    {
-      year: "2018",
-      title: "Started Career",
-      company: "Freelance",
-      description:
-        "Began journey in web development, focusing on modern JavaScript frameworks, responsive design, and WordPress/Shopify customizations. Built foundation in full-stack development and cloud technologies.",
+        "Successfully delivered 20+ custom web development projects for leading conglomerate agency. Demonstrated expertise in WordPress, Shopify, and custom solutions across restaurants, real estate, fashion, finance, and trading sectors.",
     },
   ];
 
@@ -127,34 +141,37 @@ export const About = () => {
           I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 6 years of hands-on experience 
           in building modern, scalable, and user-centric applications. My expertise spans the 
           entire technology stack - from crafting beautiful, responsive front-ends with{" "}
-          <span className="text-cyan-400 font-semibold">React, Vue, Next.js, Angular</span> to architecting 
+          <span className="text-cyan-400 font-semibold">React, Vue, Next.js, Remix</span> to architecting 
           robust, cloud-native back-end systems with{" "}
-          <span className="text-cyan-400 font-semibold">Node.js, Django, Flask, FastAPI, Laravel</span>.
+          <span className="text-cyan-400 font-semibold">Node.js, Python, TypeScript, Ruby on Rails</span>.
         </p>
         <p className="mb-4">
           Throughout my career, I&apos;ve delivered <span className="text-purple-400 font-semibold">20+ enterprise projects</span>{" "}
-          across fintech, SaaS, and real estate, working with leading companies like{" "}
-          <span className="text-cyan-400 font-semibold">Iglu</span>,{" "}
-          <span className="text-cyan-400 font-semibold">Relevant Audience</span>, and{" "}
-          <span className="text-cyan-400 font-semibold">Trienpont</span>. 
-          I specialize in <span className="text-purple-400 font-semibold">AI/ML integration</span> with OpenAI and TensorFlow, 
+          across e-commerce, SaaS, real estate, and marketing technology, working with companies like{" "}
+          <span className="text-cyan-400 font-semibold">Marion&apos;s Kitchen Group</span>,{" "}
+          <span className="text-cyan-400 font-semibold">Trienpont International</span>,{" "}
+          <span className="text-cyan-400 font-semibold">Relevant Audience</span>, and more. 
+          I also offer specialized services through <span className="text-cyan-400 font-semibold">Iglu</span> as a freelancing partner.
+          I specialize in <span className="text-purple-400 font-semibold">Shopify/Shopify Plus development</span>, 
+          <span className="text-purple-400 font-semibold"> AI/ML integration</span> with OpenAI and GPT models, 
           building <span className="text-purple-400 font-semibold">cloud-native solutions</span> on AWS and GCP, 
           and creating <span className="text-purple-400 font-semibold">scalable microservices architectures</span>.
         </p>
         <p className="mb-4">
           My technical arsenal includes <span className="text-cyan-400 font-semibold">Python, JavaScript, TypeScript, PHP, Rust, Go, Ruby</span> with 
-          expertise in databases like <span className="text-purple-400 font-semibold">PostgreSQL, MongoDB, Redis</span>, 
-          and DevOps tools including <span className="text-purple-400 font-semibold">Docker, Kubernetes, Terraform</span>. 
-          I&apos;ve successfully architected systems serving <span className="text-cyan-400 font-semibold">10,000+ users</span>, 
-          achieved <span className="text-cyan-400 font-semibold">99.9% uptime</span>, and reduced infrastructure costs by{" "}
-          <span className="text-cyan-400 font-semibold">40%</span> through optimization.
+          expertise in databases like <span className="text-purple-400 font-semibold">PostgreSQL, MongoDB, Redis, TypeORM</span>, 
+          and DevOps tools including <span className="text-purple-400 font-semibold">Docker, Kubernetes, CI/CD, AWS, GCP</span>. 
+          I&apos;ve successfully driven <span className="text-cyan-400 font-semibold">~40% sales growth</span> through e-commerce optimizations, 
+          achieved <span className="text-cyan-400 font-semibold">20% sales increases</span> via strategic pipeline improvements,
+          and delivered <span className="text-cyan-400 font-semibold">20+ projects</span> across diverse industries.
         </p>
         <p>
           I&apos;m driven by challenges and committed to continuous learning and excellence. 
-          Whether it&apos;s building <span className="text-purple-400 font-semibold">GPT-powered chatbots</span>,{" "}
-          <span className="text-purple-400 font-semibold">e-commerce platforms</span> for Fortune 500 clients, or{" "}
-          <span className="text-purple-400 font-semibold">Web3 solutions</span> with Solidity and Ethereum, 
-          I transform ideas into reality with clean architecture and scalable design.
+          Whether it&apos;s building <span className="text-purple-400 font-semibold">Shopify Headless themes with Remix</span>,{" "}
+          <span className="text-purple-400 font-semibold">GPT-powered chatbots</span>,{" "}
+          <span className="text-purple-400 font-semibold">custom WordPress/Shopify solutions</span>, or{" "}
+          <span className="text-purple-400 font-semibold">enterprise SaaS platforms</span>, 
+          I transform ideas into reality with clean architecture, scalable design, and measurable business impact.
         </p>
       </motion.div>
 
