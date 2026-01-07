@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoHomeOutline, IoPersonOutline, IoBriefcaseOutline, IoNewspaperOutline, IoLocationSharp, IoMailOutline } from "react-icons/io5";
@@ -19,22 +19,43 @@ interface MobileBottomNavProps {
 
 export default function MobileBottomNav({ onLocationClick, onNewsClick }: MobileBottomNavProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Handle scroll to show/hide navigation
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navigation when scrolling down past 100px
+      if (currentScrollY > 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const navItems: NavItem[] = [
     { label: "Home", icon: IoHomeOutline, href: "#hero" },
-    { label: "About", icon: IoPersonOutline, href: "#about" },
+    { label: "About", icon: IoPersonOutline, href: "#about-me" },
     { label: "Projects", icon: IoBriefcaseOutline, href: "#projects" },
     { label: "Blog", icon: IoNewspaperOutline, href: "#blog" },
     { label: "Contact", icon: IoMailOutline, href: "#contact" },
+    { label: "Info", icon: IoLocationSharp, href: "#", action: onLocationClick },
+    { label: "News", icon: IoNewspaperOutline, href: "#", action: onNewsClick },
   ];
 
-  // Widget buttons for the bottom nav
-  const widgetItems = [
-    { label: "Info", icon: IoLocationSharp, action: onLocationClick, gradient: "from-purple-500 to-pink-500" },
-    { label: "News", icon: IoNewspaperOutline, action: onNewsClick, gradient: "from-cyan-500 to-blue-500" },
-  ];
-
-  const handleNavClick = (index: number, href: string) => {
+  const handleNavClick = (index: number, href: string, action?: () => void) => {
+    if (action) {
+      action();
+      return;
+    }
     setActiveIndex(index);
     // Smooth scroll to section
     const element = document.querySelector(href);
@@ -44,12 +65,15 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
   };
 
   return (
-    <motion.nav
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-      className="md:hidden fixed bottom-4 left-4 right-4 z-50"
-    >
+    <AnimatePresence>
+      {isVisible && (
+        <motion.nav
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+          className="md:hidden fixed bottom-4 left-4 right-4 z-50"
+        >
       {/* Liquid Glass Container */}
       <div className="relative">
         {/* Glass background with blur */}
@@ -59,9 +83,9 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
         <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 rounded-[24px] blur-sm opacity-60 animate-pulse" />
         
         {/* Content */}
-        <div className="relative px-4 py-3">
-          {/* Main Navigation Row */}
-          <div className="flex items-center justify-around mb-3">
+        <div className="relative px-2 py-3">
+          {/* Single Navigation Row with all icons */}
+          <div className="flex items-center justify-around">
             {navItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeIndex === index;
@@ -70,8 +94,15 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                 <Link
                   key={item.label}
                   href={item.href}
-                  onClick={() => handleNavClick(index, item.href)}
-                  className="relative flex flex-col items-center justify-center w-14 h-14 group"
+                  onClick={(e) => {
+                    if (item.action) {
+                      e.preventDefault();
+                      handleNavClick(index, item.href, item.action);
+                    } else {
+                      handleNavClick(index, item.href);
+                    }
+                  }}
+                  className="relative flex flex-col items-center justify-center w-12 h-12 group"
                 >
                   {/* Active indicator with liquid effect */}
                   <AnimatePresence>
@@ -93,7 +124,7 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                     className="relative z-10"
                   >
                     <div className={`
-                      flex items-center justify-center w-10 h-10 rounded-xl
+                      flex items-center justify-center w-9 h-9 rounded-xl
                       ${isActive 
                         ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-white/20' 
                         : 'bg-white/5 border border-white/5'
@@ -102,7 +133,7 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                       group-active:scale-90
                     `}>
                       <Icon className={`
-                        h-5 w-5 transition-all duration-300
+                        h-4 w-4 transition-all duration-300
                         ${isActive 
                           ? 'text-white' 
                           : 'text-gray-400 group-hover:text-white'
@@ -118,7 +149,7 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                         initial={{ opacity: 0, y: -5 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -5 }}
-                        className="absolute -bottom-1 text-[10px] font-medium text-white whitespace-nowrap"
+                        className="absolute -bottom-1 text-[9px] font-medium text-white whitespace-nowrap"
                       >
                         {item.label}
                       </motion.span>
@@ -128,45 +159,10 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
               );
             })}
           </div>
-
-          {/* Divider */}
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-2" />
-
-          {/* Widget Buttons Row */}
-          <div className="flex items-center justify-center gap-3">
-            {widgetItems.map((item, index) => {
-              const Icon = item.icon;
-              
-              return (
-                <motion.button
-                  key={item.label}
-                  onClick={item.action}
-                  whileTap={{ scale: 0.9 }}
-                  className="group relative"
-                  aria-label={item.label}
-                  title={item.label}
-                >
-                  {/* Glow effect */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${item.gradient} rounded-xl blur opacity-0 group-hover:opacity-50 group-active:opacity-70 transition-opacity duration-300`} />
-                  
-                  {/* Button - Icon Only */}
-                  <div className={`
-                    relative flex items-center justify-center w-10 h-10 rounded-xl
-                    bg-gradient-to-r ${item.gradient} bg-opacity-10
-                    border border-white/20
-                    backdrop-blur-sm
-                    transition-all duration-300
-                    group-hover:border-white/30
-                    group-active:scale-95
-                  `}>
-                    <Icon className="h-5 w-5 text-white" />
-                  </div>
-                </motion.button>
-              );
-            })}
-          </div>
         </div>
       </div>
     </motion.nav>
+      )}
+    </AnimatePresence>
   );
 }

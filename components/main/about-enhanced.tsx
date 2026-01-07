@@ -39,7 +39,7 @@ export const AboutEnhanced = () => {
 
   const achievements = [
     {
-      number: "6+",
+      number: "4+",
       label: "Years Experience",
       description: "Building scalable, high-performance applications with modern technologies and best practices",
       icon: RocketLaunchIcon,
@@ -492,7 +492,7 @@ export const AboutEnhanced = () => {
       >
         <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md">
           <p className="mb-4">
-            I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 6 years of hands-on experience 
+            I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 4 years of hands-on experience 
             in building modern, scalable, and user-centric applications. I transform complex challenges into elegant solutions through 
             clean architecture, scalable design, and measurable business impact.
           </p>
