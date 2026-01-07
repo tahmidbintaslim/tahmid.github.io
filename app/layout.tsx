@@ -6,6 +6,7 @@ import Script from "next/script";
 import { Footer } from "@/components/main/footer";
 import { Navbar } from "@/components/main/navbar";
 import { StarsCanvas } from "@/components/main/stars-canvas-wrapper";
+import CustomCursor from "@/components/main/custom-cursor";
 import { siteConfig } from "@/config";
 import { structuredData } from "@/config/structured-data";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         
         <StarsCanvas />
         <Navbar />
+        <CustomCursor />
         {children}
         <Footer />
         <Analytics />

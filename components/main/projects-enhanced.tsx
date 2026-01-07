@@ -153,11 +153,11 @@ const ProjectsEnhanced = () => {
             <div className="text-gray-400 text-sm">
               Showing{" "}
               <span className="text-purple-400 font-semibold">
-                {filteredProjects.length}
+                {paginatedProjects.length}
               </span>{" "}
               of{" "}
               <span className="text-cyan-400 font-semibold">
-                {PROJECTS.length}
+                {filteredProjects.length}
               </span>{" "}
               projects
             </div>
