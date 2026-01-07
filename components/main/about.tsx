@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const About = () => {
   const achievements = [
     {
-      number: "6+",
+      number: "4+",
       label: "Years Experience",
     },
     {

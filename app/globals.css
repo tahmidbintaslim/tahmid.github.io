@@ -176,3 +176,73 @@ html {
   border-width: 0;
 }
 
+/* Horizontal scrolling animation for testimonials */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Custom cursor styles */
+* {
+  cursor: none !important;
+}
+
+#custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+#custom-cursor.active {
+  opacity: 1;
+}
+
+#custom-cursor.clicking {
+  transform: scale(0.8);
+}
+
+#custom-cursor-follower {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(168, 85, 247, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.15s ease;
+  opacity: 0;
+}
+
+#custom-cursor-follower.active {
+  opacity: 1;
+}
+
+/* Cursor hover effects for interactive elements */
+a:hover ~ #custom-cursor,
+button:hover ~ #custom-cursor,
+[role="button"]:hover ~ #custom-cursor,
+input:hover ~ #custom-cursor,
+textarea:hover ~ #custom-cursor {
+  transform: scale(1.5);
+  background: linear-gradient(135deg, #06b6d4, #a855f7);
+}
+

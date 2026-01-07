@@ -184,7 +184,7 @@ export const JourneyHorizontal = () => {
         viewport={{ once: true }}
         className="text-gray-300 text-center max-w-2xl mb-12 relative z-10"
       >
-        6 years of professional growth across cutting-edge technologies and diverse industries
+        4 years of professional growth across cutting-edge technologies and diverse industries
       </motion.p>
 
       {/* Desktop: Horizontal Scrolling Timeline */}

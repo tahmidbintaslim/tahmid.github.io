@@ -131,7 +131,7 @@ export default function LocationWidget({ isOpen, setIsOpen }: LocationWidgetProp
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="hidden md:flex fixed right-4 md:right-6 top-32 z-[45] h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
+        className="hidden md:flex fixed right-4 md:right-6 top-32 z-1 h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-500/20 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-110"
         aria-label="Toggle location widget"
       >
         <IoLocationSharp className="h-5 w-5 text-purple-400" />

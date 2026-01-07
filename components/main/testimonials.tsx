@@ -47,8 +47,11 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function TestimonialsSection() {
+  // Duplicate testimonials for seamless loop
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
+
   return (
-    <section className="w-full py-20">
+    <section className="w-full py-20 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -57,117 +60,51 @@ export default function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4">
-            Client Testimonials
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+              Client Testimonials
+            </span>
           </h2>
           <p className="text-gray-400 text-lg">
             What industry leaders say about working with me
           </p>
         </motion.div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
-          {/* First testimonial - Large (spans 2x2 on desktop) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="md:col-span-7 md:row-span-2 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-md border border-white/10 p-8 hover:border-purple-500/30 transition-all duration-300"
-          >
-            <div className="flex flex-col h-full">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonials[0].rating)].map((_, i) => (
-                  <IoStarSharp key={i} className="h-5 w-5 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-white text-xl leading-relaxed mb-6 flex-1">
-                &ldquo;{testimonials[0].content}&rdquo;
-              </p>
-              <div>
-                <p className="font-semibold text-white text-lg">
-                  {testimonials[0].name}
+        {/* Horizontal Scrolling Container */}
+        <div className="relative -mx-6 px-6">
+          {/* Gradient overlays for fade effect */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#030014] via-[#030014] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#030014] via-[#030014] to-transparent z-10 pointer-events-none" />
+          
+          {/* Animated scrolling wrapper */}
+          <div className="flex gap-6 animate-scroll">{duplicatedTestimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 * (index % testimonials.length) }}
+                className="flex-shrink-0 w-[320px] md:w-[380px] rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-md border border-white/10 p-6 hover:border-purple-500/30 transition-all duration-300"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <IoStarSharp key={i} className="h-5 w-5 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-white text-lg leading-relaxed mb-6">
+                  &ldquo;{testimonial.content}&rdquo;
                 </p>
-                <p className="text-gray-400">
-                  {testimonials[0].role} at {testimonials[0].company}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Second testimonial - Medium (top right) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="md:col-span-5 md:row-span-1 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-md border border-white/10 p-6 hover:border-cyan-500/30 transition-all duration-300"
-          >
-            <div className="flex items-center gap-1 mb-3">
-              {[...Array(testimonials[1].rating)].map((_, i) => (
-                <IoStarSharp key={i} className="h-4 w-4 text-yellow-400" />
-              ))}
-            </div>
-            <p className="text-white leading-relaxed mb-4">
-              &ldquo;{testimonials[1].content}&rdquo;
-            </p>
-            <div>
-              <p className="font-semibold text-white">{testimonials[1].name}</p>
-              <p className="text-sm text-gray-400">
-                {testimonials[1].role} at {testimonials[1].company}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Third testimonial - Medium (middle right) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="md:col-span-5 md:row-span-1 rounded-2xl bg-gradient-to-br from-green-500/10 to-cyan-500/10 backdrop-blur-md border border-white/10 p-6 hover:border-green-500/30 transition-all duration-300"
-          >
-            <div className="flex items-center gap-1 mb-3">
-              {[...Array(testimonials[2].rating)].map((_, i) => (
-                <IoStarSharp key={i} className="h-4 w-4 text-yellow-400" />
-              ))}
-            </div>
-            <p className="text-white leading-relaxed mb-4">
-              &ldquo;{testimonials[2].content}&rdquo;
-            </p>
-            <div>
-              <p className="font-semibold text-white">{testimonials[2].name}</p>
-              <p className="text-sm text-gray-400">
-                {testimonials[2].role} at {testimonials[2].company}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Fourth testimonial - Wide (bottom) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="md:col-span-12 md:row-span-1 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-md border border-white/10 p-6 hover:border-blue-500/30 transition-all duration-300"
-          >
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="flex items-center gap-1">
-                {[...Array(testimonials[3].rating)].map((_, i) => (
-                  <IoStarSharp key={i} className="h-5 w-5 text-yellow-400" />
-                ))}
-              </div>
-              <p className="text-white text-lg leading-relaxed flex-1">
-                &ldquo;{testimonials[3].content}&rdquo;
-              </p>
-              <div className="text-right">
-                <p className="font-semibold text-white">{testimonials[3].name}</p>
-                <p className="text-sm text-gray-400">
-                  {testimonials[3].role} at {testimonials[3].company}
-                </p>
-              </div>
-            </div>
-          </motion.div>
+                <div>
+                  <p className="font-semibold text-white text-lg">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-gray-400">
+                    {testimonial.role} at {testimonial.company}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
