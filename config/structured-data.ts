@@ -21,7 +21,7 @@ export const structuredData = {
       "@type": "Organization",
       name: "Freelance / Contract",
     },
-    description: "Senior Software Engineer with 6+ years of experience specializing in React, Next.js, Node.js, TypeScript, GraphQL, AI/ML integration, cloud-native architecture, and scalable e-commerce solutions.",
+    description: "Senior Software Engineer with 4+ years of experience specializing in React, Next.js, Node.js, TypeScript, GraphQL, AI/ML integration, cloud-native architecture, and scalable e-commerce solutions.",
     knowsAbout: [
       "React",
       "Next.js",
@@ -47,7 +47,7 @@ export const structuredData = {
     name: "Tahmid Bin Taslim Rafi - Portfolio",
     alternateName: "Tahmid's Portfolio",
     url: "https://tahmid.space",
-    description: "Senior Software Engineer portfolio showcasing 6+ years of experience in full-stack development, AI/ML integration, and cloud-native solutions.",
+    description: "Senior Software Engineer portfolio showcasing 4+ years of experience in full-stack development, AI/ML integration, and cloud-native solutions.",
     author: {
       "@type": "Person",
       name: "Tahmid Bin Taslim Rafi",

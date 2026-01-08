@@ -1,7 +1,7 @@
 # Tahmid Bin Taslim Rafi - Senior Software Engineer
 
 ## About
-Tahmid Bin Taslim Rafi is a Senior Software Engineer with 6+ years of experience specializing in full-stack development, AI/ML integration, cloud-native architecture, and e-commerce solutions. Based in Bangkok, Thailand, he has worked with leading companies delivering scalable, high-performance applications.
+Tahmid Bin Taslim Rafi is a Senior Software Engineer with 4+ years of experience specializing in full-stack development, AI/ML integration, cloud-native architecture, and e-commerce solutions. Based in Bangkok, Thailand, he has worked with leading companies delivering scalable, high-performance applications.
 
 ## Professional Experience
 - **Marion's Kitchen Group** (March 2024 - Present): Senior Software Developer leading Shopify Headless development with Remix, Node.js, TypeScript, and Rust
@@ -34,7 +34,7 @@ Shopify/Plus, WordPress, Headless CMS
 OpenAI, TensorFlow, PyTorch
 
 ## Key Achievements
-- 6+ Years of professional experience
+- 4+ Years of professional experience
 - 20+ Enterprise projects delivered
 - 50+ Technologies mastered
 - 99.9% System uptime achieved

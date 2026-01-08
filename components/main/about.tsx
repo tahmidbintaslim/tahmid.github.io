@@ -138,7 +138,7 @@ export const About = () => {
         className="text-lg text-gray-300 max-w-4xl text-center mb-16 leading-relaxed"
       >
         <p className="mb-4">
-          I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 6 years of hands-on experience 
+          I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 4 years of hands-on experience 
           in building modern, scalable, and user-centric applications. My expertise spans the 
           entire technology stack - from crafting beautiful, responsive front-ends with{" "}
           <span className="text-cyan-400 font-semibold">React, Vue, Next.js, Remix</span> to architecting 

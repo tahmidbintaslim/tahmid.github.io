@@ -263,7 +263,7 @@ export const AboutEnhanced = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {achievements.map((achievement, index) => {
             const Icon = achievement.icon;
-            // First card (6+ Years) spans 2 columns and 2 rows (large)
+            // First card (4+ Years) spans 2 columns and 2 rows (large)
             // Next 2 cards (20+, 50+) are normal size on top row
             // Last 2 cards (99.9%, 10K+) are normal size on bottom row beside the large card
             let gridClass = '';
