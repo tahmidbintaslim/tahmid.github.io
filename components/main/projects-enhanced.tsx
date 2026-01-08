@@ -108,6 +108,7 @@ const ProjectsEnhanced = () => {
               type="text"
               className="w-full pl-10 pr-4 py-3 sm:py-3.5 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
               placeholder="Search projects..."
+              aria-label="Search projects by name, technology, or company"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

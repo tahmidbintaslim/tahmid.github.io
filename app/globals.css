@@ -12,13 +12,6 @@
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Better tap targets for mobile - WCAG recommends 48px minimum */
-  @media (max-width: 768px) {
-    button, a, input, textarea, select {
-      min-height: 48px;
-    }
-  }
-  
   /* Prevent text size adjustment on orientation change */
   html {
     -webkit-text-size-adjust: 100%;
@@ -76,12 +69,7 @@
   box-shadow: inset 0 0 12px #bf97ff70;
 }
 
-/* Mobile-specific button styles */
-@media (max-width: 640px) {
-  .button-primary {
-    padding: 0.875rem 1.5rem;
-  }
-}
+
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hidden {
@@ -294,18 +282,6 @@ html {
   opacity: 1;
 }
 
-/* Cursor hover effects for interactive elements - Desktop only */
-@media (hover: hover) and (pointer: fine) {
-  a:hover ~ #custom-cursor,
-  button:hover ~ #custom-cursor,
-  [role="button"]:hover ~ #custom-cursor,
-  input:hover ~ #custom-cursor,
-  textarea:hover ~ #custom-cursor {
-    transform: scale(1.5);
-    background: linear-gradient(135deg, #06b6d4, #a855f7);
-  }
-}
-
 /* Hide custom cursor on touch devices */
 @media (hover: none) or (pointer: coarse) {
   #custom-cursor,
@@ -323,30 +299,6 @@ html {
 @supports (padding: env(safe-area-inset-bottom)) {
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
-  }
-}
-
-/* Mobile-specific focus styles for better accessibility */
-@media (max-width: 768px) {
-  input:focus,
-  textarea:focus,
-  select:focus,
-  button:focus {
-    outline: 2px solid rgba(112, 66, 248, 0.5);
-    outline-offset: 2px;
-  }
-}
-
-/* Active states for touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .active\:scale-95:active {
-    transform: scale(0.95);
-  }
-  
-  button:active,
-  a:active {
-    opacity: 0.8;
-    transform: scale(0.98);
   }
 }
 
