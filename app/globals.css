@@ -256,6 +256,39 @@ html {
   border-width: 0;
 }
 
+/* Skip to main content link - Accessibility */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  color: white;
+  font-weight: 600;
+  border-radius: 0 0 8px 8px;
+  z-index: 10000;
+  transition: top 0.3s ease;
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Enhanced focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Remove outline on click but keep for keyboard navigation */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Horizontal scrolling animation for testimonials */
 @keyframes scroll {
   0% {

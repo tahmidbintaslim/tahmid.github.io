@@ -45,6 +45,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
           "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
         )}
       >
+        {/* Skip to main content - Accessibility */}
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
         {/* Structured Data for SEO and AEO - optimized loading */}
         <Script
           id="structured-data-person"
