@@ -139,19 +139,21 @@ export default function PartnersScroll() {
           </div>
         </div>
 
-        {/* Desktop: Grid Layout */}
-        <div className="hidden md:flex justify-center">
-          <div className="grid grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl">
+        {/* Desktop: Horizontal Auto-Scrolling with Gradient Fades */}
+        <div className="hidden md:block relative overflow-hidden">
+          {/* Left gradient fade */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#030014] to-transparent z-10 pointer-events-none" />
+          {/* Right gradient fade */}
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#030014] to-transparent z-10 pointer-events-none" />
+          
+          <div className="flex animate-scroll hover:[animation-play-state:paused]">
+            {/* First set of partners */}
             {partners.map((partner, index) => {
               const Icon = partner.icon;
               return (
-                <motion.div
-                  key={`partner-${index}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index }}
-                  className={`rounded-2xl bg-gradient-to-br ${partner.bgGradient} backdrop-blur-xl border border-white/10 p-6 hover:border-white/30 hover:bg-white/5 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-36 flex flex-col items-center justify-center gap-3 group`}
+                <div
+                  key={`partner-1-${index}`}
+                  className={`flex-shrink-0 mx-4 rounded-2xl bg-gradient-to-br ${partner.bgGradient} backdrop-blur-xl border border-white/10 p-6 hover:border-white/30 hover:bg-white/5 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-36 w-48 flex flex-col items-center justify-center gap-3 group`}
                 >
                   <Icon className={`text-4xl lg:text-5xl ${partner.color} group-hover:scale-110 transition-transform duration-300`} />
                   <h4 className="text-white font-bold text-sm lg:text-base text-center">
@@ -160,7 +162,25 @@ export default function PartnersScroll() {
                   <p className="text-gray-400 text-xs text-center leading-tight group-hover:text-gray-300 transition-colors duration-300">
                     {partner.label}
                   </p>
-                </motion.div>
+                </div>
+              );
+            })}
+            {/* Duplicate set for seamless infinite scroll */}
+            {partners.map((partner, index) => {
+              const Icon = partner.icon;
+              return (
+                <div
+                  key={`partner-2-${index}`}
+                  className={`flex-shrink-0 mx-4 rounded-2xl bg-gradient-to-br ${partner.bgGradient} backdrop-blur-xl border border-white/10 p-6 hover:border-white/30 hover:bg-white/5 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-36 w-48 flex flex-col items-center justify-center gap-3 group`}
+                >
+                  <Icon className={`text-4xl lg:text-5xl ${partner.color} group-hover:scale-110 transition-transform duration-300`} />
+                  <h4 className="text-white font-bold text-sm lg:text-base text-center">
+                    {partner.name}
+                  </h4>
+                  <p className="text-gray-400 text-xs text-center leading-tight group-hover:text-gray-300 transition-colors duration-300">
+                    {partner.label}
+                  </p>
+                </div>
               );
             })}
           </div>
