@@ -67,7 +67,7 @@ export const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-sm sm:text-base lg:text-lg text-gray-400 my-3 sm:my-5 max-w-[600px] leading-relaxed"
         >
-          I&apos;m a Senior Software Engineer with 6+ years of expertise in full-stack development, 
+          I&apos;m a Senior Software Engineer with 4+ years of expertise in full-stack development, 
           Shopify/Shopify Plus, AI/ML integration, cloud architecture (AWS, GCP), SaaS platforms, 
           e-commerce solutions, and scalable APIs. Proficient in React, Remix, Next.js, Vue, Node.js, Python, 
           TypeScript, Ruby, and modern DevOps/CI/CD practices.

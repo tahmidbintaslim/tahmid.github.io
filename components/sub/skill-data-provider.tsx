@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
-import * as SvgIcons from "./skill-svg-icons";
+import * as SimpleIcons from "simple-icons";
 
 type SkillDataProviderProps = {
   src?: string;
@@ -13,6 +13,67 @@ type SkillDataProviderProps = {
   width: number;
   height: number;
   index: number;
+};
+
+// Map of svgIcon keys to simple-icons names
+const simpleIconsMap: { [key: string]: string } = {
+  python: "siPython",
+  php: "siPhp",
+  rust: "siRust",
+  ruby: "siRuby",
+  django: "siDjango",
+  flask: "siFlask",
+  fastapi: "siFastapi",
+  laravel: "siLaravel",
+  rails: "siRubyonrails",
+  vue: "siVuedotjs",
+  remix: "siRemix",
+  angular: "siAngular",
+  redis: "siRedis",
+  typeorm: "siTypeorm",
+  aws: "siAmazonwebservices",
+  gcp: "siGooglecloud",
+  azure: "siMicrosoftazure",
+  kubernetes: "siKubernetes",
+  cicd: "siGithubactions",
+  terraform: "siTerraform",
+  shopify: "siShopify",
+  wordpress: "siWordpress",
+  openai: "siOpenai",
+  tensorflow: "siTensorflow",
+  pytorch: "siPytorch",
+};
+
+// Helper to get Simple Icon SVG
+const getSimpleIconSvg = (iconKey: string): string | null => {
+  const iconName = simpleIconsMap[iconKey.toLowerCase()];
+  if (!iconName) return null;
+  
+  try {
+    const icon = (SimpleIcons as any)[iconName];
+    if (icon) {
+      return icon.svg;
+    }
+  } catch (e) {
+    console.warn(`Icon ${iconName} not found`);
+  }
+  return null;
+};
+
+// Get icon color from simple-icons
+const getSimpleIconColor = (iconKey: string): string => {
+  const iconName = simpleIconsMap[iconKey.toLowerCase()];
+  if (!iconName) return "#a855f7"; // Default purple
+  
+  try {
+    const icon = (SimpleIcons as any)[iconName];
+    if (icon && icon.hex) {
+      return `#${icon.hex}`;
+    }
+  } catch (e) {
+    // Return default color
+  }
+  return "#a855f7";
 };
 
 export const SkillDataProvider = ({
@@ -36,57 +97,9 @@ export const SkillDataProvider = ({
 
   const animationDelay = 0.1;
 
-  // Infinite color change animation for the icon container
-  const colorChangeAnimation = {
-    filter: [
-      "hue-rotate(0deg) saturate(1)",
-      "hue-rotate(45deg) saturate(1.2)",
-      "hue-rotate(90deg) saturate(1.4)",
-      "hue-rotate(135deg) saturate(1.2)",
-      "hue-rotate(180deg) saturate(1)",
-      "hue-rotate(225deg) saturate(1.2)",
-      "hue-rotate(270deg) saturate(1.4)",
-      "hue-rotate(315deg) saturate(1.2)",
-      "hue-rotate(360deg) saturate(1)",
-    ],
-    scale: [1, 1.05, 1, 1.05, 1, 1.05, 1, 1.05, 1],
-  };
-
-  // Get SVG icon component based on name
-  const getSvgIcon = () => {
-    if (!svgIcon) return null;
-    
-    const iconMap: { [key: string]: () => React.ReactElement } = {
-      python: SvgIcons.PythonIcon,
-      php: SvgIcons.PHPIcon,
-      rust: SvgIcons.RustIcon,
-      ruby: SvgIcons.RubyIcon,
-      django: SvgIcons.DjangoIcon,
-      flask: SvgIcons.FlaskIcon,
-      fastapi: SvgIcons.FastAPIIcon,
-      laravel: SvgIcons.LaravelIcon,
-      vue: SvgIcons.VueIcon,
-      remix: SvgIcons.RemixIcon,
-      angular: SvgIcons.AngularIcon,
-      redis: SvgIcons.RedisIcon,
-      typeorm: SvgIcons.TypeORMIcon,
-      aws: SvgIcons.AWSIcon,
-      gcp: SvgIcons.GCPIcon,
-      azure: SvgIcons.AzureIcon,
-      kubernetes: SvgIcons.KubernetesIcon,
-      cicd: SvgIcons.CICDIcon,
-      shopify: SvgIcons.ShopifyIcon,
-      wordpress: SvgIcons.WordPressIcon,
-      openai: SvgIcons.OpenAIIcon,
-      tensorflow: SvgIcons.TensorFlowIcon,
-      pytorch: SvgIcons.PyTorchIcon,
-    };
-
-    const IconComponent = iconMap[svgIcon.toLowerCase()];
-    return IconComponent ? <IconComponent /> : null;
-  };
-
-  const svgIconComponent = getSvgIcon();
+  // Get SVG icon from simple-icons
+  const svgIconSvg = svgIcon ? getSimpleIconSvg(svgIcon) : null;
+  const iconColor = svgIcon ? getSimpleIconColor(svgIcon) : "#a855f7";
 
   return (
     <motion.div
@@ -104,13 +117,8 @@ export const SkillDataProvider = ({
       title={name}
     >
       <motion.div
-        animate={colorChangeAnimation}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "linear",
-          delay: index * 0.5, // Stagger the animation start for each icon
-        }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.3 }}
         className="flex items-center justify-center"
       >
         {src ? (
@@ -119,14 +127,16 @@ export const SkillDataProvider = ({
             width={width} 
             height={height} 
             alt={`${name} logo`}
-            className="transition-transform duration-300 hover:scale-110"
+            className="transition-transform duration-300"
           />
-        ) : svgIconComponent ? (
-          <div className="flex items-center justify-center transition-transform duration-300 hover:scale-110">
-            {svgIconComponent}
-          </div>
+        ) : svgIconSvg ? (
+          <div 
+            className="flex items-center justify-center transition-transform duration-300"
+            style={{ width: width, height: height, color: iconColor }}
+            dangerouslySetInnerHTML={{ __html: svgIconSvg }}
+          />
         ) : (
-          <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300 hover:scale-110">
+          <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300">
             {name}
           </div>
         )}
