@@ -17,6 +17,42 @@
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
+
+  /* Enhanced typography for better readability */
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings use Space Grotesk for modern tech aesthetic */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  /* Body text optimized for readability */
+  p, span, li, a, label, input, textarea, button {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Improved line height for body text */
+  p {
+    line-height: 1.7;
+  }
+
+  /* Better letter spacing for small text */
+  .text-xs, .text-sm {
+    letter-spacing: 0.01em;
+  }
+
+  /* Tighter letter spacing for large headings */
+  .text-3xl, .text-4xl, .text-5xl, .text-6xl {
+    letter-spacing: -0.03em;
+  }
 }
 
 .cursive {
