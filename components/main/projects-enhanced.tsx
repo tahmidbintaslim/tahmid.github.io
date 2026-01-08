@@ -86,11 +86,11 @@ const ProjectsEnhanced = () => {
   return (
     <section
       id="projects"
-      className="flex flex-col items-center justify-center py-12 md:py-16 lg:py-20"
+      className="flex flex-col items-center justify-center py-10 sm:py-12 md:py-16 lg:py-20"
     >
       <div className="w-full max-w-7xl px-4">
         {/* Header */}
-        <h1 className="text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center py-6 md:py-8 lg:py-10 leading-tight">
+        <h1 className="text-[26px] sm:text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center py-4 sm:py-6 md:py-8 lg:py-10 leading-tight">
           <span className="text-white">Featured </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Projects
@@ -98,7 +98,7 @@ const ProjectsEnhanced = () => {
         </h1>
 
         {/* Search and Filter Bar */}
-        <div className="mb-8 space-y-4">
+        <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
           {/* Search Bar */}
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -106,24 +106,24 @@ const ProjectsEnhanced = () => {
             </div>
             <input
               type="text"
-              className="w-full pl-10 pr-4 py-3 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-              placeholder="Search projects by name, technology, or company..."
+              className="w-full pl-10 pr-4 py-3 sm:py-3.5 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
+              placeholder="Search projects..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
           {/* Filter Toggle Button and Sort */}
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center justify-between flex-wrap gap-3 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px]"
+                className="flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px] text-sm sm:text-base touch-manipulation"
               >
-                <FunnelIcon className="h-5 w-5" />
+                <FunnelIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Filters</span>
                 {hasActiveFilters && (
-                  <span className="ml-2 px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
+                  <span className="ml-1 sm:ml-2 px-1.5 sm:px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
                     Active
                   </span>
                 )}

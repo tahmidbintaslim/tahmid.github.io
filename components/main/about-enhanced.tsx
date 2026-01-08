@@ -194,7 +194,7 @@ export const AboutEnhanced = () => {
     <section
       id="about-me"
       ref={ref}
-      className="flex flex-col items-center justify-center py-16 md:py-20 px-6 md:px-20 relative overflow-hidden"
+      className="flex flex-col items-center justify-center py-10 sm:py-16 md:py-20 px-4 sm:px-6 md:px-20 relative overflow-hidden"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -208,7 +208,7 @@ export const AboutEnhanced = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute -top-20 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute -top-20 -right-20 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/10 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -220,7 +220,7 @@ export const AboutEnhanced = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute -bottom-20 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+          className="absolute -bottom-20 -left-20 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl"
         />
       </div>
 
@@ -233,7 +233,7 @@ export const AboutEnhanced = () => {
         className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9] relative z-10"
       >
         <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-        <h2 className="Welcome-text text-[13px]">
+        <h2 className="Welcome-text text-[12px] sm:text-[13px]">
           Get to know me better
         </h2>
       </motion.div>
@@ -243,7 +243,7 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-[40px] md:text-[50px] text-white font-bold mt-[20px] text-center mb-[15px] relative z-10"
+        className="text-[28px] sm:text-[36px] md:text-[40px] lg:text-[50px] text-white font-bold mt-[16px] sm:mt-[20px] text-center mb-[12px] sm:mb-[15px] relative z-10"
       >
         About{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
@@ -257,7 +257,7 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-7xl mt-10 mb-20 relative z-10"
+        className="w-full max-w-7xl mt-6 sm:mt-10 mb-12 sm:mb-20 relative z-10"
       >
         {/* Proper Bento Grid Layout - 3-column responsive grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -7,8 +7,35 @@ export default function CustomCursor() {
   const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true); // Default to true to prevent flash on mobile
 
   useEffect(() => {
+    // Check if it's a touch device
+    const checkTouchDevice = () => {
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasHover = window.matchMedia('(hover: hover)').matches;
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+      
+      // Only show custom cursor on devices with hover capability and fine pointer (mouse)
+      setIsTouchDevice(hasTouch && !hasHover && !hasFinePointer);
+    };
+
+    checkTouchDevice();
+
+    // Listen for media query changes
+    const hoverQuery = window.matchMedia('(hover: hover)');
+    const handleHoverChange = () => checkTouchDevice();
+    hoverQuery.addEventListener('change', handleHoverChange);
+
+    return () => {
+      hoverQuery.removeEventListener('change', handleHoverChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Don't add event listeners on touch devices
+    if (isTouchDevice) return;
+
     const updateCursor = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       setIsVisible(true);
@@ -42,13 +69,16 @@ export default function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter);
       clearInterval(animationFrame);
     };
-  }, [position]);
+  }, [position, isTouchDevice]);
+
+  // Don't render on touch devices
+  if (isTouchDevice) return null;
 
   return (
     <>
       <div
         id="custom-cursor"
-        className={`${isVisible ? "active" : ""} ${isClicking ? "clicking" : ""}`}
+        className={`hidden md:block ${isVisible ? "active" : ""} ${isClicking ? "clicking" : ""}`}
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
@@ -57,7 +87,7 @@ export default function CustomCursor() {
       />
       <div
         id="custom-cursor-follower"
-        className={isVisible ? "active" : ""}
+        className={`hidden md:block ${isVisible ? "active" : ""}`}
         style={{
           left: `${followerPosition.x}px`,
           top: `${followerPosition.y}px`,
