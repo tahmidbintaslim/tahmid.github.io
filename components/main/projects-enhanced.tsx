@@ -90,7 +90,7 @@ const ProjectsEnhanced = () => {
     >
       <div className="w-full max-w-7xl px-4">
         {/* Header */}
-        <h1 className="text-[26px] sm:text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center py-4 sm:py-6 md:py-8 lg:py-10 leading-tight">
+        <h1 className="text-[26px] sm:text-[32px] md:text-[40px] lg:text-[50px] font-bold text-left md:text-center py-4 sm:py-6 md:py-8 lg:py-10 leading-tight">
           <span className="text-white">Featured </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Projects
@@ -115,11 +115,11 @@ const ProjectsEnhanced = () => {
           </div>
 
           {/* Filter Toggle Button and Sort */}
-          <div className="flex items-center justify-between flex-wrap gap-3 sm:gap-4">
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px] text-sm sm:text-base touch-manipulation"
+                className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px] text-sm sm:text-base touch-manipulation w-full sm:w-auto"
               >
                 <FunnelIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Filters</span>
@@ -130,13 +130,13 @@ const ProjectsEnhanced = () => {
                 )}
               </button>
 
-              {/* Sort Dropdown */}
-              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px]">
-                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400" />
+              {/* Sort Dropdown - Full width on mobile */}
+              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
+                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
-                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6"
+                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
                 >
                   <option value="all">All Years (Latest First)</option>
                   {years.map((year) => (
@@ -151,7 +151,7 @@ const ProjectsEnhanced = () => {
               </div>
             </div>
 
-            <div className="text-gray-400 text-sm">
+            <div className="text-gray-400 text-sm text-left sm:text-right">
               Showing{" "}
               <span className="text-purple-400 font-semibold">
                 {paginatedProjects.length}
