@@ -12,10 +12,10 @@
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Better tap targets for mobile */
+  /* Better tap targets for mobile - WCAG recommends 48px minimum */
   @media (max-width: 768px) {
     button, a, input, textarea, select {
-      min-height: 44px;
+      min-height: 48px;
     }
   }
   

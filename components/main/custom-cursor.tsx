@@ -7,7 +7,7 @@ export default function CustomCursor() {
   const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true); // Default to true to prevent flash on mobile
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | undefined>(undefined); // Start undefined to prevent flash
 
   useEffect(() => {
     // Check if it's a touch device
@@ -71,8 +71,8 @@ export default function CustomCursor() {
     };
   }, [position, isTouchDevice]);
 
-  // Don't render on touch devices
-  if (isTouchDevice) return null;
+  // Don't render until detection is complete, or if it's a touch device
+  if (isTouchDevice === undefined || isTouchDevice) return null;
 
   return (
     <>

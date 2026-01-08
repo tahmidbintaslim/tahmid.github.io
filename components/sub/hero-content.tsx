@@ -24,7 +24,7 @@ export const HeroContent = () => {
           className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]]"
         >
           <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-          <h1 className="Welcome-text text-[11px] sm:text-[12px]">
+          <h1 className="Welcome-text text-[12px] sm:text-[13px]">
             <TypeAnimation
               sequence={[
                 'Fullstack Developer / Engineer',
