@@ -195,20 +195,20 @@ const Blog = () => {
     >
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-left md:text-center mb-8 md:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[32px] md:text-[40px] lg:text-[50px] font-bold text-center mb-3 md:mb-4 leading-tight">
+            <h1 className="text-[28px] md:text-[40px] lg:text-[50px] font-bold mb-3 md:mb-4 leading-tight">
               <span className="text-white">Latest Articles </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
                 & Insights
               </span>
             </h1>
-            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto px-4">
+            <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-2xl md:mx-auto">
               Sharing knowledge and experiences on full-stack development, cloud architecture,
               and modern web technologies
             </p>
@@ -232,23 +232,23 @@ const Blog = () => {
           </div>
 
           {/* Filter and Sort Controls */}
-          <div className="flex items-center justify-between gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-3 md:py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors min-h-[44px]"
+                className="flex items-center justify-center gap-2 px-4 py-3 md:py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors min-h-[44px] w-full sm:w-auto"
               >
                 <FunnelIcon className="w-5 h-5" />
                 <span>Filters</span>
               </button>
 
-              {/* Sort - More prominent */}
-              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px]">
-                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400" />
+              {/* Sort - Full width on mobile */}
+              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
+                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
-                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6"
+                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
                 >
                   <option value="latest">Latest First</option>
                   <option value="oldest">Oldest First</option>
@@ -259,7 +259,7 @@ const Blog = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
               {/* Article Count */}
               <span className="text-gray-400 text-sm">
                 Showing {paginatedPosts.length} of {filteredAndSortedPosts.length} articles
@@ -268,7 +268,7 @@ const Blog = () => {
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm min-h-[44px]"
+                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm min-h-[44px] w-full sm:w-auto"
                 >
                   Reset Filters
                 </button>

@@ -194,7 +194,7 @@ export const AboutEnhanced = () => {
     <section
       id="about-me"
       ref={ref}
-      className="flex flex-col items-center justify-center py-16 md:py-20 px-6 md:px-20 relative overflow-hidden"
+      className="flex flex-col items-center justify-center py-10 sm:py-16 md:py-20 px-4 sm:px-6 md:px-20 relative overflow-hidden"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -208,7 +208,7 @@ export const AboutEnhanced = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute -top-20 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute -top-20 -right-20 w-64 sm:w-96 h-64 sm:h-96 bg-purple-500/10 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
@@ -220,7 +220,7 @@ export const AboutEnhanced = () => {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute -bottom-20 -left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+          className="absolute -bottom-20 -left-20 w-64 sm:w-96 h-64 sm:h-96 bg-cyan-500/10 rounded-full blur-3xl"
         />
       </div>
 
@@ -233,7 +233,7 @@ export const AboutEnhanced = () => {
         className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9] relative z-10"
       >
         <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-        <h2 className="Welcome-text text-[13px]">
+        <h2 className="Welcome-text text-[12px] sm:text-[13px]">
           Get to know me better
         </h2>
       </motion.div>
@@ -243,7 +243,7 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-[40px] md:text-[50px] text-white font-bold mt-[20px] text-center mb-[15px] relative z-10"
+        className="text-[28px] sm:text-[36px] md:text-[40px] lg:text-[50px] text-white font-bold mt-[16px] sm:mt-[20px] text-center mb-[12px] sm:mb-[15px] relative z-10"
       >
         About{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
@@ -257,7 +257,7 @@ export const AboutEnhanced = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="w-full max-w-7xl mt-10 mb-20 relative z-10"
+        className="w-full max-w-7xl mt-6 sm:mt-10 mb-12 sm:mb-20 relative z-10"
       >
         {/* Proper Bento Grid Layout - 3-column responsive grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -331,17 +331,17 @@ export const AboutEnhanced = () => {
         viewport={{ once: true }}
         className="w-full max-w-7xl mt-12 mb-20 relative z-10"
       >
-        <h3 className="text-[32px] md:text-[40px] font-bold text-center mb-10">
+        <h3 className="text-[28px] md:text-[32px] lg:text-[40px] font-bold text-left md:text-center mb-8 md:mb-10">
           <span className="text-white">Quick </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
             Facts
           </span>
         </h3>
         
-        {/* Proper Bento Grid - First item full width, then 2 columns, last item full width */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Single column on mobile, 2 columns on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {quickFacts.map((fact, index) => {
-            // First item and last item span full width
+            // First item and last item span full width on desktop
             const isWide = index === 0 || index === 3;
             
             return (
@@ -354,29 +354,29 @@ export const AboutEnhanced = () => {
                   scale: 1.02,
                   y: -5,
                 }}
-                className={`${isWide ? 'md:col-span-2' : 'md:col-span-1'} group p-8 md:p-10 rounded-3xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-xl hover:border-opacity-100 transition-all duration-500 cursor-pointer relative overflow-hidden shadow-2xl hover:shadow-3xl`}
+                className={`${isWide ? 'md:col-span-2' : 'md:col-span-1'} group p-6 md:p-8 lg:p-10 rounded-2xl md:rounded-3xl ${fact.bgGradient} border ${fact.borderColor} backdrop-blur-xl hover:border-opacity-100 transition-all duration-500 cursor-pointer relative overflow-hidden shadow-xl md:shadow-2xl hover:shadow-3xl`}
               >
                 {/* Glassmorphism layers */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-2xl md:rounded-3xl" />
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
                 {/* Floating gradient orb */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+                <div className="absolute top-0 right-0 w-32 md:w-40 h-32 md:h-40 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
                 
-                <div className="relative z-10 flex items-start gap-6">
+                <div className="relative z-10 flex items-start gap-4 md:gap-6">
                   {/* Icon Container */}
                   <div className={`flex-shrink-0 ${fact.colorClass} group-hover:scale-110 transition-all duration-500`}>
-                    <div className={`p-5 rounded-2xl ${fact.bgGradient} border ${fact.borderColor}`}>
-                      <fact.icon className="w-12 h-12 md:w-14 md:h-14" />
+                    <div className={`p-3 md:p-5 rounded-xl md:rounded-2xl ${fact.bgGradient} border ${fact.borderColor}`}>
+                      <fact.icon className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14" />
                     </div>
                   </div>
                   
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h4 className={`text-2xl md:text-3xl font-bold mb-4 ${fact.colorClass} transition-all duration-300 leading-tight`}>
+                  {/* Content - Left aligned for F/Z reading pattern */}
+                  <div className="flex-1 min-w-0 text-left">
+                    <h4 className={`text-lg md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 ${fact.colorClass} transition-all duration-300 leading-tight`}>
                       {fact.title}
                     </h4>
-                    <p className="text-gray-300 text-base md:text-lg leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <p className="text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed group-hover:text-white transition-colors duration-300">
                       {fact.description}
                     </p>
                   </div>

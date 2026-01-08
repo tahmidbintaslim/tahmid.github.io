@@ -5,7 +5,7 @@ import { FaLock, FaUniversalAccess, FaRobot } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer className="relative w-full bg-gradient-to-b from-transparent via-[#030014] to-[#0a0a1a] text-gray-200 mt-20">
+    <footer className="relative w-full bg-gradient-to-b from-transparent via-[#030014] to-[#0a0a1a] text-gray-200 mt-20 pb-24 md:pb-0">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
       

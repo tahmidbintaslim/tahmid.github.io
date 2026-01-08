@@ -122,7 +122,7 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center py-20 px-6 md:px-20"
+      className="flex flex-col items-center justify-center py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-20"
     >
       <motion.div
         variants={slideInFromTop}
@@ -132,7 +132,7 @@ export const Contact = () => {
         className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
       >
         <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
-        <h2 className="Welcome-text text-[13px]">Let&apos;s work together</h2>
+        <h2 className="Welcome-text text-[12px] sm:text-[13px]">Let&apos;s work together</h2>
       </motion.div>
 
       <motion.h2
@@ -140,7 +140,7 @@ export const Contact = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-[40px] md:text-[50px] text-white font-bold mt-[20px] text-center mb-[15px]"
+        className="text-[28px] sm:text-[36px] md:text-[40px] lg:text-[50px] text-white font-bold mt-[16px] sm:mt-[20px] text-center mb-[12px] sm:mb-[15px]"
       >
         Get In{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
@@ -153,13 +153,13 @@ export const Contact = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-gray-300 text-center max-w-2xl mb-12"
+        className="text-gray-300 text-center max-w-2xl mb-8 sm:mb-12 text-sm sm:text-base px-2"
       >
         Have a project in mind or want to collaborate? Feel free to reach out!
         I&apos;m always open to discussing new opportunities and interesting ideas.
       </motion.p>
 
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
         {/* Contact Info */}
         <motion.div
           variants={slideInFromLeft(0.5)}
@@ -243,9 +243,9 @@ export const Contact = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             <div>
-              <label htmlFor="name" className="block text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-gray-300 mb-2 text-sm sm:text-base">
                 Your Name
               </label>
               <input
@@ -255,13 +255,13 @@ export const Contact = () => {
                 value={formState.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
                 placeholder="John Doe"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-gray-300 mb-2 text-sm sm:text-base">
                 Your Email
               </label>
               <input
@@ -271,13 +271,13 @@ export const Contact = () => {
                 value={formState.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
                 placeholder="john@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-gray-300 mb-2">
+              <label htmlFor="subject" className="block text-gray-300 mb-2 text-sm sm:text-base">
                 Subject
               </label>
               <input
@@ -287,13 +287,13 @@ export const Contact = () => {
                 value={formState.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
                 placeholder="Project Inquiry"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-gray-300 mb-2">
+              <label htmlFor="message" className="block text-gray-300 mb-2 text-sm sm:text-base">
                 Message
               </label>
               <textarea
@@ -303,7 +303,7 @@ export const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-3 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none text-base touch-manipulation"
                 placeholder="Tell me about your project..."
               />
             </div>
@@ -311,7 +311,7 @@ export const Contact = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3.5 sm:py-4 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] text-base active:scale-[0.98] touch-manipulation"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>

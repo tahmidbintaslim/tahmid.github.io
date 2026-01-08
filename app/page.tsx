@@ -20,7 +20,7 @@ export default function Home() {
   const [newsWidgetOpen, setNewsWidgetOpen] = useState(false);
 
   return (
-    <main className="h-full w-full pb-24 md:pb-0" role="main">
+    <main id="main-content" className="h-full w-full pb-24 md:pb-0" tabIndex={-1}>
       <div className="flex flex-col gap-20">
         <Hero />
         <PartnersScroll />
