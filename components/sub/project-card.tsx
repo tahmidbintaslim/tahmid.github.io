@@ -1,9 +1,9 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 type ProjectCardProps = {
   src: string;
@@ -49,9 +49,9 @@ export const ProjectCard = ({
             src={src}
             alt={title}
             fill
+            loading="lazy"
             className="object-cover group-hover:scale-110 transition-transform duration-500"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onError={(e) => {
               // Hide image on error and show gradient background
               const target = e.target as HTMLImageElement;
@@ -59,14 +59,14 @@ export const ProjectCard = ({
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] via-transparent to-transparent opacity-60" />
-          
+
           {/* Fallback icon if image fails */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <svg className="w-20 h-20 text-purple-400/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          
+
           {/* Role Badge */}
           {role && (
             <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-semibold shadow-lg">

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { ProjectCard } from "../sub/project-card";
 import { PROJECTS } from "@/constants";
-import { MagnifyingGlassIcon, FunnelIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { ArrowsUpDownIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import React, { useMemo, useState } from "react";
+import { ProjectCard } from "../sub/project-card";
 
 const ProjectsEnhanced = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -136,6 +136,7 @@ const ProjectsEnhanced = () => {
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
+                  aria-label="Sort projects by year"
                   className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
                 >
                   <option value="all">All Years (Latest First)</option>
@@ -176,6 +177,7 @@ const ProjectsEnhanced = () => {
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
+                  aria-label="Filter by year"
                 >
                   <option value="all">All Years</option>
                   {years.map((year) => (
@@ -195,6 +197,7 @@ const ProjectsEnhanced = () => {
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-cyan-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-cyan-500 transition-colors"
                   value={selectedTech}
                   onChange={(e) => setSelectedTech(e.target.value)}
+                  aria-label="Filter by technology"
                 >
                   <option value="all">All Technologies</option>
                   {technologies.map((tech) => (
@@ -214,6 +217,7 @@ const ProjectsEnhanced = () => {
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-green-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-green-500 transition-colors"
                   value={selectedCompany}
                   onChange={(e) => setSelectedCompany(e.target.value)}
+                  aria-label="Filter by company"
                 >
                   <option value="all">All Companies</option>
                   {companies.map((company) => (
@@ -274,11 +278,10 @@ const ProjectsEnhanced = () => {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`w-10 h-10 rounded-lg transition-all duration-300 ${
-                        currentPage === page
+                      className={`w-10 h-10 rounded-lg transition-all duration-300 ${currentPage === page
                           ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
                           : 'bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500'
-                      }`}
+                        }`}
                     >
                       {page}
                     </button>

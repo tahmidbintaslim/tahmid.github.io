@@ -1,22 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { IoHomeOutline, IoPersonOutline, IoBriefcaseOutline, IoNewspaperOutline, IoMailOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { IoBriefcaseOutline, IoChatbubbleEllipsesOutline, IoHomeOutline, IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
 
 interface NavItem {
   label: string;
   icon: typeof IoHomeOutline;
-  href: string;
+  href?: string;
+  onClick?: () => void;
 }
 
 interface MobileBottomNavProps {
   onLocationClick: () => void;
   onNewsClick: () => void;
+  onFeedbackClick?: () => void;
 }
 
-export default function MobileBottomNav({ onLocationClick, onNewsClick }: MobileBottomNavProps) {
+export default function MobileBottomNav({ onLocationClick: _onLocationClick, onNewsClick: _onNewsClick, onFeedbackClick }: MobileBottomNavProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -25,14 +27,14 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Show navigation when scrolling down past 100px
       if (currentScrollY > 100) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -46,15 +48,27 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
     { label: "About", icon: IoPersonOutline, href: "#about-me" },
     { label: "Projects", icon: IoBriefcaseOutline, href: "#projects" },
     { label: "Blog", icon: IoNewspaperOutline, href: "#blog" },
-    { label: "Contact", icon: IoMailOutline, href: "#contact" },
+    { label: "Feedback", icon: IoChatbubbleEllipsesOutline, onClick: onFeedbackClick },
   ];
 
-  const handleNavClick = (index: number, href: string) => {
+  const handleNavClick = (index: number, item: NavItem) => {
+    if (item.onClick) {
+      item.onClick();
+      return;
+    }
+
     setActiveIndex(index);
     // Smooth scroll to section
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (item.href) {
+      // Special handling for home - scroll to top
+      if (item.href === "#hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+      const element = document.querySelector(item.href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -73,29 +87,31 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
           <div className="relative">
             {/* Glass background with blur */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0118]/95 via-[#1a0b2e]/95 to-[#0a0118]/95 rounded-[28px] backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/20" />
-            
+
             {/* Animated gradient border glow */}
             <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 rounded-[28px] blur-sm opacity-50" />
-            
+
             {/* Content */}
             <div className="relative px-4 py-3">
               {/* Navigation Row */}
               <div className="flex items-center justify-between">
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
-                  const isActive = activeIndex === index;
-                  
+                  const isActive = activeIndex === index && !item.onClick;
+                  const Component = item.onClick ? 'button' : Link;
+
                   return (
-                    <Link
+                    <Component
                       key={item.label}
-                      href={item.href}
-                      onClick={(e) => {
+                      href={item.href || "#"}
+                      onClick={(e: React.MouseEvent) => {
                         e.preventDefault();
-                        handleNavClick(index, item.href);
+                        handleNavClick(index, item);
                       }}
                       className="relative flex flex-col items-center justify-center min-w-[56px] min-h-[56px] group touch-manipulation"
                       aria-label={item.label}
                       aria-current={isActive ? "page" : undefined}
+                      type={item.onClick ? "button" : undefined}
                     >
                       {/* Active indicator with liquid effect */}
                       <AnimatePresence>
@@ -110,7 +126,7 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                           />
                         )}
                       </AnimatePresence>
-                      
+
                       {/* Icon container - larger touch target */}
                       <motion.div
                         whileTap={{ scale: 0.9 }}
@@ -118,8 +134,8 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                       >
                         <div className={`
                           flex items-center justify-center w-11 h-11 rounded-xl
-                          ${isActive 
-                            ? 'bg-gradient-to-br from-purple-500/25 to-cyan-500/25 border border-white/25' 
+                          ${isActive
+                            ? 'bg-gradient-to-br from-purple-500/25 to-cyan-500/25 border border-white/25'
                             : 'bg-white/5 border border-white/5'
                           }
                           transition-all duration-300
@@ -127,25 +143,24 @@ export default function MobileBottomNav({ onLocationClick, onNewsClick }: Mobile
                         `}>
                           <Icon className={`
                             h-5 w-5 transition-all duration-300
-                            ${isActive 
-                              ? 'text-white' 
+                            ${isActive
+                              ? 'text-white'
                               : 'text-gray-400'
                             }
                           `} />
                         </div>
                       </motion.div>
-                      
+
                       {/* Label - always visible for better UX */}
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className={`text-[10px] font-medium mt-1 whitespace-nowrap transition-colors duration-300 ${
-                          isActive ? 'text-white' : 'text-gray-500'
-                        }`}
+                        className={`text-[10px] font-medium mt-1 whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-white' : 'text-gray-500'
+                          }`}
                       >
                         {item.label}
                       </motion.span>
-                    </Link>
+                    </Component>
                   );
                 })}
               </div>

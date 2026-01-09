@@ -1,14 +1,14 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
 import { slideInFromTop } from "@/lib/motion";
-import { SparklesIcon, BuildingOfficeIcon, CalendarIcon, BriefcaseIcon } from "@heroicons/react/24/solid";
-import { FaUtensils, FaBuilding, FaChartBar, FaPaintBrush, FaComments, FaRocket } from "react-icons/fa";
+import { BriefcaseIcon, BuildingOfficeIcon, CalendarIcon, SparklesIcon } from "@heroicons/react/24/solid";
+import { motion, useScroll } from "framer-motion";
+import { useRef, useState } from "react";
+import { FaBuilding, FaChartBar, FaComments, FaPaintBrush, FaRocket, FaUtensils } from "react-icons/fa";
 
 export const JourneyHorizontal = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollXProgress } = useScroll({ container: containerRef });
+  useScroll({ container: containerRef });
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
 
   const timeline = [
@@ -196,13 +196,13 @@ export const JourneyHorizontal = () => {
         >
           <div className="flex gap-8 px-8 min-w-max relative">
             {/* Timeline line */}
-            <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 via-green-500 via-blue-500 via-pink-500 to-yellow-500" />
+            <div className="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-cyan-500 to-yellow-500" />
 
             {timeline.map((item, index) => {
               // Extract year from the date range with robust fallback
               const yearMatch = item.year.match(/(\d{4})/);
               const displayYear = yearMatch ? yearMatch[1] : new Date().getFullYear().toString();
-              
+
               return (
                 <motion.div
                   key={item.company}
@@ -241,9 +241,9 @@ export const JourneyHorizontal = () => {
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors duration-300">
                       {item.title}
-                    </h4>
+                    </h3>
 
                     {/* Company */}
                     <div className="flex items-center gap-2 mb-3">
@@ -320,7 +320,7 @@ export const JourneyHorizontal = () => {
       <div className="md:hidden w-full max-w-xl relative z-10">
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-cyan-500 via-green-500 via-blue-500 via-pink-500 to-yellow-500" />
+          <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-cyan-500 to-yellow-500" />
 
           {timeline.map((item, index) => (
             <motion.div
@@ -350,7 +350,7 @@ export const JourneyHorizontal = () => {
                 </div>
 
                 {/* Title */}
-                <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
 
                 {/* Company */}
                 <div className="flex items-center gap-2 mb-3">
