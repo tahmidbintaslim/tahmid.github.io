@@ -1,18 +1,18 @@
-import Link from "next/link";
 import { FOOTER_DATA } from "@/constants";
+import Link from "next/link";
+import { FaLock, FaRobot, FaUniversalAccess } from "react-icons/fa";
 import { SiGooglecloud, SiOpenai } from "react-icons/si";
-import { FaLock, FaUniversalAccess, FaRobot } from "react-icons/fa";
 
 export const Footer = () => {
   return (
     <footer className="relative w-full bg-gradient-to-b from-transparent via-[#030014] to-[#0a0a1a] text-gray-200 mt-20 pb-24 md:pb-0">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
-      
+
       <div className="max-w-7xl mx-auto px-6 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {FOOTER_DATA.map((column, index) => (
+          {FOOTER_DATA.map((column) => (
             <div
               key={column.title}
               className="flex flex-col space-y-5"
@@ -21,7 +21,7 @@ export const Footer = () => {
               <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-2">
                 {column.title}
               </h2>
-              
+
               {/* Links */}
               <div className="flex flex-col space-y-3">
                 {column.data.map(({ icon: Icon, name, link }) => (
@@ -98,22 +98,22 @@ export const Footer = () => {
 
           {/* Links */}
           <div className="flex items-center gap-6">
-            <a 
-              href="mailto:tahmidbintaslimrafi@gmail.com" 
+            <a
+              href="mailto:tahmidbintaslimrafi@gmail.com"
               className="text-sm text-gray-400 hover:text-purple-400 transition-colors duration-300"
             >
               Contact
             </a>
-            <a 
-              href="/sitemap.xml" 
+            <a
+              href="/sitemap.xml"
               target="_blank"
               rel="noreferrer noopener"
               className="text-sm text-gray-400 hover:text-cyan-400 transition-colors duration-300"
             >
               Sitemap
             </a>
-            <a 
-              href="/llm.txt" 
+            <a
+              href="/llm.txt"
               target="_blank"
               rel="noreferrer noopener"
               className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-300"
@@ -121,8 +121,8 @@ export const Footer = () => {
             >
               LLM.txt
             </a>
-            <a 
-              href="https://github.com/tahmidbintaslim/tahmid.github.io" 
+            <a
+              href="https://github.com/tahmidbintaslim/tahmid.github.io"
               target="_blank"
               rel="noreferrer noopener"
               className="text-sm text-gray-400 hover:text-cyan-400 transition-colors duration-300"

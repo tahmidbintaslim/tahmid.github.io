@@ -1,0 +1,141 @@
+import { NextResponse } from "next/server";
+
+export const revalidate = 1800; // Revalidate every 30 minutes (ISR)
+
+type NewsItem = {
+    title: string;
+    link: string;
+    pubDate: string;
+    source: string;
+    description?: string;
+    thumbnail?: string;
+};
+
+type RSSItem = {
+    title: string;
+    link: string;
+    pubDate: string;
+    description?: string;
+    thumbnail?: string;
+    enclosure?: { link?: string };
+};
+
+// Fallback news data
+const fallbackNews: NewsItem[] = [
+    {
+        title: "The Future of Web Development in 2026",
+        link: "https://www.theverge.com/tech",
+        pubDate: new Date().toISOString(),
+        source: "The Verge",
+        description: "Exploring the latest trends in web development and what's next for the industry.",
+    },
+    {
+        title: "AI and Machine Learning Continue to Transform Tech",
+        link: "https://techcrunch.com",
+        pubDate: new Date().toISOString(),
+        source: "TechCrunch",
+        description: "How artificial intelligence is reshaping the technology landscape.",
+    },
+    {
+        title: "Cloud Computing Trends for Enterprise",
+        link: "https://arstechnica.com",
+        pubDate: new Date().toISOString(),
+        source: "Ars Technica",
+        description: "The latest developments in cloud infrastructure and services.",
+    },
+];
+
+// Tech news RSS sources
+const RSS_SOURCES = [
+    { url: "https://www.theverge.com/rss/index.xml", source: "The Verge" },
+    { url: "https://techcrunch.com/feed/", source: "TechCrunch" },
+    { url: "https://feeds.arstechnica.com/arstechnica/technology-lab", source: "Ars Technica" },
+    { url: "https://www.wired.com/feed/rss", source: "Wired" },
+];
+
+async function fetchRSSNews(url: string, source: string): Promise<NewsItem[]> {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+        const response = await fetch(
+            `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&count=5`,
+            {
+                signal: controller.signal,
+                next: { revalidate: 1800 } // Cache for 30 min
+            }
+        );
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) return [];
+
+        const data = await response.json();
+
+        if (data.status !== "ok" || !data.items) return [];
+
+        return data.items.slice(0, 5).map((item: RSSItem) => ({
+            title: item.title,
+            link: item.link,
+            pubDate: item.pubDate,
+            source,
+            description: item.description
+                ?.replace(/<[^>]*>/g, "")
+                ?.slice(0, 150) + "..." || "",
+            thumbnail: item.thumbnail || item.enclosure?.link || undefined,
+        }));
+    } catch (error) {
+        console.error(`Error fetching ${source}:`, error);
+        return [];
+    }
+}
+
+export async function GET() {
+    try {
+        // Fetch from all sources in parallel
+        const results = await Promise.all(
+            RSS_SOURCES.map((src) => fetchRSSNews(src.url, src.source))
+        );
+
+        let allNews = results.flat();
+
+        // Sort by date (newest first)
+        allNews.sort((a, b) =>
+            new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+        );
+
+        // Limit to 15 articles
+        allNews = allNews.slice(0, 15);
+
+        // Use fallback if no news fetched
+        if (allNews.length === 0) {
+            console.warn("No news fetched, using fallback data");
+            allNews = fallbackNews;
+        }
+
+        return NextResponse.json({
+            success: true,
+            articles: allNews,
+            count: allNews.length,
+            lastUpdated: new Date().toISOString(),
+        }, {
+            headers: {
+                "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+            },
+        });
+    } catch (error) {
+        console.error("News API error:", error);
+
+        return NextResponse.json({
+            success: true,
+            articles: fallbackNews,
+            count: fallbackNews.length,
+            lastUpdated: new Date().toISOString(),
+            fallback: true,
+        }, {
+            headers: {
+                "Cache-Control": "public, s-maxage=300, stale-while-revalidate=1800",
+            },
+        });
+    }
+}

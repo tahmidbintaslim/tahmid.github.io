@@ -1,13 +1,13 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import type { PropsWithChildren } from "react";
+import { Cedarville_Cursive, Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
-import { Inter, Space_Grotesk } from "next/font/google";
+import type { PropsWithChildren } from "react";
 
+import CustomCursor from "@/components/main/custom-cursor";
 import { Footer } from "@/components/main/footer";
 import { Navbar } from "@/components/main/navbar";
 import { StarsCanvas } from "@/components/main/stars-canvas-wrapper";
-import CustomCursor from "@/components/main/custom-cursor";
 import { siteConfig } from "@/config";
 import { structuredData } from "@/config/structured-data";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,15 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+// Cedarville Cursive - Decorative cursive font (lazy loaded)
+const cedarvilleCursive = Cedarville_Cursive({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-cursive",
+  display: "swap",
+  preload: false, // Don't preload since it's rarely used
+});
+
 export const viewport: Viewport = {
   themeColor: "#030014",
   width: "device-width",
@@ -39,7 +48,7 @@ export const metadata: Metadata = siteConfig;
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${cedarvilleCursive.variable}`}>
       <body
         className={cn(
           "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
@@ -74,7 +83,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             __html: JSON.stringify(structuredData.professionalService),
           }}
         />
-        
+
         <StarsCanvas />
         <Navbar />
         <CustomCursor />

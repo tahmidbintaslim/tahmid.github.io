@@ -1,12 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 
 import { LINKS, NAV_LINKS, SOCIALS } from "@/constants";
 
 export const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   return (
     // Hidden on mobile, shown on desktop (md and up)
     <nav className="hidden md:block w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001427] backdrop-blur-md z-50 px-10">
@@ -14,7 +11,7 @@ export const Navbar = () => {
       <div className="w-full h-full flex items-center justify-between m-auto px-[10px]">
         {/* Logo + Name */}
         <Link href="/" className="flex items-center">
-          <div className="md:selffont-bold ml-[10px] text-gray-300">
+          <div className="font-bold ml-[10px] text-gray-300">
             TBTR
           </div>
         </Link>

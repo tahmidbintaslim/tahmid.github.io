@@ -1,37 +1,89 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { SparklesIcon, CheckBadgeIcon, RocketLaunchIcon, CodeBracketIcon, CloudIcon } from "@heroicons/react/24/solid";
-import { CodeBracketSquareIcon, ShoppingCartIcon, CpuChipIcon, CloudIcon as CloudIconSolid } from "@heroicons/react/24/solid";
 import {
   slideInFromLeft,
   slideInFromRight,
   slideInFromTop,
 } from "@/lib/motion";
+import { CheckBadgeIcon, CloudIcon as CloudIconSolid, CodeBracketIcon, CodeBracketSquareIcon, CpuChipIcon, RocketLaunchIcon, ShoppingCartIcon, SparklesIcon } from "@heroicons/react/24/solid";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import * as SimpleIcons from "simple-icons";
+import type { IconType } from "react-icons";
+import { FaAws } from "react-icons/fa";
+import {
+  SiAngular,
+  SiDjango,
+  SiDocker,
+  SiExpress,
+  SiFastapi,
+  SiFlask,
+  SiGithubactions,
+  SiGo,
+  SiGooglecloud,
+  SiJavascript,
+  SiKubernetes,
+  SiLaravel,
+  SiMui,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPhp,
+  SiPython,
+  SiReact,
+  SiRemix,
+  SiRuby,
+  SiRubyonrails,
+  SiRust,
+  SiTailwindcss,
+  SiTerraform,
+  SiTypescript,
+  SiVuedotjs,
+} from "react-icons/si";
+import { VscAzure } from "react-icons/vsc";
 
-// Helper to get Simple Icon SVG
-const getSimpleIconSvg = (iconName: string) => {
-  try {
-    const icon = (SimpleIcons as any)[iconName];
-    if (icon) {
-      return icon.svg;
-    }
-  } catch (e) {
-    console.warn(`Icon ${iconName} not found`);
-  }
-  return null;
+// Icon map for easy lookup - using react-icons components
+const iconComponentsMap: Record<string, IconType> = {
+  siPython: SiPython,
+  siJavascript: SiJavascript,
+  siTypescript: SiTypescript,
+  siPhp: SiPhp,
+  siRust: SiRust,
+  siGo: SiGo,
+  siRuby: SiRuby,
+  siReact: SiReact,
+  siVuedotjs: SiVuedotjs,
+  siNextdotjs: SiNextdotjs,
+  siRemix: SiRemix,
+  siAngular: SiAngular,
+  siTailwindcss: SiTailwindcss,
+  siMui: SiMui,
+  siNodedotjs: SiNodedotjs,
+  siDjango: SiDjango,
+  siFlask: SiFlask,
+  siFastapi: SiFastapi,
+  siLaravel: SiLaravel,
+  siRubyonrails: SiRubyonrails,
+  siExpress: SiExpress,
+  siAmazonaws: FaAws,
+  siGooglecloud: SiGooglecloud,
+  siMicrosoftazure: VscAzure,
+  siDocker: SiDocker,
+  siKubernetes: SiKubernetes,
+  siTerraform: SiTerraform,
+  siGithubactions: SiGithubactions,
+};
+
+// Helper to get icon component
+const getIconComponent = (iconName: string): IconType | null => {
+  return iconComponentsMap[iconName] || null;
 };
 
 export const AboutEnhanced = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
   const [expandedSection, setExpandedSection] = useState<string | null>("all"); // Open all by default
   const statsRef = useRef(null);
   const quickFactsRef = useRef(null);
   const expertiseRef = useRef(null);
-  
+
   // Use Framer Motion's useInView for scroll animations
   const statsInView = useInView(statsRef, { once: true, amount: 0.2 });
   const quickFactsInView = useInView(quickFactsRef, { once: true, amount: 0.2 });
@@ -272,16 +324,16 @@ export const AboutEnhanced = () => {
             } else {
               gridClass = 'md:col-span-1'; // Regular cards
             }
-            
+
             const isLarge = index === 0;
-            
+
             return (
               <motion.div
                 key={achievement.label}
                 initial={{ y: 100, opacity: 0 }}
                 animate={statsInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.8, ease: "easeOut" }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.03,
                   y: -8,
                 }}
@@ -290,10 +342,10 @@ export const AboutEnhanced = () => {
                 {/* Glassmorphism layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 {/* Animated gradient orb */}
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${achievement.color} opacity-20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700`} />
-                
+
                 {/* Content */}
                 <div className="relative z-10 flex flex-col items-center text-center">
                   {/* Icon with proper rendering using fill color */}
@@ -302,15 +354,15 @@ export const AboutEnhanced = () => {
                       <Icon className={`${isLarge ? 'w-14 h-14 md:w-16 md:h-16' : 'w-10 h-10 md:w-12 md:h-12'} text-white`} />
                     </div>
                   </div>
-                  
+
                   <h3 className={`${isLarge ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl'} font-bold text-transparent bg-clip-text bg-gradient-to-r ${achievement.color} group-hover:scale-105 transition-transform duration-300 mb-4`}>
                     {achievement.number}
                   </h3>
-                  
+
                   <p className={`text-gray-300 ${isLarge ? 'text-lg md:text-xl' : 'text-base md:text-lg'} font-semibold group-hover:text-white transition-colors duration-300 mb-3`}>
                     {achievement.label}
                   </p>
-                  
+
                   {/* Add descriptive text for all cards */}
                   <p className={`text-gray-400 ${isLarge ? 'text-sm md:text-base' : 'text-xs md:text-sm'} leading-relaxed max-w-xs group-hover:text-gray-300 transition-colors duration-300`}>
                     {achievement.description}
@@ -337,20 +389,20 @@ export const AboutEnhanced = () => {
             Facts
           </span>
         </h3>
-        
+
         {/* Single column on mobile, 2 columns on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {quickFacts.map((fact, index) => {
             // First item and last item span full width on desktop
             const isWide = index === 0 || index === 3;
-            
+
             return (
               <motion.div
                 key={fact.title}
                 initial={{ x: -100, opacity: 0 }}
                 animate={quickFactsInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
                   y: -5,
                 }}
@@ -359,10 +411,10 @@ export const AboutEnhanced = () => {
                 {/* Glassmorphism layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-2xl md:rounded-3xl" />
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 {/* Floating gradient orb */}
                 <div className="absolute top-0 right-0 w-32 md:w-40 h-32 md:h-40 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
-                
+
                 <div className="relative z-10 flex items-start gap-4 md:gap-6">
                   {/* Icon Container */}
                   <div className={`flex-shrink-0 ${fact.colorClass} group-hover:scale-110 transition-all duration-500`}>
@@ -370,7 +422,7 @@ export const AboutEnhanced = () => {
                       <fact.icon className="w-8 h-8 md:w-12 md:h-12 lg:w-14 lg:h-14" />
                     </div>
                   </div>
-                  
+
                   {/* Content - Left aligned for F/Z reading pattern */}
                   <div className="flex-1 min-w-0 text-left">
                     <h4 className={`text-lg md:text-2xl lg:text-3xl font-bold mb-2 md:mb-4 ${fact.colorClass} transition-all duration-300 leading-tight`}>
@@ -381,7 +433,7 @@ export const AboutEnhanced = () => {
                     </p>
                   </div>
                 </div>
-                
+
                 {/* Subtle glow effect on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
               </motion.div>
@@ -408,7 +460,7 @@ export const AboutEnhanced = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {expertise.map((category, index) => {
             const isOpen = expandedSection === "all" || expandedSection === category.id;
-            
+
             return (
               <motion.div
                 key={category.id}
@@ -419,7 +471,7 @@ export const AboutEnhanced = () => {
               >
                 {/* Liquid Glass effect */}
                 <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl" />
-                
+
                 <button
                   onClick={() => setExpandedSection(expandedSection === category.id ? "all" : category.id)}
                   className="w-full text-left relative z-10"
@@ -429,7 +481,7 @@ export const AboutEnhanced = () => {
                     <span className="text-2xl">{isOpen ? "−" : "+"}</span>
                   </h4>
                 </button>
-                
+
                 <motion.div
                   initial={false}
                   animate={{
@@ -441,8 +493,8 @@ export const AboutEnhanced = () => {
                 >
                   <div className="grid grid-cols-4 md:grid-cols-5 gap-4 pt-2">
                     {category.items.map((item) => {
-                      const iconSvg = getSimpleIconSvg(item.icon);
-                      
+                      const IconComponent = getIconComponent(item.icon);
+
                       return (
                         <div
                           key={item.name}
@@ -450,23 +502,21 @@ export const AboutEnhanced = () => {
                           title={item.name}
                         >
                           {/* Icon */}
-                          {iconSvg ? (
-                            <div 
+                          {IconComponent ? (
+                            <IconComponent
                               className={`w-10 h-10 ${category.badgeText} group-hover:scale-110 transition-transform duration-300`}
-                              dangerouslySetInnerHTML={{ __html: iconSvg }}
-                              style={{ fill: "currentColor" }}
                             />
                           ) : (
-                            <div className={`w-10 h-10 rounded-lg ${category.badgeBg} flex items-center justify-center ${category.badgeText} font-bold text-sm`}>
+                            <div className={`w-10 h-10 rounded-lg ${category.badgeBg} flex items-center justify-center ${category.badgeText} font-bold text-sm group-hover:scale-110 transition-transform duration-300`}>
                               {item.name.substring(0, 2).toUpperCase()}
                             </div>
                           )}
-                          
+
                           {/* Label */}
                           <span className={`text-xs ${category.badgeText} text-center leading-tight group-hover:text-white transition-colors duration-200`}>
                             {item.name}
                           </span>
-                          
+
                           {/* Tooltip */}
                           <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
                             {item.name}
@@ -492,21 +542,21 @@ export const AboutEnhanced = () => {
       >
         <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md">
           <p className="mb-4">
-            I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 4 years of hands-on experience 
-            in building modern, scalable, and user-centric applications. I transform complex challenges into elegant solutions through 
+            I&apos;m a passionate <span className="text-purple-400 font-semibold">Senior Software Engineer</span> with over 4 years of hands-on experience
+            in building modern, scalable, and user-centric applications. I transform complex challenges into elegant solutions through
             clean architecture, scalable design, and measurable business impact.
           </p>
           <p className="mb-4">
             Throughout my career at{" "}
             <span className="text-cyan-400 font-semibold">Marion&apos;s Kitchen Group</span>,{" "}
             <span className="text-cyan-400 font-semibold">Trienpont International</span>, and{" "}
-            <span className="text-cyan-400 font-semibold">Relevant Audience</span>, I&apos;ve delivered impactful solutions including 
-            <span className="text-purple-400 font-semibold"> ~40% sales growth</span> through e-commerce optimizations, 
+            <span className="text-cyan-400 font-semibold">Relevant Audience</span>, I&apos;ve delivered impactful solutions including
+            <span className="text-purple-400 font-semibold"> ~40% sales growth</span> through e-commerce optimizations,
             served <span className="text-purple-400 font-semibold">10,000+ users</span>, and achieved{" "}
             <span className="text-purple-400 font-semibold">99.9% system uptime</span>.
           </p>
           <p>
-            I also offer specialized services through <span className="text-cyan-400 font-semibold">Iglu</span> as a freelancing partner, 
+            I also offer specialized services through <span className="text-cyan-400 font-semibold">Iglu</span> as a freelancing partner,
             focusing on <span className="text-purple-400 font-semibold">Shopify/Plus development</span>,{" "}
             <span className="text-purple-400 font-semibold">AI/ML integration</span>, and{" "}
             <span className="text-purple-400 font-semibold">cloud-native architectures</span>.

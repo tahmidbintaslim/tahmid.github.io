@@ -2,6 +2,7 @@
 
 import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import * as random from "maath/random";
 import { Suspense, useRef, useState } from "react";
 import type { Points as PointsType } from "three";
@@ -33,9 +34,10 @@ export const StarBackground = () => {
         <PointMaterial
           transparent
           color="#fff"
-          size={0.002}
+          size={0.0015}
           sizeAttenuation
           depthWrite={false}
+          opacity={0.6}
         />
       </Points>
     </group>
@@ -43,10 +45,21 @@ export const StarBackground = () => {
 };
 
 export const StarsCanvas = () => (
-  <div className="w-full h-auto fixed inset-0 -z-10">
-    <Canvas camera={{ position: [0, 0, 1] }}>
+  <div className="w-full h-full fixed inset-0 -z-10 opacity-40">
+    <Canvas camera={{ position: [0, 0, 1], fov: 75 }}>
       <Suspense fallback={null}>
         <StarBackground />
+        <EffectComposer>
+          <Bloom
+            intensity={0.3}
+            luminanceThreshold={0.9}
+            luminanceSmoothing={0.9}
+          />
+          <Vignette
+            offset={0.3}
+            darkness={0.6}
+          />
+        </EffectComposer>
       </Suspense>
     </Canvas>
   </div>

@@ -1,17 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Mobile-first base styles */
 @layer base {
   /* Prevent horizontal overflow on mobile */
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Prevent text size adjustment on orientation change */
   html {
     -webkit-text-size-adjust: 100%;
@@ -27,7 +24,12 @@
   }
 
   /* Headings use Space Grotesk for modern tech aesthetic */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-space-grotesk), system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -35,7 +37,14 @@
   }
 
   /* Body text optimized for readability */
-  p, span, li, a, label, input, textarea, button {
+  p,
+  span,
+  li,
+  a,
+  label,
+  input,
+  textarea,
+  button {
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
@@ -45,18 +54,22 @@
   }
 
   /* Better letter spacing for small text */
-  .text-xs, .text-sm {
+  .text-xs,
+  .text-sm {
     letter-spacing: 0.01em;
   }
 
   /* Tighter letter spacing for large headings */
-  .text-3xl, .text-4xl, .text-5xl, .text-6xl {
+  .text-3xl,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl {
     letter-spacing: -0.03em;
   }
 }
 
 .cursive {
-  font-family: "Cedarville Cursive", cursive;
+  font-family: var(--font-cursive), cursive;
 }
 .Welcome-text {
   background: linear-gradient(
@@ -105,8 +118,6 @@
   box-shadow: inset 0 0 12px #bf97ff70;
 }
 
-
-
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hidden {
   -ms-overflow-style: none; /* IE and Edge */
@@ -125,8 +136,10 @@ html {
   html {
     scroll-behavior: auto;
   }
-  
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -158,7 +171,7 @@ html {
   ::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: rgba(112, 66, 248, 0.5);
     border-radius: 2px;
@@ -201,7 +214,8 @@ html {
 
 /* Pulse animation for buttons */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -307,6 +321,14 @@ html {
   animation-play-state: paused;
 }
 
+.animate-scroll-slow {
+  animation: scroll 60s linear infinite;
+}
+
+.animate-scroll-slow:hover {
+  animation-play-state: paused;
+}
+
 /* Custom cursor styles - Only on desktop */
 @media (hover: hover) and (pointer: fine) {
   * {
@@ -370,4 +392,3 @@ html {
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
-

@@ -2,6 +2,7 @@
 
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
 
@@ -11,7 +12,17 @@ import {
   slideInFromTop,
 } from "@/lib/motion";
 
-export const HeroContent = () => {
+const DynamicHeroMobileWidgets = dynamic(() => import("@/components/main/hero-mobile-widgets"), {
+  ssr: false,
+});
+
+interface HeroContentProps {
+  onLocationClick?: () => void;
+  onNewsClick?: () => void;
+  onFeedbackClick?: () => void;
+}
+
+export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: HeroContentProps) => {
   return (
     <motion.div
       initial="hidden"
@@ -21,7 +32,7 @@ export const HeroContent = () => {
       <div className="h-full w-full flex flex-col gap-4 sm:gap-5 justify-center m-auto text-start">
         <motion.div
           variants={slideInFromTop}
-          className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]]"
+          className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
         >
           <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
           <h1 className="Welcome-text text-[12px] sm:text-[13px]">
@@ -67,9 +78,9 @@ export const HeroContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-sm sm:text-base lg:text-lg text-gray-400 my-3 sm:my-5 max-w-[600px] leading-relaxed"
         >
-          I&apos;m a Senior Software Engineer with 4+ years of expertise in full-stack development, 
-          Shopify/Shopify Plus, AI/ML integration, cloud architecture (AWS, GCP), SaaS platforms, 
-          e-commerce solutions, and scalable APIs. Proficient in React, Remix, Next.js, Vue, Node.js, Python, 
+          I&apos;m a Senior Software Engineer with 4+ years of expertise in full-stack development,
+          Shopify/Shopify Plus, AI/ML integration, cloud architecture (AWS, GCP), SaaS platforms,
+          e-commerce solutions, and scalable APIs. Proficient in React, Remix, Next.js, Vue, Node.js, Python,
           TypeScript, Ruby, and modern DevOps/CI/CD practices.
         </motion.p>
 
@@ -96,7 +107,7 @@ export const HeroContent = () => {
 
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-full flex justify-center items-center mb-8 lg:mb-0"
+        className="w-full h-full flex flex-col justify-center items-center mb-8 lg:mb-0"
       >
         <Image
           src="/hero-bg.svg"
@@ -104,9 +115,19 @@ export const HeroContent = () => {
           height={650}
           width={650}
           draggable={false}
-          className="select-none w-[280px] sm:w-[400px] md:w-[500px] lg:w-[650px] h-auto"
+          className="select-none w-[280px] sm:w-[400px] md:w-[500px] lg:w-[650px]"
+          style={{ height: 'auto' }}
           priority
         />
+
+        {/* Mobile Widgets - Below hero image on mobile */}
+        {onLocationClick && onNewsClick && onFeedbackClick && (
+          <DynamicHeroMobileWidgets
+            onLocationClick={onLocationClick}
+            onNewsClick={onNewsClick}
+            onFeedbackClick={onFeedbackClick}
+          />
+        )}
       </motion.div>
     </motion.div>
   );

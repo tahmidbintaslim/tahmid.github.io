@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import { ArrowsUpDownIcon, ArrowTopRightOnSquareIcon, BookOpenIcon, ChevronLeftIcon, ChevronRightIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon, MagnifyingGlassIcon, FunnelIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { useEffect, useMemo, useState } from "react";
 
 type BlogPost = {
   title: string;
@@ -21,13 +20,13 @@ const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Filter and sort states
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPlatform, setSelectedPlatform] = useState<"all" | "Medium" | "Dev.to">("all");
   const [sortBy, setSortBy] = useState<"latest" | "oldest">("latest");
   const [showFilters, setShowFilters] = useState(false);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 9;
@@ -36,93 +35,24 @@ const Blog = () => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        // Mock data - in production, replace with actual RSS feed fetching
-        const mockPosts: BlogPost[] = [
-          {
-            title: "Building Scalable E-commerce Platforms with Shopify Plus",
-            link: "https://medium.com/@tahmidbintaslimrafi",
-            pubDate: "2024-01-15",
-            description: "Learn how to architect and develop high-performance e-commerce solutions using Shopify Plus, Remix, and modern web technologies.",
-            platform: "Medium",
-            readTime: "8 min read",
-            coverImage: "/blog/shopify-ecommerce.jpg",
-          },
-          {
-            title: "Integrating AI/ML into Web Applications with OpenAI",
-            link: "https://dev.to/tahmidbintaslim",
-            pubDate: "2023-12-20",
-            description: "A comprehensive guide to integrating GPT-3 and GPT-4 models into your web applications for enhanced user experiences.",
-            platform: "Dev.to",
-            readTime: "12 min read",
-            coverImage: "/blog/ai-ml-integration.jpg",
-          },
-          {
-            title: "Building Real-time Systems with Node.js and Redis",
-            link: "https://medium.com/@tahmidbintaslimrafi",
-            pubDate: "2023-11-10",
-            description: "Explore the architecture and implementation of real-time systems using Node.js, Redis, and WebSockets for scalable applications.",
-            platform: "Medium",
-            readTime: "10 min read",
-            coverImage: "/blog/nodejs-realtime.jpg",
-          },
-          {
-            title: "Modern Full-Stack Development with Next.js 14",
-            link: "https://dev.to/tahmidbintaslim",
-            pubDate: "2023-10-05",
-            description: "Discover the latest features and best practices for building full-stack applications with Next.js 14, TypeScript, and Tailwind CSS.",
-            platform: "Dev.to",
-            readTime: "15 min read",
-            coverImage: "/blog/nextjs-fullstack.jpg",
-          },
-          {
-            title: "Cloud-Native Architecture with AWS and Docker",
-            link: "https://medium.com/@tahmidbintaslimrafi",
-            pubDate: "2023-09-18",
-            description: "Learn how to design and deploy cloud-native applications using AWS services, Docker containers, and Kubernetes orchestration.",
-            platform: "Medium",
-            readTime: "11 min read",
-            coverImage: "/blog/cloud-aws.jpg",
-          },
-          {
-            title: "Optimizing React Performance for Large Applications",
-            link: "https://dev.to/tahmidbintaslim",
-            pubDate: "2023-08-22",
-            description: "Deep dive into React performance optimization techniques including code splitting, lazy loading, and memoization strategies.",
-            platform: "Dev.to",
-            readTime: "9 min read",
-            coverImage: "/blog/react-performance.jpg",
-          },
-          {
-            title: "Microservices Architecture with Node.js",
-            link: "https://medium.com/@tahmidbintaslimrafi",
-            pubDate: "2023-07-15",
-            description: "Building scalable microservices with Node.js, Docker, and Kubernetes for enterprise applications.",
-            platform: "Medium",
-            readTime: "13 min read",
-            coverImage: "/blog/nodejs-realtime.jpg",
-          },
-          {
-            title: "TypeScript Best Practices for 2024",
-            link: "https://dev.to/tahmidbintaslim",
-            pubDate: "2023-06-10",
-            description: "Essential TypeScript patterns and practices for building maintainable and type-safe applications.",
-            platform: "Dev.to",
-            readTime: "7 min read",
-            coverImage: "/blog/nextjs-fullstack.jpg",
-          },
-          {
-            title: "Serverless Functions with AWS Lambda",
-            link: "https://medium.com/@tahmidbintaslimrafi",
-            pubDate: "2023-05-20",
-            description: "Complete guide to building and deploying serverless functions using AWS Lambda and API Gateway.",
-            platform: "Medium",
-            readTime: "14 min read",
-            coverImage: "/blog/cloud-aws.jpg",
-          },
-        ];
 
-        setPosts(mockPosts);
-        setError(null);
+        // Fetch from our own API route (SSR with ISR caching)
+        const response = await fetch("/api/blog", {
+          next: { revalidate: 3600 }, // Use cached data for 1 hour
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch blog posts");
+        }
+
+        const data = await response.json();
+
+        if (data.success && data.posts?.length > 0) {
+          setPosts(data.posts);
+          setError(null);
+        } else {
+          setError("No blog posts found. Please check back later.");
+        }
       } catch (err) {
         console.error("Error fetching blog posts:", err);
         setError("Failed to load blog posts. Please try again later.");
@@ -245,7 +175,10 @@ const Blog = () => {
               {/* Sort - Full width on mobile */}
               <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
                 <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
+                <label htmlFor="sort-articles" className="sr-only">Sort articles</label>
                 <select
+                  id="sort-articles"
+                  title="Sort articles by date"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
                   className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
@@ -291,31 +224,28 @@ const Blog = () => {
                 <div className="flex gap-2 flex-wrap">
                   <button
                     onClick={() => setSelectedPlatform("all")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "all"
-                        ? "bg-purple-500 text-white"
-                        : "bg-purple-500/20 text-gray-300 hover:bg-purple-500/30"
-                    }`}
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "all"
+                      ? "bg-purple-500 text-white"
+                      : "bg-purple-500/20 text-gray-300 hover:bg-purple-500/30"
+                      }`}
                   >
                     All
                   </button>
                   <button
                     onClick={() => setSelectedPlatform("Medium")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "Medium"
-                        ? "bg-green-500 text-white"
-                        : "bg-green-500/20 text-gray-300 hover:bg-green-500/30"
-                    }`}
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Medium"
+                      ? "bg-green-500 text-white"
+                      : "bg-green-500/20 text-gray-300 hover:bg-green-500/30"
+                      }`}
                   >
                     Medium
                   </button>
                   <button
                     onClick={() => setSelectedPlatform("Dev.to")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "Dev.to"
-                        ? "bg-purple-600 text-white"
-                        : "bg-purple-600/20 text-gray-300 hover:bg-purple-600/30"
-                    }`}
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Dev.to"
+                      ? "bg-purple-600 text-white"
+                      : "bg-purple-600/20 text-gray-300 hover:bg-purple-600/30"
+                      }`}
                   >
                     Dev.to
                   </button>
@@ -395,11 +325,10 @@ const Blog = () => {
                         {/* Platform Badge */}
                         <div className="flex items-center justify-between mb-4">
                           <span
-                            className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                              post.platform === "Medium"
-                                ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                                : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                            }`}
+                            className={`px-3 py-1 text-xs font-semibold rounded-full ${post.platform === "Medium"
+                              ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                              : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                              }`}
                           >
                             {post.platform}
                           </span>
@@ -407,9 +336,9 @@ const Blog = () => {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2 leading-tight">
+                        <h2 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2 leading-tight">
                           {post.title}
-                        </h3>
+                        </h2>
 
                         {/* Description */}
                         <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 flex-1 line-clamp-3">
@@ -452,11 +381,10 @@ const Blog = () => {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${
-                      currentPage === page
-                        ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
-                        : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
-                    }`}
+                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${currentPage === page
+                      ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
+                      : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
+                      }`}
                     aria-label={`Go to page ${page}`}
                     aria-current={currentPage === page ? "page" : undefined}
                   >

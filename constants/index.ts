@@ -1,4 +1,4 @@
-import { FaFacebook, FaYoutube, FaCoffee, FaEnvelope } from "react-icons/fa";
+import { FaCoffee, FaEnvelope, FaFacebook, FaYoutube } from "react-icons/fa";
 import {
   RxDiscordLogo,
   RxGithubLogo,
@@ -185,7 +185,7 @@ export const BACKEND_SKILL = [
   },
   {
     skill_name: "Ruby on Rails",
-    svgIcon: "laravel",
+    svgIcon: "rails",
     width: 70,
     height: 70,
   },
@@ -269,7 +269,7 @@ export const CLOUD_DEVOPS_SKILL = [
   },
   {
     skill_name: "Terraform",
-    svgIcon: "cicd",
+    svgIcon: "terraform",
     width: 70,
     height: 70,
   },
@@ -296,7 +296,7 @@ export const ECOMMERCE_SKILL = [
   },
   {
     skill_name: "Headless CMS",
-    svgIcon: "shopify",
+    svgIcon: "headless",
     width: 70,
     height: 70,
   },

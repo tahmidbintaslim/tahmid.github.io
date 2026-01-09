@@ -2,9 +2,39 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { memo, useState } from "react";
+import type { IconType } from "react-icons";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
-import * as SimpleIcons from "simple-icons";
+
+// Individual icon imports to reduce bundle size (tree-shakeable)
+import { FaAws } from "react-icons/fa";
+import {
+  SiAngular,
+  SiDjango,
+  SiFastapi,
+  SiFlask,
+  SiGithubactions,
+  SiGooglecloud,
+  SiKubernetes,
+  SiLaravel,
+  SiOpenai,
+  SiPhp,
+  SiPython,
+  SiPytorch,
+  SiRedis,
+  SiRemix,
+  SiRuby,
+  SiRubyonrails,
+  SiRust,
+  SiShopify,
+  SiStrapi,
+  SiTensorflow,
+  SiTerraform,
+  SiTypeorm,
+  SiVuedotjs,
+  SiWordpress,
+} from "react-icons/si";
+import { VscAzure } from "react-icons/vsc";
 
 type SkillDataProviderProps = {
   src?: string;
@@ -15,68 +45,37 @@ type SkillDataProviderProps = {
   index: number;
 };
 
-// Map of svgIcon keys to simple-icons names
-const simpleIconsMap: { [key: string]: string } = {
-  python: "siPython",
-  php: "siPhp",
-  rust: "siRust",
-  ruby: "siRuby",
-  django: "siDjango",
-  flask: "siFlask",
-  fastapi: "siFastapi",
-  laravel: "siLaravel",
-  rails: "siRubyonrails",
-  vue: "siVuedotjs",
-  remix: "siRemix",
-  angular: "siAngular",
-  redis: "siRedis",
-  typeorm: "siTypeorm",
-  aws: "siAmazonwebservices",
-  gcp: "siGooglecloud",
-  azure: "siMicrosoftazure",
-  kubernetes: "siKubernetes",
-  cicd: "siGithubactions",
-  terraform: "siTerraform",
-  shopify: "siShopify",
-  wordpress: "siWordpress",
-  openai: "siOpenai",
-  tensorflow: "siTensorflow",
-  pytorch: "siPytorch",
+// Map of svgIcon keys to react-icons
+const iconMap: { [key: string]: { Icon: IconType; color: string } } = {
+  python: { Icon: SiPython, color: "#3776AB" },
+  php: { Icon: SiPhp, color: "#777BB4" },
+  rust: { Icon: SiRust, color: "#000000" },
+  ruby: { Icon: SiRuby, color: "#CC342D" },
+  django: { Icon: SiDjango, color: "#092E20" },
+  flask: { Icon: SiFlask, color: "#000000" },
+  fastapi: { Icon: SiFastapi, color: "#009688" },
+  laravel: { Icon: SiLaravel, color: "#FF2D20" },
+  rails: { Icon: SiRubyonrails, color: "#CC0000" },
+  vue: { Icon: SiVuedotjs, color: "#4FC08D" },
+  remix: { Icon: SiRemix, color: "#000000" },
+  angular: { Icon: SiAngular, color: "#DD0031" },
+  redis: { Icon: SiRedis, color: "#DC382D" },
+  typeorm: { Icon: SiTypeorm, color: "#FE0803" },
+  aws: { Icon: FaAws, color: "#FF9900" },
+  azure: { Icon: VscAzure, color: "#0078D4" },
+  gcp: { Icon: SiGooglecloud, color: "#4285F4" },
+  kubernetes: { Icon: SiKubernetes, color: "#326CE5" },
+  cicd: { Icon: SiGithubactions, color: "#2088FF" },
+  terraform: { Icon: SiTerraform, color: "#7B42BC" },
+  shopify: { Icon: SiShopify, color: "#7AB55C" },
+  wordpress: { Icon: SiWordpress, color: "#21759B" },
+  headless: { Icon: SiStrapi, color: "#8E75FF" },
+  openai: { Icon: SiOpenai, color: "#412991" },
+  tensorflow: { Icon: SiTensorflow, color: "#FF6F00" },
+  pytorch: { Icon: SiPytorch, color: "#EE4C2C" },
 };
 
-// Helper to get Simple Icon SVG
-const getSimpleIconSvg = (iconKey: string): string | null => {
-  const iconName = simpleIconsMap[iconKey.toLowerCase()];
-  if (!iconName) return null;
-  
-  try {
-    const icon = (SimpleIcons as any)[iconName];
-    if (icon) {
-      return icon.svg;
-    }
-  } catch (e) {
-    console.warn(`Icon ${iconName} not found`);
-  }
-  return null;
-};
-
-// Get icon color from simple-icons
-const getSimpleIconColor = (iconKey: string): string => {
-  const iconName = simpleIconsMap[iconKey.toLowerCase()];
-  if (!iconName) return "#a855f7"; // Default purple
-  
-  try {
-    const icon = (SimpleIcons as any)[iconName];
-    if (icon && icon.hex) {
-      return `#${icon.hex}`;
-    }
-  } catch (e) {
-    // Return default color
-  }
-  return "#a855f7";
-};
-
-export const SkillDataProvider = ({
+export const SkillDataProvider = memo(({
   src,
   svgIcon,
   name,
@@ -86,6 +85,7 @@ export const SkillDataProvider = ({
 }: SkillDataProviderProps) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
+    threshold: 0.1,
   });
 
   const [showTooltip, setShowTooltip] = useState(false);
@@ -97,9 +97,10 @@ export const SkillDataProvider = ({
 
   const animationDelay = 0.1;
 
-  // Get SVG icon from simple-icons
-  const svgIconSvg = svgIcon ? getSimpleIconSvg(svgIcon) : null;
-  const iconColor = svgIcon ? getSimpleIconColor(svgIcon) : "#a855f7";
+  // Get icon from react-icons
+  const iconData = svgIcon ? iconMap[svgIcon.toLowerCase()] : null;
+  const IconComponent = iconData?.Icon;
+  const iconColor = iconData?.color || "#a855f7";
 
   return (
     <motion.div
@@ -122,18 +123,20 @@ export const SkillDataProvider = ({
         className="flex items-center justify-center"
       >
         {src ? (
-          <Image 
-            src={`/skills/${src}`} 
-            width={width} 
-            height={height} 
+          <Image
+            src={`/skills/${src}`}
+            width={width}
+            height={height}
             alt={`${name} logo`}
+            loading="lazy"
+            quality={75}
             className="transition-transform duration-300"
           />
-        ) : svgIconSvg ? (
-          <div 
-            className="flex items-center justify-center transition-transform duration-300"
+        ) : IconComponent ? (
+          <IconComponent
+            className="transition-transform duration-300"
             style={{ width: width, height: height, color: iconColor }}
-            dangerouslySetInnerHTML={{ __html: svgIconSvg }}
+            aria-label={`${name} icon`}
           />
         ) : (
           <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300">
@@ -141,16 +144,18 @@ export const SkillDataProvider = ({
           </div>
         )}
       </motion.div>
-      
+
       {/* Tooltip for SEO and accessibility */}
       {showTooltip && (
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none">
           {name}
         </div>
       )}
-      
+
       {/* Hidden text for SEO */}
       <span className="sr-only">{name}</span>
     </motion.div>
   );
-};
+});
+
+SkillDataProvider.displayName = "SkillDataProvider";
