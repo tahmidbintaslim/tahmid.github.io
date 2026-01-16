@@ -83,54 +83,56 @@ export default function Home() {
 
   return (
     <main id="main-content" className="h-full w-full pb-24 md:pb-0" tabIndex={-1}>
-      <div className="flex flex-col gap-20">
-        <Hero
+      <ErrorBoundary>
+        <div className="flex flex-col gap-20">
+          <Hero
+            onLocationClick={() => setLocationWidgetOpen(true)}
+            onNewsClick={() => setNewsWidgetOpen(true)}
+            onFeedbackClick={() => setFeedbackWidgetOpen(true)}
+          />
+          <DynamicPartnersScroll />
+          <DynamicAboutEnhanced />
+          <DynamicJourneyHorizontal />
+          <DynamicSkills />
+          <DynamicEncryption />
+          <DynamicProjectsEnhanced />
+          <DynamicTestimonials />
+          <DynamicBlog />
+          <DynamicContact />
+        </div>
+
+        {/* Floating Widgets */}
+        <aside aria-label="Location Widget">
+          <DynamicLocationWidget
+            isOpen={locationWidgetOpen}
+            setIsOpen={setLocationWidgetOpen}
+            onLocationUpdate={handleLocationUpdate}
+          />
+        </aside>
+        <aside aria-label="News Widget">
+          <DynamicNewsWidget
+            isOpen={newsWidgetOpen}
+            setIsOpen={setNewsWidgetOpen}
+            latitude={locationData?.latitude}
+            longitude={locationData?.longitude}
+            city={locationData?.city}
+            weather={locationData?.weather}
+          />
+        </aside>
+        <aside aria-label="Feedback Widget">
+          <DynamicFeedbackWidget
+            isOpen={feedbackWidgetOpen}
+            setIsOpen={setFeedbackWidgetOpen}
+          />
+        </aside>
+
+        {/* Mobile Bottom Navigation with Liquid Glass Effect */}
+        <DynamicMobileBottomNav
           onLocationClick={() => setLocationWidgetOpen(true)}
           onNewsClick={() => setNewsWidgetOpen(true)}
           onFeedbackClick={() => setFeedbackWidgetOpen(true)}
         />
-        <DynamicPartnersScroll />
-        <DynamicAboutEnhanced />
-        <DynamicJourneyHorizontal />
-        <DynamicSkills />
-        <DynamicEncryption />
-        <DynamicProjectsEnhanced />
-        <DynamicTestimonials />
-        <DynamicBlog />
-        <DynamicContact />
-      </div>
-
-      {/* Floating Widgets */}
-      <aside aria-label="Location Widget">
-        <DynamicLocationWidget
-          isOpen={locationWidgetOpen}
-          setIsOpen={setLocationWidgetOpen}
-          onLocationUpdate={handleLocationUpdate}
-        />
-      </aside>
-      <aside aria-label="News Widget">
-        <DynamicNewsWidget
-          isOpen={newsWidgetOpen}
-          setIsOpen={setNewsWidgetOpen}
-          latitude={locationData?.latitude}
-          longitude={locationData?.longitude}
-          city={locationData?.city}
-          weather={locationData?.weather}
-        />
-      </aside>
-      <aside aria-label="Feedback Widget">
-        <DynamicFeedbackWidget
-          isOpen={feedbackWidgetOpen}
-          setIsOpen={setFeedbackWidgetOpen}
-        />
-      </aside>
-
-      {/* Mobile Bottom Navigation with Liquid Glass Effect */}
-      <DynamicMobileBottomNav
-        onLocationClick={() => setLocationWidgetOpen(true)}
-        onNewsClick={() => setNewsWidgetOpen(true)}
-        onFeedbackClick={() => setFeedbackWidgetOpen(true)}
-      />
+      </ErrorBoundary>
     </main>
   );
 }

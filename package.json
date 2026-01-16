@@ -1,17 +1,23 @@
 {
-  "name": "space-portfolio",
+  "name": "tahmid.github.io",
   "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:env": "tsx tests/validate-env.ts",
+    "test:images": "tsx tests/verify-images.ts",
+    "test:api": "tsx tests/api-health-check.ts",
+    "test": "npm run test:env && npm run test:images",
+    "predev": "npm run test:env",
+    "prebuild": "npm run test"
   },
   "author": {
-    "name": "Sanidhya Kumar Verma",
-    "email": "sanidhya.verma12345@gmail.com",
-    "url": "https://github.com/sanidhyy"
+    "name": "Tahmid",
+    "email": "tahmidbintaslim@gmail.com",
+    "url": "https://github.com/tahmidbintaslim"
   },
   "description": "Welcome to my full stack Next.js 15 space portfolio.",
   "keywords": [
@@ -19,7 +25,7 @@
     "nextjs",
     "vercel",
     "react",
-    "space-portfolio",
+    "tahmid.github.io",
     "portfolio",
     "react-icons",
     "cn",
@@ -48,21 +54,21 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanidhyy/space-portfolioit"
+    "url": "https://github.com/tahmidbintaslim/tahmid.github.io"
   },
-  "homepage": "https://github.com/sanidhyy/space-portfolio#readme",
+  "homepage": "https://github.com/tahmidbintaslim/tahmid.github.io#readme",
   "bugs": {
-    "url": "https://github.com/sanidhyy/space-portfolio/issues",
-    "email": "sanidhya.verma12345@gmail.com"
+    "url": "https://github.com/tahmidbintaslim/tahmid.github.io/issues",
+    "email": "tahmidbintaslim@gmail.com"
   },
   "funding": [
     {
       "type": "patreon",
-      "url": "https://www.patreon.com/sanidhy"
+      "url": "https://www.patreon.com/tahmid"
     },
     {
       "type": "Buy me a coffee",
-      "url": "https://www.buymeacoffee.com/sanidhy"
+      "url": "https://www.buymeacoffee.com/tahmid"
     }
   ],
   "dependencies": {
@@ -110,6 +116,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3"
   }
 }
