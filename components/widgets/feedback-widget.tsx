@@ -155,7 +155,7 @@ export default function FeedbackWidget({ isOpen, setIsOpen }: FeedbackWidgetProp
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="fixed right-0 top-0 md:top-[65px] h-full md:h-[calc(100vh-65px)] w-full sm:w-[400px] md:w-[420px] bg-gradient-to-b from-[#0a0a1a]/98 to-[#0d0d20]/98 backdrop-blur-xl border-l border-green-500/20 z-50 flex flex-col shadow-2xl"
+                            className="fixed right-0 top-0 md:top-[65px] h-full md:h-[calc(100vh-65px)] w-full md:w-[420px] bg-gradient-to-b from-[#0a0a1a]/98 to-[#0d0d20]/98 backdrop-blur-xl border-l border-green-500/20 z-[60] md:z-50 flex flex-col shadow-2xl"
                         >
                             {/* Header */}
                             <div className="flex items-center justify-between p-4 border-b border-green-500/20 bg-gradient-to-r from-green-500/10 to-transparent">

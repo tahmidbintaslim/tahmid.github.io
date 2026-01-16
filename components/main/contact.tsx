@@ -275,6 +275,7 @@ export const Contact = () => {
                 type="text"
                 id="name"
                 name="name"
+                autoComplete="name"
                 value={formState.name}
                 onChange={handleChange}
                 required
@@ -294,6 +295,7 @@ export const Contact = () => {
                 type="email"
                 id="email"
                 name="email"
+                autoComplete="email"
                 value={formState.email}
                 onChange={handleChange}
                 required
@@ -313,6 +315,7 @@ export const Contact = () => {
                 type="text"
                 id="subject"
                 name="subject"
+                autoComplete="off"
                 value={formState.subject}
                 onChange={handleChange}
                 required
@@ -331,6 +334,7 @@ export const Contact = () => {
               <textarea
                 id="message"
                 name="message"
+                autoComplete="off"
                 value={formState.message}
                 onChange={handleChange}
                 required

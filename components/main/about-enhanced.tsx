@@ -548,7 +548,14 @@ export const AboutEnhanced = () => {
           </p>
           <p className="mb-4">
             Throughout my career at{" "}
-            <span className="text-cyan-400 font-semibold">Marion&apos;s Kitchen Group</span>,{" "}
+            <a
+              href="https://www.marionskitchen.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors"
+            >
+              Marion&apos;s Kitchen Group
+            </a>,{" "}
             <span className="text-cyan-400 font-semibold">Trienpont International</span>, and{" "}
             <span className="text-cyan-400 font-semibold">Relevant Audience</span>, I&apos;ve delivered impactful solutions including
             <span className="text-purple-400 font-semibold"> ~40% sales growth</span> through e-commerce optimizations,

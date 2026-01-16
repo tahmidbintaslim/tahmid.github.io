@@ -51,7 +51,12 @@ async function runTests() {
   });
   
   const passed = results.filter(r => r.status === 'PASS').length;
+  const failed = results.length - passed;
   console.log(`\n📊 Results: ${passed}/${results.length} passed`);
+
+  if (failed > 0) {
+    process.exit(1);
+  }
 }
 
 runTests();

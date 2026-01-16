@@ -5,6 +5,7 @@ const SITE_NAME = "Tahmid Bin Taslim Rafi";
 const SITE_TITLE = "Tahmid Bin Taslim Rafi | Senior Software Engineer & Full-Stack Developer";
 const SITE_DESCRIPTION = "Senior Software Engineer with 4+ years of experience specializing in React, Next.js, Node.js, TypeScript, GraphQL, AI/ML integration, cloud-native architecture, and scalable e-commerce solutions. Expert in building high-performance web applications.";
 
+// ts-prune-ignore-next
 export const siteConfig: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {

@@ -211,7 +211,7 @@ export default function NewsWidget({ isOpen, setIsOpen, latitude: _latitude, lon
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed right-0 top-[65px] h-[calc(100vh-65px)] w-full sm:w-[420px] max-w-md bg-[#030014]/95 backdrop-blur-xl border-l border-cyan-500/20 z-[45] flex flex-col"
+                            className="fixed right-0 top-0 md:top-[65px] h-full md:h-[calc(100vh-65px)] w-full md:w-[420px] max-w-md bg-[#030014]/95 backdrop-blur-xl border-l border-cyan-500/20 z-[60] md:z-[45] flex flex-col"
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="news-widget-title"

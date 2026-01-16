@@ -4,16 +4,18 @@ import { contactFormSchema } from '@/lib/validation';
 import { sanitizeName, sanitizeEmail, sanitizeMessage, escapeHtml } from '@/lib/sanitize';
 import { getRateLimitKey, checkRateLimit, rateLimitResponse, RATE_LIMIT_CONFIG } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
-import { cookies } from 'next/headers';
+import { isSameOrigin, validateCsrfToken } from '@/lib/security';
 
 export async function POST(request: NextRequest) {
   try {
-    const token = request.headers.get('X-CSRF-Token');
-    const cookieToken = cookies().get('csrf-token')?.value;
-
-    if (!token || !cookieToken || token !== cookieToken) {
+    // CSRF Protection
+    if (!validateCsrfToken(request)) {
       return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
     }
+    if (!isSameOrigin(request)) {
+      return NextResponse.json({ error: 'Invalid request origin' }, { status: 403 });
+    }
+
     // Check rate limit
     const key = getRateLimitKey(request, 'contact');
     const rateLimitCheck = await checkRateLimit(key, RATE_LIMIT_CONFIG.contact);

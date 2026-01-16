@@ -16,6 +16,7 @@ export const JourneyHorizontal = () => {
       year: "March 2024 - Present",
       title: "Senior Software Developer",
       company: "Marion's Kitchen Group",
+      companyUrl: "https://www.marionskitchen.com/",
       location: "Bangkok, Thailand",
       description:
         "Leading full-stack Shopify Headless development with Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development, optimized e-commerce pipelines achieving ~40% sales boost, architected internal SaaS solutions, and built scalable Klaviyo integration APIs for advanced marketing automation.",
@@ -202,6 +203,7 @@ export const JourneyHorizontal = () => {
               // Extract year from the date range with robust fallback
               const yearMatch = item.year.match(/(\d{4})/);
               const displayYear = yearMatch ? yearMatch[1] : new Date().getFullYear().toString();
+              const companyUrl = "companyUrl" in item ? item.companyUrl : undefined;
 
               return (
                 <motion.div
@@ -248,7 +250,18 @@ export const JourneyHorizontal = () => {
                     {/* Company */}
                     <div className="flex items-center gap-2 mb-3">
                       <BuildingOfficeIcon className={`w-5 h-5 ${item.iconColor}`} />
-                      <p className={`${item.iconColor} font-semibold`}>{item.company}</p>
+                      {companyUrl ? (
+                        <a
+                          href={companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${item.iconColor} font-semibold hover:text-white transition-colors`}
+                        >
+                          {item.company}
+                        </a>
+                      ) : (
+                        <p className={`${item.iconColor} font-semibold`}>{item.company}</p>
+                      )}
                     </div>
 
                     {/* Location */}
@@ -322,15 +335,18 @@ export const JourneyHorizontal = () => {
           {/* Vertical line */}
           <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 via-cyan-500 to-yellow-500" />
 
-          {timeline.map((item, index) => (
-            <motion.div
-              key={item.company}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              viewport={{ once: true }}
-              className="relative mb-8 pl-12"
-            >
+          {timeline.map((item, index) => {
+            const companyUrl = "companyUrl" in item ? item.companyUrl : undefined;
+
+            return (
+              <motion.div
+                key={item.company}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                viewport={{ once: true }}
+                className="relative mb-8 pl-12"
+              >
               {/* Timeline dot */}
               <div className={`absolute left-4 top-8 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r ${item.dotGradient} border-4 border-[#030014] shadow-lg ${item.dotShadow}`} />
 
@@ -355,7 +371,18 @@ export const JourneyHorizontal = () => {
                 {/* Company */}
                 <div className="flex items-center gap-2 mb-3">
                   <BuildingOfficeIcon className={`w-4 h-4 ${item.iconColor}`} />
-                  <p className={`${item.iconColor} font-semibold text-sm`}>{item.company}</p>
+                  {companyUrl ? (
+                    <a
+                      href={companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${item.iconColor} font-semibold text-sm hover:text-white transition-colors`}
+                    >
+                      {item.company}
+                    </a>
+                  ) : (
+                    <p className={`${item.iconColor} font-semibold text-sm`}>{item.company}</p>
+                  )}
                 </div>
 
                 {/* Description */}
@@ -399,8 +426,9 @@ export const JourneyHorizontal = () => {
                   </motion.div>
                 )}
               </motion.div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

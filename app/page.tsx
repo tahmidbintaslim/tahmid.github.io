@@ -131,7 +131,6 @@ export default function Home() {
         <DynamicMobileBottomNav
           onLocationClick={() => setLocationWidgetOpen(true)}
           onNewsClick={() => setNewsWidgetOpen(true)}
-          onFeedbackClick={() => setFeedbackWidgetOpen(true)}
         />
       </ErrorBoundary>
     </main>

@@ -8,6 +8,7 @@ import {
 } from "react-icons/rx";
 
 // Core Languages - No duplicates, organized properly
+// ts-prune-ignore-next
 export const LANGUAGES_SKILL = [
   {
     skill_name: "JavaScript",
@@ -53,6 +54,7 @@ export const LANGUAGES_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const SOCIALS = [
   {
     name: "Instagram",
@@ -71,6 +73,7 @@ export const SOCIALS = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const FRONTEND_SKILL = [
   {
     skill_name: "HTML",
@@ -140,6 +143,7 @@ export const FRONTEND_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const BACKEND_SKILL = [
   {
     skill_name: "Node.js",
@@ -191,6 +195,7 @@ export const BACKEND_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const DATABASE_SKILL = [
   {
     skill_name: "MongoDB",
@@ -236,6 +241,7 @@ export const DATABASE_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const CLOUD_DEVOPS_SKILL = [
   {
     skill_name: "Docker",
@@ -281,6 +287,7 @@ export const CLOUD_DEVOPS_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const ECOMMERCE_SKILL = [
   {
     skill_name: "Shopify/Plus",
@@ -302,6 +309,7 @@ export const ECOMMERCE_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const AI_ML_SKILL = [
   {
     skill_name: "OpenAI",
@@ -323,6 +331,7 @@ export const AI_ML_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const TOOLS_OTHER_SKILL = [
   {
     skill_name: "React Native",
@@ -350,6 +359,7 @@ export const TOOLS_OTHER_SKILL = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const PROJECTS = [
   {
     title: "Amazing Properties",
@@ -420,20 +430,20 @@ export const PROJECTS = [
   {
     title: "Marion's Kitchen Shopify Headless",
     description:
-      "Leading the development of full-stack Shopify Headless e-commerce platform using Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development and achieved ~40% sales boost through optimizations.",
+      "Leading the development of full-stack Shopify Headless e-commerce platform (2025-2026) using Remix, Node.js, TypeScript, and Rust. Pioneered Shopify app development and achieved ~40% sales boost through optimizations.",
     image: "/projects/marions-kitchen.jpg",
-    link: "https://marions.co.th/",
+    link: "https://www.marionskitchen.com/",
     techStack: ["Remix", "Node.js", "TypeScript", "Rust", "Shopify Plus"] as const,
     role: "Senior Software Developer",
     company: "Marion's Kitchen Group",
-    year: 2024,
+    year: 2025,
   },
   {
     title: "Klaviyo Marketing Integration",
     description:
       "Built scalable APIs for Klaviyo integrations at Marion's Kitchen, enabling advanced marketing personalization and campaign management with real-time data synchronization.",
     image: "/projects/klaviyo-integration.jpg",
-    link: "https://marions.co.th/",
+    link: "https://www.marionskitchen.com/",
     techStack: ["Node.js", "TypeScript", "Klaviyo API", "REST API"] as const,
     role: "Senior Software Developer",
     company: "Marion's Kitchen Group",
@@ -474,6 +484,7 @@ export const PROJECTS = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const FOOTER_DATA = [
   {
     title: "Community",
@@ -537,6 +548,7 @@ export const FOOTER_DATA = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const NAV_LINKS = [
   {
     title: "About",
@@ -560,6 +572,7 @@ export const NAV_LINKS = [
   },
 ] as const;
 
+// ts-prune-ignore-next
 export const LINKS = {
   sourceCode: "https://github.com/tahmidbintaslim/tahmid.github.io",
 };

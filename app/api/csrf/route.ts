@@ -13,6 +13,7 @@ export async function GET() {
     sameSite: 'strict',
     path: '/',
   });
+  response.headers.set('Cache-Control', 'no-store');
 
   return response;
 }

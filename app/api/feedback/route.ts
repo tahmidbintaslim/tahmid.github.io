@@ -3,7 +3,8 @@ import { NextRequest } from "next/server";
 import { feedbackSchema } from "@/lib/validation";
 import { sanitizeMessage, sanitizeEmail } from "@/lib/sanitize";
 import { getRateLimitKey, checkRateLimit, rateLimitResponse, RATE_LIMIT_CONFIG } from "@/lib/rate-limit";
-import { cookies } from 'next/headers';
+import { isSameOrigin, validateCsrfToken } from "@/lib/security";
+
 
 // Store feedback in memory (in production, use a database or email service)
 // Feedback is also sent to the contact email via EmailJS or similar
@@ -22,12 +23,14 @@ const feedbackStore: FeedbackEntry[] = [];
 
 export async function POST(request: NextRequest) {
     try {
-        const token = request.headers.get('X-CSRF-Token');
-        const cookieToken = cookies().get('csrf-token')?.value;
-
-        if (!token || !cookieToken || token !== cookieToken) {
-            return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+        // CSRF Protection
+        if (!validateCsrfToken(request)) {
+            return NextResponse.json({ success: false, error: 'Invalid CSRF token' }, { status: 403 });
         }
+        if (!isSameOrigin(request)) {
+            return NextResponse.json({ success: false, error: 'Invalid request origin' }, { status: 403 });
+        }
+
         // Check rate limit
         const key = getRateLimitKey(request, 'feedback');
         const rateLimitCheck = await checkRateLimit(key, RATE_LIMIT_CONFIG.feedback);

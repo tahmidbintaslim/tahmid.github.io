@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { IoBriefcaseOutline, IoChatbubbleEllipsesOutline, IoHomeOutline, IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
+import { IoBriefcaseOutline, IoHomeOutline, IoMailOutline, IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
 
 interface NavItem {
   label: string;
@@ -15,10 +15,9 @@ interface NavItem {
 interface MobileBottomNavProps {
   onLocationClick: () => void;
   onNewsClick: () => void;
-  onFeedbackClick?: () => void;
 }
 
-export default function MobileBottomNav({ onLocationClick: _onLocationClick, onNewsClick: _onNewsClick, onFeedbackClick }: MobileBottomNavProps) {
+export default function MobileBottomNav({ onLocationClick: _onLocationClick, onNewsClick: _onNewsClick }: MobileBottomNavProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -48,7 +47,7 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
     { label: "About", icon: IoPersonOutline, href: "#about-me" },
     { label: "Projects", icon: IoBriefcaseOutline, href: "#projects" },
     { label: "Blog", icon: IoNewspaperOutline, href: "#blog" },
-    { label: "Feedback", icon: IoChatbubbleEllipsesOutline, onClick: onFeedbackClick },
+    { label: "Contact", icon: IoMailOutline, href: "#contact" },
   ];
 
   const handleNavClick = (index: number, item: NavItem) => {

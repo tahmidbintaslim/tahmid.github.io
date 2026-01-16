@@ -350,11 +350,36 @@ html {
 :focus-visible {
   outline: 2px solid #a855f7;
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Remove outline on click but keep for keyboard navigation */
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Button focus styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
+}
+
+/* Input focus styles */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+  border-color: #a855f7;
+}
+
+/* Link focus styles */
+a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 /* Horizontal scrolling animation for testimonials */

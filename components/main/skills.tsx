@@ -68,7 +68,7 @@ export const Skills = () => {
       className="relative min-h-screen"
     >
       {/* Sticky Video Background Container with Parallax */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden -z-10">
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-none">
         <video
           ref={videoRef}
           autoPlay

@@ -10,7 +10,8 @@
     "test:env": "tsx tests/validate-env.ts",
     "test:images": "tsx tests/verify-images.ts",
     "test:api": "tsx tests/api-health-check.ts",
-    "test": "npm run test:env && npm run test:images",
+    "test:security": "tsx tests/security-test.ts",
+    "test": "npm run test:env && npm run test:images && npm run test:api",
     "predev": "npm run test:env",
     "prebuild": "npm run test"
   },
@@ -73,7 +74,6 @@
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/cookie": "^1.0.0",
     "@vercel/analytics": "^1.6.1",
     "@vercel/kv": "^3.0.0",
     "clsx": "^2.1.1",

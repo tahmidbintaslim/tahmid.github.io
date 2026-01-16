@@ -6,11 +6,11 @@ import { LINKS, NAV_LINKS, SOCIALS } from "@/constants";
 export const Navbar = () => {
   return (
     // Hidden on mobile, shown on desktop (md and up)
-    <nav className="hidden md:block w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001427] backdrop-blur-md z-50 px-10">
+    <nav aria-label="Main navigation" className="hidden md:block w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001427] backdrop-blur-md z-50 px-10">
       {/* Navbar Container */}
       <div className="w-full h-full flex items-center justify-between m-auto px-[10px]">
         {/* Logo + Name */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" aria-label="Home - Tahmid Bin Taslim Rafi" className="flex items-center">
           <div className="font-bold ml-[10px] text-gray-300">
             TBTR
           </div>
@@ -42,16 +42,17 @@ export const Navbar = () => {
         </div>
 
         {/* Social Icons (Web) */}
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row gap-5" role="list" aria-label="Social media links">
           {SOCIALS.map(({ link, name, icon: Icon }) => (
             <Link
               href={link}
               target="_blank"
               rel="noreferrer noopener"
               key={name}
-              aria-label={name}
+              aria-label={`Visit my ${name} profile`}
+              role="listitem"
             >
-              <Icon className="h-6 w-6 text-white" />
+              <Icon className="h-6 w-6 text-white" aria-hidden="true" />
             </Link>
           ))}
         </div>
