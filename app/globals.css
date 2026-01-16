@@ -6,12 +6,12 @@
   html,
   body {
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
   }
 
   /* Prevent text size adjustment on orientation change */
   html {
     -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
 
@@ -48,6 +48,57 @@
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
+  /* High contrast mode support for accessibility */
+  @media (prefers-contrast: more) {
+    body {
+      --tw-text-opacity: 1;
+    }
+  }
+
+  /* Reduced motion support for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Improved focus-visible styles for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* Better focus styles for form elements */
+  input:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+  }
+
+  /* Improved color contrast for links */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  a:hover {
+    text-decoration-thickness: 3px;
+  }
+
+  /* Better button focus and active states */
+  button {
+    position: relative;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
   /* Improved line height for body text */
   p {
     line-height: 1.7;
@@ -99,6 +150,53 @@
   transition: 0.45s cubic-bezier(0.6, 0.6, 0, 1) box-shadow;
 }
 
+/* Accessibility: Skip to main content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #7c3aed;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Focus visible for better keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* Improve text contrast for accessibility */
+@media (prefers-contrast: more) {
+  body {
+    color: #ffffff;
+  }
+
+  .text-gray-300 {
+    color: #e0e0e0;
+  }
+
+  .text-gray-400 {
+    color: #b0b0b0;
+  }
+}
+
 .button-primary {
   background: linear-gradient(
       180deg,
@@ -121,7 +219,6 @@
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hidden {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
@@ -227,10 +324,9 @@ html {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Thin scrollbar utilities */
+/* Thin scrollbar utilities - webkit only */
 .scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(112, 66, 248, 0.5) rgba(112, 66, 248, 0.1);
+  /* Firefox: scrollbar-width and scrollbar-color not widely supported in other browsers */
 }
 
 .scrollbar-thin::-webkit-scrollbar {
