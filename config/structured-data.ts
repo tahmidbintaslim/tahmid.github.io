@@ -3,6 +3,8 @@
  * This helps search engines and AI assistants understand the content better
  */
 
+import { generateArticleSchema, generateProductSchema, generateBreadcrumbSchema } from "@/lib/og-utils";
+
 export const structuredData = {
   // Person schema for the portfolio owner
   person: {
@@ -15,6 +17,7 @@ export const structuredData = {
     sameAs: [
       "https://github.com/tahmidbintaslim",
       "https://twitter.com/RAFI_it100",
+      "https://www.linkedin.com/in/tahmid-bin-taslim/",
     ],
     jobTitle: "Senior Software Engineer",
     worksFor: {
@@ -51,6 +54,11 @@ export const structuredData = {
     author: {
       "@type": "Person",
       name: "Tahmid Bin Taslim Rafi",
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://tahmid.space?q={search_term_string}",
+      "query-input": "required name=search_term_string",
     },
     inLanguage: "en-US",
   },
@@ -108,6 +116,21 @@ export const structuredData = {
     },
   },
 
-  // Note: Breadcrumb schema removed for single-page application
-  // Breadcrumbs should only be used for multi-page sites with actual navigation hierarchy
+  /**
+   * Helper function to generate blog post schema
+   * Usage: structuredData.createBlogPostSchema(title, description, imageUrl, datePublished, url)
+   */
+  createBlogPostSchema: generateArticleSchema,
+
+  /**
+   * Helper function to generate project/product schema
+   * Usage: structuredData.createProjectSchema(name, description, imageUrl, url, author)
+   */
+  createProjectSchema: generateProductSchema,
+
+  /**
+   * Helper function to generate breadcrumb schema
+   * Usage: structuredData.createBreadcrumbSchema([{name: 'Home', url: 'https://...'}, ...])
+   */
+  createBreadcrumbSchema: generateBreadcrumbSchema,
 };

@@ -9,11 +9,11 @@
     "lint": "eslint ."
   },
   "author": {
-    "name": "Sanidhya Kumar Verma",
-    "email": "sanidhya.verma12345@gmail.com",
-    "url": "https://github.com/sanidhyy"
+    "name": "Tahmid Bin Taslim Rafi",
+    "email": "tahmidbintaslimrafi@gmail.com",
+    "url": "https://github.com/tahmidbintaslim"
   },
-  "description": "Welcome to my full stack Next.js 15 space portfolio.",
+  "description": "Tahmid Bin Taslim Rafi - Full Stack Developer Portfolio",
   "keywords": [
     "reactjs",
     "nextjs",
@@ -48,12 +48,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanidhyy/space-portfolioit"
+    "url": "https://github.com/tahmidbintaslim/tahmid.github.io"
   },
-  "homepage": "https://github.com/sanidhyy/space-portfolio#readme",
+  "homepage": "https://github.com/tahmidbintaslim/tahmid.github.io#readme",
   "bugs": {
-    "url": "https://github.com/sanidhyy/space-portfolio/issues",
-    "email": "sanidhya.verma12345@gmail.com"
+    "url": "https://github.com/tahmidbintaslim/tahmid.github.io/issues",
+    "email": "tahmidbintaslimrafi@gmail.com"
   },
   "funding": [
     {
@@ -66,40 +66,43 @@
     }
   ],
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^2.2.0",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "@react-three/postprocessing": "^3.0.4",
+    "@react-three/drei": "^9.121.0",
+    "@react-three/fiber": "^9.6.0",
+    "@react-three/postprocessing": "^3.1.0",
     "@tailwindcss/postcss": "^4.1.18",
-    "@vercel/analytics": "^1.6.1",
+    "@upstash/ratelimit": "^2.1.0",
+    "@upstash/redis": "^1.36.4",
+    "@vercel/analytics": "^1.8.0",
+    "@vercel/blob": "^2.4.0",
+    "@vercel/edge-config": "^1.4.3",
+    "@vercel/kv": "^3.0.1",
     "clsx": "^2.1.1",
-    "emailjs-com": "^3.2.0",
-    "framer-motion": "^12.24.12",
-    "next": "16.1.1",
-    "nodemailer": "^7.0.12",
+    "framer-motion": "^12.26.0",
+    "next": "^16.1.2",
+    "nodemailer": "^7.1.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0",
-    "react-intersection-observer": "^10.0.0",
+    "react-intersection-observer": "^10.0.1",
     "react-type-animation": "^3.2.0",
-    "simple-icons": "^16.4.0",
+    "simple-icons": "^16.5.0",
     "tailwind-merge": "^3.4.0",
-    "three": "^0.182.0"
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
-    "@next/eslint-plugin-next": "^16.1.1",
-    "@types/node": "^25",
+    "@next/eslint-plugin-next": "^16.1.2",
+    "@types/node": "^22",
     "@types/nodemailer": "^7.0.4",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@types/three": "^0.182.0",
-    "@typescript-eslint/eslint-plugin": "^8.52.0",
-    "@typescript-eslint/parser": "^8.52.0",
+    "@types/three": "^0.184.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
     "autoprefixer": "^10.4.23",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "16.1.1",
+    "eslint": "^9.42.0",
+    "eslint-config-next": "^16.1.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "postcss": "^8.5.6",

@@ -75,87 +75,82 @@ const iconMap: { [key: string]: { Icon: IconType; color: string } } = {
   pytorch: { Icon: SiPytorch, color: "#EE4C2C" },
 };
 
-export const SkillDataProvider = memo(({
-  src,
-  svgIcon,
-  name,
-  width,
-  height,
-  index,
-}: SkillDataProviderProps) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+export const SkillDataProvider = memo(
+  ({ src, svgIcon, name, width, height, index }: SkillDataProviderProps) => {
+    const { ref, inView } = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
 
-  const [showTooltip, setShowTooltip] = useState(false);
+    const [showTooltip, setShowTooltip] = useState(false);
 
-  const imageVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
+    const imageVariants = {
+      hidden: { opacity: 0 },
+      visible: { opacity: 1 },
+    };
 
-  const animationDelay = 0.1;
+    const animationDelay = 0.1;
 
-  // Get icon from react-icons
-  const iconData = svgIcon ? iconMap[svgIcon.toLowerCase()] : null;
-  const IconComponent = iconData?.Icon;
-  const iconColor = iconData?.color || "#a855f7";
+    // Get icon from react-icons
+    const iconData = svgIcon ? iconMap[svgIcon.toLowerCase()] : null;
+    const IconComponent = iconData?.Icon;
+    const iconColor = iconData?.color || "#a855f7";
 
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      variants={imageVariants}
-      animate={inView ? "visible" : "hidden"}
-      custom={index}
-      transition={{ delay: index * animationDelay }}
-      className="relative flex flex-col items-center gap-2"
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-      role="img"
-      aria-label={`${name} skill`}
-      title={name}
-    >
+    return (
       <motion.div
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.3 }}
-        className="flex items-center justify-center"
+        ref={ref}
+        initial="hidden"
+        variants={imageVariants}
+        animate={inView ? "visible" : "hidden"}
+        custom={index}
+        transition={{ delay: index * animationDelay }}
+        className="relative flex flex-col items-center gap-2"
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+        role="img"
+        aria-label={`${name} skill`}
+        title={name}
       >
-        {src ? (
-          <Image
-            src={`/skills/${src}`}
-            width={width}
-            height={height}
-            alt={`${name} logo`}
-            loading="lazy"
-            quality={75}
-            className="transition-transform duration-300"
-          />
-        ) : IconComponent ? (
-          <IconComponent
-            className="transition-transform duration-300"
-            style={{ width: width, height: height, color: iconColor }}
-            aria-label={`${name} icon`}
-          />
-        ) : (
-          <div className="flex items-center justify-center px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-[80px] h-[80px] transition-transform duration-300">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center justify-center"
+        >
+          {src ? (
+            <Image
+              src={`/skills/${src}`}
+              width={width}
+              height={height}
+              alt={`${name} logo`}
+              loading="lazy"
+              quality={75}
+              className="transition-transform duration-300"
+            />
+          ) : IconComponent ? (
+            <IconComponent
+              className="transition-transform duration-300"
+              style={{ width: width, height: height, color: iconColor }}
+              aria-label={`${name} icon`}
+            />
+          ) : (
+            <div className="flex items-center justify-center px-4 py-2 bg-linear-to-r from-purple-500 to-cyan-500 rounded-lg text-white font-semibold text-sm min-w-20 h-20 transition-transform duration-300">
+              {name}
+            </div>
+          )}
+        </motion.div>
+
+        {/* Tooltip for SEO and accessibility */}
+        {showTooltip && (
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none">
             {name}
           </div>
         )}
+
+        {/* Hidden text for SEO */}
+        <span className="sr-only">{name}</span>
       </motion.div>
-
-      {/* Tooltip for SEO and accessibility */}
-      {showTooltip && (
-        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded text-xs whitespace-nowrap z-10 pointer-events-none">
-          {name}
-        </div>
-      )}
-
-      {/* Hidden text for SEO */}
-      <span className="sr-only">{name}</span>
-    </motion.div>
-  );
-});
+    );
+  }
+);
 
 SkillDataProvider.displayName = "SkillDataProvider";

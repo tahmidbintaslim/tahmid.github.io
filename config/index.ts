@@ -20,7 +20,7 @@ export const siteConfig: Metadata = {
     "Full-Stack Developer",
     "React Developer",
     "Next.js Developer",
-    
+
     // Technology expertise (consolidated, removed duplicates)
     "React",
     "Next.js 15",
@@ -30,7 +30,7 @@ export const siteConfig: Metadata = {
     "GraphQL",
     "MongoDB",
     "PostgreSQL",
-    
+
     // Specializations
     "AI/ML Integration",
     "Machine Learning",
@@ -40,7 +40,7 @@ export const siteConfig: Metadata = {
     "SaaS Development",
     "API Development",
     "RESTful APIs",
-    
+
     // Skills and practices
     "Web Development",
     "Frontend Development",
@@ -50,14 +50,14 @@ export const siteConfig: Metadata = {
     "Performance Optimization",
     "Responsive Design",
     "UI/UX Design",
-    
+
     // Frameworks and tools
     "Express.js",
     "Tailwind CSS",
     "Framer Motion",
     "Three.js",
     "Redux",
-    
+
     // Portfolio specific
     "Developer Portfolio",
     "Software Engineer Portfolio",
@@ -124,9 +124,9 @@ export const siteConfig: Metadata = {
     canonical: SITE_URL,
   },
   verification: {
-    google: "", // Add Google Search Console verification code
-    // yandex: "", // Add Yandex verification code if needed
-    // bing: "", // Add Bing verification code if needed
+    google: process.env.GOOGLE_VERIFICATION_CODE || "", // Add via .env.local
+    // yandex: process.env.YANDEX_VERIFICATION_CODE || "",
+    // bing: process.env.BING_VERIFICATION_CODE || "",
   },
   category: "technology",
 } as const;

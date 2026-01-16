@@ -1,45 +1,73 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+import { addFeedback, getRecentFeedback, getFeedbackStats } from "@/lib/edge-config";
+import { checkFeedbackRateLimit, getClientIP } from "@/lib/rate-limit-production";
+import {
+    validateRequestOrigin,
+    validateContentType,
+    validateRequestSize,
+    addSecurityHeaders,
+    detectSuspiciousPatterns,
+} from "@/lib/request-validation";
+import type { FeedbackEntry } from "@/lib/edge-config";
 
-// Store feedback in memory (in production, use a database or email service)
-// Feedback is also sent to the contact email via EmailJS or similar
-
-interface FeedbackEntry {
-    id: string;
-    type: "feedback" | "bug" | "feature" | "other";
-    message: string;
-    email?: string;
-    page?: string;
-    userAgent?: string;
-    timestamp: string;
-}
-
-const feedbackStore: FeedbackEntry[] = [];
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
+        // Validate request origin (CSRF protection)
+        if (!validateRequestOrigin(request)) {
+            const response = NextResponse.json(
+                { success: false, error: "Invalid request origin" },
+                { status: 403 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        // Validate content type
+        if (!validateContentType(request.headers.get('content-type'))) {
+            const response = NextResponse.json(
+                { success: false, error: "Invalid content type" },
+                { status: 415 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        // Validate request size (max 1MB)
+        if (!validateRequestSize(request.headers.get('content-length'), 1024 * 1024)) {
+            const response = NextResponse.json(
+                { success: false, error: "Request body too large" },
+                { status: 413 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        // Rate limiting: 10 feedback submissions per 30 minutes per IP
+        const clientIP = getClientIP(request.headers);
+        const { allowed, remaining, reset } = await checkFeedbackRateLimit(clientIP);
+
+        if (!allowed) {
+            const response = NextResponse.json(
+                { success: false, error: "Too many requests. Please try again later." },
+                {
+                    status: 429,
+                    headers: {
+                        "RateLimit-Limit": "10",
+                        "RateLimit-Remaining": remaining.toString(),
+                        "RateLimit-Reset": new Date(reset).toISOString(),
+                    },
+                }
+            );
+            return addSecurityHeaders(response);
+        }
+
         const body = await request.json();
         const { type, message, email, page } = body;
 
-        if (!message || message.trim().length < 10) {
-            return NextResponse.json(
-                { success: false, error: "Message must be at least 10 characters" },
+        // Detect suspicious patterns
+        if (detectSuspiciousPatterns(body)) {
+            const response = NextResponse.json(
+                { success: false, error: "Invalid input detected" },
                 { status: 400 }
             );
-        }
-
-        if (message.length > 1000) {
-            return NextResponse.json(
-                { success: false, error: "Message must be less than 1000 characters" },
-                { status: 400 }
-            );
-        }
-
-        // Validate email if provided
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return NextResponse.json(
-                { success: false, error: "Invalid email format" },
-                { status: 400 }
-            );
+            return addSecurityHeaders(response);
         }
 
         const feedback: FeedbackEntry = {
@@ -52,41 +80,91 @@ export async function POST(request: Request) {
             timestamp: new Date().toISOString(),
         };
 
-        // Store feedback
-        feedbackStore.push(feedback);
+        // Store feedback in Vercel Edge Config
+        const saved = await addFeedback(feedback);
 
-        // Keep only last 100 feedback entries in memory
-        if (feedbackStore.length > 100) {
-            feedbackStore.shift();
+        if (!saved) {
+            console.warn("Feedback stored locally (Edge Config unavailable)");
         }
-
-        // In production, you could:
-        // 1. Send email notification using EmailJS/Resend/SendGrid
-        // 2. Store in database (Vercel Postgres, PlanetScale, etc.)
-        // 3. Send to Discord/Slack webhook
-        // 4. Create GitHub issue automatically
 
         console.log("New feedback received:", feedback);
 
-        return NextResponse.json({
-            success: true,
-            message: "Thank you for your feedback!",
-            id: feedback.id,
-        });
+        const successResponse = NextResponse.json(
+            {
+                success: true,
+                message: "Thank you for your feedback!",
+                id: feedback.id,
+                persisted: saved,
+            },
+            {
+                status: 200,
+                headers: {
+                    "RateLimit-Limit": "10",
+                    "RateLimit-Remaining": Math.max(0, remaining - 1).toString(),
+                    "RateLimit-Reset": new Date(reset).toISOString(),
+                },
+            }
+        );
+        return addSecurityHeaders(successResponse);
     } catch (error) {
         console.error("Feedback submission error:", error);
-        return NextResponse.json(
+        const errorResponse = NextResponse.json(
             { success: false, error: "Failed to submit feedback" },
             { status: 500 }
         );
+        return addSecurityHeaders(errorResponse);
     }
 }
 
-// GET endpoint for admin (in production, add authentication)
-export async function GET() {
-    return NextResponse.json({
-        success: true,
-        count: feedbackStore.length,
-        recent: feedbackStore.slice(-10).reverse(),
-    });
+// GET endpoint to retrieve feedback (admin only - requires API key authentication)
+export async function GET(request: NextRequest) {
+    try {
+        // Validate request origin
+        if (!validateRequestOrigin(request)) {
+            const response = NextResponse.json(
+                { success: false, error: "Invalid request origin" },
+                { status: 403 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        // Require API key authentication for admin access
+        const apiKey = request.headers.get("x-api-key");
+        if (!apiKey || apiKey !== process.env.ADMIN_API_KEY) {
+            const response = NextResponse.json(
+                { success: false, error: "Unauthorized: Invalid or missing API key" },
+                { status: 401 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        // Rate limit admin requests (less strict: 100 per minute)
+        const clientIP = getClientIP(request.headers);
+        const { allowed } = await checkFeedbackRateLimit(clientIP);
+        if (!allowed) {
+            const response = NextResponse.json(
+                { success: false, error: "Rate limit exceeded for feedback admin access" },
+                { status: 429 }
+            );
+            return addSecurityHeaders(response);
+        }
+
+        const recent = await getRecentFeedback(10);
+        const stats = await getFeedbackStats();
+
+        const response = NextResponse.json({
+            success: true,
+            count: stats.total,
+            recent,
+            stats,
+        });
+        return addSecurityHeaders(response);
+    } catch (error) {
+        console.error("Error retrieving feedback:", error);
+        const errorResponse = NextResponse.json(
+            { success: false, error: "Failed to retrieve feedback" },
+            { status: 500 }
+        );
+        return addSecurityHeaders(errorResponse);
+    }
 }
