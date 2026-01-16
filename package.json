@@ -15,60 +15,55 @@
     "prebuild": "npm run test"
   },
   "author": {
-    "name": "Tahmid",
-    "email": "tahmidbintaslim@gmail.com",
+    "name": "Tahmid Bin Taslim Rafi",
+    "email": "tahmidbintaslimrafi@gmail.com",
     "url": "https://github.com/tahmidbintaslim"
   },
-  "description": "Welcome to my full stack Next.js 15 space portfolio.",
+  "description": "Senior Software Engineer portfolio built with Next.js 16, React 19, Three.js, and TypeScript. Showcasing full-stack development expertise.",
   "keywords": [
     "reactjs",
     "nextjs",
     "vercel",
     "react",
-    "tahmid.github.io",
+    "space-portfolio",
     "portfolio",
     "react-icons",
     "cn",
     "clsx",
     "3d-portfolio",
     "3d-website",
-    "sonner",
     "framer-motion",
     "motion",
     "animation",
     "heroicons",
-    "next-themes",
     "postcss",
-    "prettier",
     "react-dom",
     "tailwindcss",
-    "tailwindcss-animate",
     "ui/ux",
     "js",
     "javascript",
     "typescript",
     "eslint",
     "html",
-    "css"
+    "css",
+    "threejs",
+    "full-stack",
+    "senior-developer"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/tahmidbintaslim/tahmid.github.io"
   },
-  "homepage": "https://github.com/tahmidbintaslim/tahmid.github.io#readme",
+  "homepage": "https://tahmid.space",
   "bugs": {
     "url": "https://github.com/tahmidbintaslim/tahmid.github.io/issues",
-    "email": "tahmidbintaslim@gmail.com"
+    "email": "tahmidbintaslimrafi@gmail.com"
   },
   "funding": [
     {
-      "type": "patreon",
-      "url": "https://www.patreon.com/tahmid"
-    },
-    {
       "type": "Buy me a coffee",
-      "url": "https://www.buymeacoffee.com/tahmid"
+      "url": "https://www.buymeacoffee.com/09071998"
     }
   ],
   "dependencies": {
@@ -116,7 +111,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "tsx": "^4.19.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }

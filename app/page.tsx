@@ -1,6 +1,7 @@
 "use client";
 
 import { Hero } from "@/components/main/hero";
+import { ErrorBoundary } from "@/components/error-boundary";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
