@@ -3,6 +3,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { LINKS, NAV_LINKS, SOCIALS } from "@/constants";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { SearchModal } from "@/components/search-modal";
+import { SocialShare } from "@/components/social-share";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,9 +17,7 @@ export const Navbar = () => {
       <div className="w-full h-full flex items-center justify-between m-auto px-[10px]">
         {/* Logo + Name */}
         <Link href="/" className="flex items-center">
-          <div className="md:selffont-bold ml-[10px] text-gray-300">
-            TBTR
-          </div>
+          <div className="font-bold ml-[10px] text-gray-300">TBTR</div>
         </Link>
 
         {/* Web Navbar */}
@@ -46,6 +47,12 @@ export const Navbar = () => {
 
         {/* Social Icons (Web) */}
         <div className="flex flex-row gap-5">
+          <SearchModal />
+          <SocialShare
+            url="https://tahmid.space"
+            title="Tahmid - Senior Software Engineer"
+          />
+          <ThemeToggle />
           {SOCIALS.map(({ link, name, icon: Icon }) => (
             <Link
               href={link}

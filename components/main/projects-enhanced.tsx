@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { ProjectCard } from "../sub/project-card";
 import { PROJECTS } from "@/constants";
-import { MagnifyingGlassIcon, FunnelIcon, ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { ArrowsUpDownIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import React, { useMemo, useState } from "react";
+import { ProjectCard } from "../sub/project-card";
 
 const ProjectsEnhanced = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -134,6 +134,7 @@ const ProjectsEnhanced = () => {
               <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
                 <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
                 <select
+                  aria-label="Sort projects by year"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
                   className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
@@ -169,10 +170,12 @@ const ProjectsEnhanced = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-[#1a1a2e]/30 border border-purple-500/20 rounded-lg animate-fade-in">
               {/* Year Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="year-filter" className="block text-sm text-gray-400 mb-2">
                   Year
                 </label>
                 <select
+                  id="year-filter"
+                  aria-label="Filter projects by year"
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
@@ -188,10 +191,12 @@ const ProjectsEnhanced = () => {
 
               {/* Technology Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="tech-filter" className="block text-sm text-gray-400 mb-2">
                   Technology
                 </label>
                 <select
+                  id="tech-filter"
+                  aria-label="Filter projects by technology"
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-cyan-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-cyan-500 transition-colors"
                   value={selectedTech}
                   onChange={(e) => setSelectedTech(e.target.value)}
@@ -207,10 +212,12 @@ const ProjectsEnhanced = () => {
 
               {/* Company Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="company-filter" className="block text-sm text-gray-400 mb-2">
                   Company
                 </label>
                 <select
+                  id="company-filter"
+                  aria-label="Filter projects by company"
                   className="w-full px-4 py-2 bg-[#1a1a2e] border border-green-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-green-500 transition-colors"
                   value={selectedCompany}
                   onChange={(e) => setSelectedCompany(e.target.value)}
@@ -274,11 +281,10 @@ const ProjectsEnhanced = () => {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`w-10 h-10 rounded-lg transition-all duration-300 ${
-                        currentPage === page
-                          ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                          : 'bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500'
-                      }`}
+                      className={`w-10 h-10 rounded-lg transition-all duration-300 ${currentPage === page
+                        ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
+                        : 'bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500'
+                        }`}
                     >
                       {page}
                     </button>

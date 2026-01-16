@@ -2,13 +2,13 @@ import { SkillDataProvider } from "@/components/sub/skill-data-provider";
 import { SkillText } from "@/components/sub/skill-text";
 
 import {
-  LANGUAGES_SKILL,
-  FRONTEND_SKILL,
-  BACKEND_SKILL,
-  DATABASE_SKILL,
-  CLOUD_DEVOPS_SKILL,
-  ECOMMERCE_SKILL,
   AI_ML_SKILL,
+  BACKEND_SKILL,
+  CLOUD_DEVOPS_SKILL,
+  DATABASE_SKILL,
+  ECOMMERCE_SKILL,
+  FRONTEND_SKILL,
+  LANGUAGES_SKILL,
   TOOLS_OTHER_SKILL,
 } from "@/constants";
 
@@ -33,8 +33,7 @@ export const Skills = () => {
   return (
     <section
       id="skills"
-      style={{ transform: "scale(0.9)" }}
-      className="flex flex-col items-center justify-center gap-3 h-full relative overflow-hidden py-20"
+      className="flex flex-col items-center justify-center gap-3 h-full relative overflow-hidden py-20 scale-90"
     >
       <SkillText />
 

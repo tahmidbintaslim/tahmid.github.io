@@ -1,21 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
 
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+/* Light mode color overrides */
+:root.light {
+  color-scheme: light;
+}
+
+:root.light body {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
 
 /* Mobile-first base styles */
 @layer base {
   /* Prevent horizontal overflow on mobile */
-  html, body {
+  html,
+  body {
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Prevent text size adjustment on orientation change */
+  /* stylelint-disable-next-line property-no-unknown */
   html {
     -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
   }
 
   /* Enhanced typography for better readability */
@@ -27,7 +39,12 @@
   }
 
   /* Headings use Space Grotesk for modern tech aesthetic */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-space-grotesk), system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -35,7 +52,14 @@
   }
 
   /* Body text optimized for readability */
-  p, span, li, a, label, input, textarea, button {
+  p,
+  span,
+  li,
+  a,
+  label,
+  input,
+  textarea,
+  button {
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
@@ -45,12 +69,16 @@
   }
 
   /* Better letter spacing for small text */
-  .text-xs, .text-sm {
+  .text-xs,
+  .text-sm {
     letter-spacing: 0.01em;
   }
 
   /* Tighter letter spacing for large headings */
-  .text-3xl, .text-4xl, .text-5xl, .text-6xl {
+  .text-3xl,
+  .text-4xl,
+  .text-5xl,
+  .text-6xl {
     letter-spacing: -0.03em;
   }
 }
@@ -105,12 +133,9 @@
   box-shadow: inset 0 0 12px #bf97ff70;
 }
 
-
-
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hidden {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
@@ -125,8 +150,10 @@ html {
   html {
     scroll-behavior: auto;
   }
-  
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -158,7 +185,7 @@ html {
   ::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: rgba(112, 66, 248, 0.5);
     border-radius: 2px;
@@ -201,7 +228,8 @@ html {
 
 /* Pulse animation for buttons */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -213,10 +241,9 @@ html {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Thin scrollbar utilities */
+/* Thin scrollbar utilities - with fallbacks for browser support */
 .scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(112, 66, 248, 0.5) rgba(112, 66, 248, 0.1);
+  /* Webkit browsers handled below */
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -364,10 +391,14 @@ html {
   touch-action: manipulation;
 }
 
+/* Icon fill color utility */
+.icon-fill {
+  fill: currentColor;
+}
+
 /* Safe area padding for devices with notches */
 @supports (padding: env(safe-area-inset-bottom)) {
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
-

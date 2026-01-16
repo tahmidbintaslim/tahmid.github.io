@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "author": {
     "name": "Sanidhya Kumar Verma",
@@ -72,7 +73,6 @@
     "@react-three/fiber": "^9.5.0",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
-    "emailjs-com": "^3.2.0",
     "framer-motion": "^11.15.0",
     "next": "15.5.9",
     "react": "^19.2.3",
@@ -82,7 +82,8 @@
     "react-type-animation": "^3.2.0",
     "simple-icons": "^16.4.0",
     "tailwind-merge": "^3.4.0",
-    "three": "^0.170.0"
+    "three": "^0.170.0",
+    "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -8,6 +8,10 @@ import { Footer } from "@/components/main/footer";
 import { Navbar } from "@/components/main/navbar";
 import { StarsCanvas } from "@/components/main/stars-canvas-wrapper";
 import CustomCursor from "@/components/main/custom-cursor";
+import { WebVitalsInit } from "@/components/web-vitals-init";
+import { GoogleAnalytics } from "@/components/google-analytics";
+import { MonitoringInit } from "@/components/monitoring-init";
+import { ThemeProvider } from "@/lib/theme-provider";
 import { siteConfig } from "@/config";
 import { structuredData } from "@/config/structured-data";
 import { cn } from "@/lib/utils";
@@ -42,45 +46,50 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body
         className={cn(
-          "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
+          "bg-[#030014] dark:bg-[#030014] light:bg-white overflow-y-scroll overflow-x-hidden font-sans text-gray-900 dark:text-gray-100 transition-colors duration-300"
         )}
       >
-        {/* Skip to main content - Accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to main content
-        </a>
-        {/* Structured Data for SEO and AEO - optimized loading */}
-        <Script
-          id="structured-data-person"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData.person),
-          }}
-        />
-        <Script
-          id="structured-data-website"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData.website),
-          }}
-        />
-        <Script
-          id="structured-data-service"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData.professionalService),
-          }}
-        />
-        
-        <StarsCanvas />
-        <Navbar />
-        <CustomCursor />
-        {children}
-        <Footer />
-        <Analytics />
+        <ThemeProvider>
+          {/* Skip to main content - Accessibility */}
+          <a href="#main-content" className="skip-to-content">
+            Skip to main content
+          </a>
+          {/* Structured Data for SEO and AEO - optimized loading */}
+          <Script
+            id="structured-data-person"
+            type="application/ld+json"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData.person),
+            }}
+          />
+          <Script
+            id="structured-data-website"
+            type="application/ld+json"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData.website),
+            }}
+          />
+          <Script
+            id="structured-data-service"
+            type="application/ld+json"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData.professionalService),
+            }}
+          />
+
+          <StarsCanvas />
+          <Navbar />
+          <CustomCursor />
+          <WebVitalsInit />
+          <GoogleAnalytics />
+          <MonitoringInit />
+          {children}
+          <Footer />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

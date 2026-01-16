@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import { ArrowsUpDownIcon, ArrowTopRightOnSquareIcon, BookOpenIcon, ChevronLeftIcon, ChevronRightIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { BookOpenIcon, ClockIcon, ArrowTopRightOnSquareIcon, MagnifyingGlassIcon, FunnelIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { useEffect, useMemo, useState } from "react";
 
 type BlogPost = {
   title: string;
@@ -21,13 +20,13 @@ const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Filter and sort states
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPlatform, setSelectedPlatform] = useState<"all" | "Medium" | "Dev.to">("all");
   const [sortBy, setSortBy] = useState<"latest" | "oldest">("latest");
   const [showFilters, setShowFilters] = useState(false);
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 9;
@@ -246,6 +245,7 @@ const Blog = () => {
               <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
                 <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
                 <select
+                  aria-label="Sort blog posts by date"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
                   className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
@@ -291,31 +291,28 @@ const Blog = () => {
                 <div className="flex gap-2 flex-wrap">
                   <button
                     onClick={() => setSelectedPlatform("all")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "all"
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "all"
                         ? "bg-purple-500 text-white"
                         : "bg-purple-500/20 text-gray-300 hover:bg-purple-500/30"
-                    }`}
+                      }`}
                   >
                     All
                   </button>
                   <button
                     onClick={() => setSelectedPlatform("Medium")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "Medium"
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Medium"
                         ? "bg-green-500 text-white"
                         : "bg-green-500/20 text-gray-300 hover:bg-green-500/30"
-                    }`}
+                      }`}
                   >
                     Medium
                   </button>
                   <button
                     onClick={() => setSelectedPlatform("Dev.to")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${
-                      selectedPlatform === "Dev.to"
+                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Dev.to"
                         ? "bg-purple-600 text-white"
                         : "bg-purple-600/20 text-gray-300 hover:bg-purple-600/30"
-                    }`}
+                      }`}
                   >
                     Dev.to
                   </button>
@@ -395,11 +392,10 @@ const Blog = () => {
                         {/* Platform Badge */}
                         <div className="flex items-center justify-between mb-4">
                           <span
-                            className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                              post.platform === "Medium"
+                            className={`px-3 py-1 text-xs font-semibold rounded-full ${post.platform === "Medium"
                                 ? "bg-green-500/20 text-green-300 border border-green-500/30"
                                 : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                            }`}
+                              }`}
                           >
                             {post.platform}
                           </span>
@@ -452,11 +448,10 @@ const Blog = () => {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${
-                      currentPage === page
+                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${currentPage === page
                         ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
                         : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
-                    }`}
+                      }`}
                     aria-label={`Go to page ${page}`}
                     aria-current={currentPage === page ? "page" : undefined}
                   >

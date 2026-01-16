@@ -1,4 +1,4 @@
-import { FaFacebook, FaYoutube, FaCoffee, FaEnvelope } from "react-icons/fa";
+import { FaCoffee, FaEnvelope, FaFacebook, FaYoutube } from "react-icons/fa";
 import {
   RxDiscordLogo,
   RxGithubLogo,
@@ -185,7 +185,7 @@ export const BACKEND_SKILL = [
   },
   {
     skill_name: "Ruby on Rails",
-    svgIcon: "laravel",
+    svgIcon: "rails",
     width: 70,
     height: 70,
   },

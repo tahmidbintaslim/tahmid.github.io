@@ -2,19 +2,19 @@
 const nextConfig = {
   // Enable compression for better performance
   compress: true,
-  
+
   // Generate ETag headers for caching
   generateEtags: true,
-  
+
   // Page extensions
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  
+
   // Power by header removal for security
   poweredByHeader: false,
-  
+
   // Strict mode for better development
   reactStrictMode: true,
-  
+
   // Image optimization with quality settings
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -25,12 +25,12 @@ const nextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  
+
   // Experimental features for performance
   experimental: {
     optimizePackageImports: ['react-icons', '@heroicons/react', 'framer-motion'],
   },
-  
+
   // Headers for SEO, security, and performance
   async headers() {
     return [

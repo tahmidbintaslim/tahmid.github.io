@@ -1,6 +1,6 @@
 {
-  "name": "Tahmid Bin Taslim Rafi - Senior Software Engineer",
-  "short_name": "Tahmid's Portfolio",
+  "name": "Tahmid Rafi",
+  "short_name": "Tahmid",
   "description": "Senior Software Engineer with 4+ years of experience in full-stack development, AI/ML, and cloud-native architecture.",
   "start_url": "/",
   "scope": "/",
@@ -22,7 +22,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["portfolio", "developer", "technology"],
+  "categories": [
+    "portfolio",
+    "developer",
+    "technology"
+  ],
   "lang": "en-US",
   "dir": "ltr"
 }
