@@ -7,15 +7,17 @@ export default function CustomCursor() {
   const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean | undefined>(undefined); // Start undefined to prevent flash
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean | undefined>(
+    undefined
+  ); // Start undefined to prevent flash
 
   useEffect(() => {
     // Check if it's a touch device
     const checkTouchDevice = () => {
-      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const hasHover = window.matchMedia('(hover: hover)').matches;
-      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-      
+      const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const hasHover = window.matchMedia("(hover: hover)").matches;
+      const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+
       // Only show custom cursor on devices with hover capability and fine pointer (mouse)
       setIsTouchDevice(hasTouch && !hasHover && !hasFinePointer);
     };
@@ -23,12 +25,12 @@ export default function CustomCursor() {
     checkTouchDevice();
 
     // Listen for media query changes
-    const hoverQuery = window.matchMedia('(hover: hover)');
+    const hoverQuery = window.matchMedia("(hover: hover)");
     const handleHoverChange = () => checkTouchDevice();
-    hoverQuery.addEventListener('change', handleHoverChange);
+    hoverQuery.addEventListener("change", handleHoverChange);
 
     return () => {
-      hoverQuery.removeEventListener('change', handleHoverChange);
+      hoverQuery.removeEventListener("change", handleHoverChange);
     };
   }, []);
 
@@ -78,21 +80,25 @@ export default function CustomCursor() {
     <>
       <div
         id="custom-cursor"
-        className={`hidden md:block ${isVisible ? "active" : ""} ${isClicking ? "clicking" : ""}`}
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: "translate(-50%, -50%)",
-        }}
+        className={`hidden md:block ${isVisible ? "active" : ""} ${
+          isClicking ? "clicking" : ""
+        }`}
+        style={
+          {
+            "--cursor-x": `${position.x}px`,
+            "--cursor-y": `${position.y}px`,
+          } as React.CSSProperties
+        }
       />
       <div
         id="custom-cursor-follower"
         className={`hidden md:block ${isVisible ? "active" : ""}`}
-        style={{
-          left: `${followerPosition.x}px`,
-          top: `${followerPosition.y}px`,
-          transform: "translate(-50%, -50%)",
-        }}
+        style={
+          {
+            "--cursor-x": `${followerPosition.x}px`,
+            "--cursor-y": `${followerPosition.y}px`,
+          } as React.CSSProperties
+        }
       />
     </>
   );

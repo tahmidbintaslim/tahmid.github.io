@@ -248,6 +248,60 @@ html {
   border-radius: 4px;
 }
 
+/* Custom cursor styling */
+#custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(112, 66, 248, 0.8),
+    rgba(112, 66, 248, 0.2)
+  );
+  border: 2px solid rgba(112, 66, 248, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+#custom-cursor.active {
+  opacity: 1;
+}
+
+#custom-cursor.clicking {
+  transform: translate(-50%, -50%) scale(0.8);
+  background: radial-gradient(
+    circle,
+    rgba(112, 66, 248, 1),
+    rgba(112, 66, 248, 0.4)
+  );
+  box-shadow: 0 0 15px rgba(112, 66, 248, 0.6);
+}
+
+#custom-cursor-follower {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(112, 66, 248, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  left: var(--cursor-x);
+  top: var(--cursor-y);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+#custom-cursor-follower.active {
+  opacity: 1;
+}
+
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgba(112, 66, 248, 0.7);
 }

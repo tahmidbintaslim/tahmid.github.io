@@ -1,33 +1,36 @@
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { kv } from '@vercel/kv';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-// In production, use Vercel KV, Redis, or a database
-// For now, we'll use a simple in-memory counter with session tracking
-// This resets on server restart but provides real-time tracking
+const TOTAL_VISITORS_KEY = 'totalVisitors';
+const ACTIVE_SESSION_PREFIX = 'session:';
+const SESSION_TTL = 5 * 60; // 5 minutes in seconds
 
-let totalVisitors = 1247; // Starting count (can be adjusted based on historical data)
-let activeVisitors = 0;
-const activeSessions = new Set<string>();
-
-// Clean up stale sessions every 5 minutes
-setInterval(() => {
-    const now = Date.now();
-    const staleThreshold = 5 * 60 * 1000; // 5 minutes
-
-    for (const session of activeSessions) {
-        const [, timestamp] = session.split("_");
-        if (now - parseInt(timestamp) > staleThreshold) {
-            activeSessions.delete(session);
-        }
+async function getTotalVisitors(): Promise<number> {
+    let total = await kv.get<number>(TOTAL_VISITORS_KEY);
+    if (total === null) {
+        // Initialize if not set
+        total = 1247; // Starting count
+        await kv.set(TOTAL_VISITORS_KEY, total);
     }
-    activeVisitors = activeSessions.size;
-}, 60000);
+    return total;
+}
+
+async function getActiveVisitors(): Promise<number> {
+    const sessionKeys = await kv.keys(`${ACTIVE_SESSION_PREFIX}*`);
+    return sessionKeys.length;
+}
 
 export async function GET() {
+    const [totalVisitors, activeVisitors] = await Promise.all([
+        getTotalVisitors(),
+        getActiveVisitors(),
+    ]);
+
     return NextResponse.json({
         success: true,
         totalVisitors,
-        activeVisitors: Math.max(1, activeVisitors), // At least 1 (current user)
+        activeVisitors: Math.max(1, activeVisitors),
         lastUpdated: new Date().toISOString(),
     });
 }
@@ -35,28 +38,24 @@ export async function GET() {
 export async function POST(_request: Request) {
     try {
         const cookieStore = await cookies();
-        let visitorId = cookieStore.get("visitor_id")?.value;
+        let visitorId = cookieStore.get('visitor_id')?.value;
         let isNewVisitor = false;
 
         if (!visitorId) {
-            // New visitor
-            visitorId = `v_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+            visitorId = `v_${Date.now()}_${Math.random()
+                .toString(36)
+                .slice(2, 11)}`;
             isNewVisitor = true;
-            totalVisitors++;
+            await kv.incr(TOTAL_VISITORS_KEY);
         }
 
-        // Update active session
-        const sessionKey = `${visitorId}_${Date.now()}`;
+        const sessionKey = `${ACTIVE_SESSION_PREFIX}${visitorId}`;
+        await kv.set(sessionKey, '1', { ex: SESSION_TTL });
 
-        // Remove old sessions for this visitor
-        for (const session of activeSessions) {
-            if (session.startsWith(visitorId.split("_").slice(0, 2).join("_"))) {
-                activeSessions.delete(session);
-            }
-        }
-
-        activeSessions.add(sessionKey);
-        activeVisitors = activeSessions.size;
+        const [totalVisitors, activeVisitors] = await Promise.all([
+            getTotalVisitors(),
+            getActiveVisitors(),
+        ]);
 
         const response = NextResponse.json({
             success: true,
@@ -67,19 +66,20 @@ export async function POST(_request: Request) {
             lastUpdated: new Date().toISOString(),
         });
 
-        // Set cookie for returning visitor tracking
         if (isNewVisitor) {
-            response.cookies.set("visitor_id", visitorId, {
+            response.cookies.set('visitor_id', visitorId, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "lax",
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'lax',
                 maxAge: 365 * 24 * 60 * 60, // 1 year
             });
         }
 
         return response;
     } catch (error) {
-        console.error("Visitor tracking error:", error);
+        console.error('Visitor tracking error:', error);
+        const totalVisitors = await getTotalVisitors();
+        const activeVisitors = await getActiveVisitors();
         return NextResponse.json({
             success: true,
             totalVisitors,

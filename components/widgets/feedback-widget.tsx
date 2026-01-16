@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IoBugOutline, IoChatboxOutline, IoChatbubbleEllipsesOutline, IoCheckmarkCircle, IoClose, IoFlashOutline, IoHelpCircleOutline, IoSend } from "react-icons/io5";
 
 interface FeedbackWidgetProps {
@@ -22,9 +22,23 @@ export default function FeedbackWidget({ isOpen, setIsOpen }: FeedbackWidgetProp
     const [feedbackType, setFeedbackType] = useState<FeedbackType>("feedback");
     const [message, setMessage] = useState("");
     const [email, setEmail] = useState("");
+    const [csrfToken, setCsrfToken] = useState("");
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchCsrfToken = async () => {
+            try {
+                const response = await fetch('/api/csrf');
+                const { token } = await response.json();
+                setCsrfToken(token);
+            } catch (error) {
+                console.error('Failed to fetch CSRF token:', error);
+            }
+        };
+        fetchCsrfToken();
+    }, []);
 
     const handleToggle = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
@@ -58,7 +72,7 @@ export default function FeedbackWidget({ isOpen, setIsOpen }: FeedbackWidgetProp
         try {
             const response = await fetch("/api/feedback", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
                 body: JSON.stringify({
                     type: feedbackType,
                     message: message.trim(),
@@ -86,7 +100,7 @@ export default function FeedbackWidget({ isOpen, setIsOpen }: FeedbackWidgetProp
         } finally {
             setLoading(false);
         }
-    }, [feedbackType, message, email, setIsOpen]);
+    }, [feedbackType, message, email, csrfToken, setIsOpen]);
 
     const resetForm = useCallback(() => {
         setMessage("");

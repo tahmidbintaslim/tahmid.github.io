@@ -3,18 +3,27 @@
 import { PointMaterial, Points } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
-import * as random from "maath/random";
+
 import { Suspense, useRef, useState } from "react";
 import type { Points as PointsType } from "three";
 
+// Generate random sphere coordinates using native Math functions
+const generateSphere = (count: number, radius: number): Float32Array => {
+  const arr = new Float32Array(count * 3);
+  for (let i = 0; i < count * 3; i += 3) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(Math.random() * 2 - 1);
+    const r = radius * Math.random();
+    arr[i] = r * Math.sin(phi) * Math.cos(theta);
+    arr[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+    arr[i + 2] = r * Math.cos(phi);
+  }
+  return arr;
+};
+
 export const StarBackground = () => {
   const ref = useRef<PointsType | null>(null);
-  const [sphere] = useState<Float32Array>(() => {
-    const arr = random.inSphere(new Float32Array(5000 * 3), { radius: 1.2 }) as Float32Array;
-    const hasNaN = arr.some((v) => isNaN(v));
-    if (hasNaN) console.warn("Generated sphere has NaN values");
-    return arr;
-  });
+  const [sphere] = useState<Float32Array>(() => generateSphere(5000, 1.2));
 
   useFrame((_state, delta) => {
     if (ref.current) {
@@ -25,12 +34,7 @@ export const StarBackground = () => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points
-        ref={ref}
-        stride={3}
-        positions={sphere}
-        frustumCulled
-      >
+      <Points ref={ref} stride={3} positions={sphere} frustumCulled>
         <PointMaterial
           transparent
           color="#fff"
@@ -55,10 +59,7 @@ export const StarsCanvas = () => (
             luminanceThreshold={0.9}
             luminanceSmoothing={0.9}
           />
-          <Vignette
-            offset={0.3}
-            darkness={0.6}
-          />
+          <Vignette offset={0.3} darkness={0.6} />
         </EffectComposer>
       </Suspense>
     </Canvas>

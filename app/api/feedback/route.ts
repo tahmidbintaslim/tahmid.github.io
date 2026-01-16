@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { feedbackSchema } from "@/lib/validation";
+import { sanitizeMessage, sanitizeEmail } from "@/lib/sanitize";
+import { getRateLimitKey, checkRateLimit, rateLimitResponse, RATE_LIMIT_CONFIG } from "@/lib/rate-limit";
+import { cookies } from 'next/headers';
 
 // Store feedback in memory (in production, use a database or email service)
 // Feedback is also sent to the contact email via EmailJS or similar
@@ -15,38 +20,52 @@ interface FeedbackEntry {
 
 const feedbackStore: FeedbackEntry[] = [];
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
+        const token = request.headers.get('X-CSRF-Token');
+        const cookieToken = cookies().get('csrf-token')?.value;
+
+        if (!token || !cookieToken || token !== cookieToken) {
+            return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+        }
+        // Check rate limit
+        const key = getRateLimitKey(request, 'feedback');
+        const rateLimitCheck = await checkRateLimit(key, RATE_LIMIT_CONFIG.feedback);
+
+        if (!rateLimitCheck.allowed) {
+            return rateLimitResponse(rateLimitCheck.remaining, rateLimitCheck.resetTime);
+        }
+
         const body = await request.json();
-        const { type, message, email, page } = body;
 
-        if (!message || message.trim().length < 10) {
+        // Validate input with zod
+        const validation = feedbackSchema.safeParse(body);
+
+        if (!validation.success) {
             return NextResponse.json(
-                { success: false, error: "Message must be at least 10 characters" },
+                {
+                    success: false,
+                    error: 'Validation failed',
+                    details: validation.error.issues.map((issue) => ({
+                        field: issue.path.join('.'),
+                        message: issue.message
+                    }))
+                },
                 { status: 400 }
             );
         }
 
-        if (message.length > 1000) {
-            return NextResponse.json(
-                { success: false, error: "Message must be less than 1000 characters" },
-                { status: 400 }
-            );
-        }
+        const { type, message, email, page } = validation.data;
 
-        // Validate email if provided
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return NextResponse.json(
-                { success: false, error: "Invalid email format" },
-                { status: 400 }
-            );
-        }
+        // Sanitize inputs
+        const sanitizedMessage = sanitizeMessage(message);
+        const sanitizedEmail = email ? sanitizeEmail(email) : undefined;
 
         const feedback: FeedbackEntry = {
             id: `fb_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
             type: type || "feedback",
-            message: message.trim(),
-            email: email?.trim(),
+            message: sanitizedMessage,
+            email: sanitizedEmail,
             page,
             userAgent: request.headers.get("user-agent") || undefined,
             timestamp: new Date().toISOString(),
@@ -60,19 +79,25 @@ export async function POST(request: Request) {
             feedbackStore.shift();
         }
 
-        // In production, you could:
-        // 1. Send email notification using EmailJS/Resend/SendGrid
-        // 2. Store in database (Vercel Postgres, PlanetScale, etc.)
-        // 3. Send to Discord/Slack webhook
-        // 4. Create GitHub issue automatically
-
-        console.log("New feedback received:", feedback);
-
-        return NextResponse.json({
-            success: true,
-            message: "Thank you for your feedback!",
+        console.log("New feedback received:", {
             id: feedback.id,
+            type: feedback.type,
+            timestamp: feedback.timestamp,
+            // Don't log actual content in production
         });
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "Thank you for your feedback!",
+                id: feedback.id,
+            },
+            {
+                headers: {
+                    'X-RateLimit-Remaining': rateLimitCheck.remaining.toString(),
+                },
+            }
+        );
     } catch (error) {
         console.error("Feedback submission error:", error);
         return NextResponse.json(
@@ -82,8 +107,14 @@ export async function POST(request: Request) {
     }
 }
 
-// GET endpoint for admin (in production, add authentication)
-export async function GET() {
+export async function GET(request: NextRequest) {
+    const authHeader = request.headers.get('Authorization');
+    const apiKey = authHeader?.split(' ')[1];
+
+    if (apiKey !== process.env.ADMIN_API_KEY) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     return NextResponse.json({
         success: true,
         count: feedbackStore.length,
