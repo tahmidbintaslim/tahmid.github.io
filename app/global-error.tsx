@@ -10,15 +10,17 @@ export default function GlobalError({
   return (
     <html lang="en">
       <body className="bg-[#030014]">
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center p-8 max-w-md">
-            <h2 className="text-2xl font-bold text-white mb-4">Critical Error</h2>
-            <p className="text-gray-400 mb-6">
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="max-w-md p-8 text-center">
+            <h2 className="mb-4 text-2xl font-bold text-white">
+              Critical Error
+            </h2>
+            <p className="mb-6 text-gray-400">
               {error.message || 'An unexpected error occurred'}
             </p>
             <button
               onClick={reset}
-              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+              className="rounded-lg bg-purple-600 px-6 py-3 text-white transition-colors hover:bg-purple-700"
             >
               Try Again
             </button>

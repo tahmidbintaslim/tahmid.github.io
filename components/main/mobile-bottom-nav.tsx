@@ -1,9 +1,15 @@
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { IoBriefcaseOutline, IoHomeOutline, IoMailOutline, IoNewspaperOutline, IoPersonOutline } from "react-icons/io5";
+import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import {
+  IoBriefcaseOutline,
+  IoHomeOutline,
+  IoMailOutline,
+  IoNewspaperOutline,
+  IoPersonOutline,
+} from 'react-icons/io5';
 
 interface NavItem {
   label: string;
@@ -17,7 +23,10 @@ interface MobileBottomNavProps {
   onNewsClick: () => void;
 }
 
-export default function MobileBottomNav({ onLocationClick: _onLocationClick, onNewsClick: _onNewsClick }: MobileBottomNavProps) {
+export default function MobileBottomNav({
+  onLocationClick: _onLocationClick,
+  onNewsClick: _onNewsClick,
+}: MobileBottomNavProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -43,11 +52,11 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
 
   // Core navigation items - reduced to 5 for better mobile UX
   const navItems: NavItem[] = [
-    { label: "Home", icon: IoHomeOutline, href: "#hero" },
-    { label: "About", icon: IoPersonOutline, href: "#about-me" },
-    { label: "Projects", icon: IoBriefcaseOutline, href: "#projects" },
-    { label: "Blog", icon: IoNewspaperOutline, href: "#blog" },
-    { label: "Contact", icon: IoMailOutline, href: "#contact" },
+    { label: 'Home', icon: IoHomeOutline, href: '#hero' },
+    { label: 'About', icon: IoPersonOutline, href: '#about-me' },
+    { label: 'Projects', icon: IoBriefcaseOutline, href: '#projects' },
+    { label: 'Blog', icon: IoNewspaperOutline, href: '#blog' },
+    { label: 'Contact', icon: IoMailOutline, href: '#contact' },
   ];
 
   const handleNavClick = (index: number, item: NavItem) => {
@@ -60,13 +69,13 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
     // Smooth scroll to section
     if (item.href) {
       // Special handling for home - scroll to top
-      if (item.href === "#hero") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      if (item.href === '#hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
       const element = document.querySelector(item.href);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
   };
@@ -78,17 +87,17 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
-          className="md:hidden fixed bottom-4 left-4 right-4 z-50"
+          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+          className="fixed right-4 bottom-4 left-4 z-50 md:hidden"
           aria-label="Mobile navigation"
         >
           {/* Liquid Glass Container */}
           <div className="relative">
             {/* Glass background with blur */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0118]/95 via-[#1a0b2e]/95 to-[#0a0118]/95 rounded-[28px] backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/20" />
+            <div className="absolute inset-0 rounded-[28px] border border-white/10 bg-linear-to-r from-[#0a0118]/95 via-[#1a0b2e]/95 to-[#0a0118]/95 shadow-2xl shadow-purple-500/20 backdrop-blur-xl" />
 
             {/* Animated gradient border glow */}
-            <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 rounded-[28px] blur-sm opacity-50" />
+            <div className="absolute -inset-[1px] rounded-[28px] bg-linear-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 opacity-50 blur-sm" />
 
             {/* Content */}
             <div className="relative px-4 py-3">
@@ -102,15 +111,15 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
                   return (
                     <Component
                       key={item.label}
-                      href={item.href || "#"}
+                      href={item.href || '#'}
                       onClick={(e: React.MouseEvent) => {
                         e.preventDefault();
                         handleNavClick(index, item);
                       }}
-                      className="relative flex flex-col items-center justify-center min-w-[56px] min-h-[56px] group touch-manipulation"
+                      className="group relative flex min-h-[56px] min-w-[56px] touch-manipulation flex-col items-center justify-center"
                       aria-label={item.label}
-                      aria-current={isActive ? "page" : undefined}
-                      type={item.onClick ? "button" : undefined}
+                      aria-current={isActive ? 'page' : undefined}
+                      type={item.onClick ? 'button' : undefined}
                     >
                       {/* Active indicator with liquid effect */}
                       <AnimatePresence>
@@ -120,8 +129,12 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            className="absolute inset-1 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 rounded-2xl blur-md"
+                            transition={{
+                              type: 'spring',
+                              stiffness: 400,
+                              damping: 25,
+                            }}
+                            className="absolute inset-1 rounded-2xl bg-linear-to-r from-purple-500/30 to-cyan-500/30 blur-md"
                           />
                         )}
                       </AnimatePresence>
@@ -131,22 +144,18 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
                         whileTap={{ scale: 0.9 }}
                         className="relative z-10"
                       >
-                        <div className={`
-                          flex items-center justify-center w-11 h-11 rounded-xl
-                          ${isActive
-                            ? 'bg-gradient-to-br from-purple-500/25 to-cyan-500/25 border border-white/25'
-                            : 'bg-white/5 border border-white/5'
-                          }
-                          transition-all duration-300
-                          active:scale-95
-                        `}>
-                          <Icon className={`
-                            h-5 w-5 transition-all duration-300
-                            ${isActive
-                              ? 'text-white'
-                              : 'text-gray-400'
-                            }
-                          `} />
+                        <div
+                          className={`flex h-11 w-11 items-center justify-center rounded-xl ${
+                            isActive
+                              ? 'border border-white/25 bg-linear-to-br from-purple-500/25 to-cyan-500/25'
+                              : 'border border-white/5 bg-white/5'
+                          } transition-all duration-300 active:scale-95`}
+                        >
+                          <Icon
+                            className={`h-5 w-5 transition-all duration-300 ${
+                              isActive ? 'text-white' : 'text-gray-400'
+                            } `}
+                          />
                         </div>
                       </motion.div>
 
@@ -154,8 +163,9 @@ export default function MobileBottomNav({ onLocationClick: _onLocationClick, onN
                       <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className={`text-[10px] font-medium mt-1 whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-white' : 'text-gray-500'
-                          }`}
+                        className={`mt-1 text-[10px] font-medium whitespace-nowrap transition-colors duration-300 ${
+                          isActive ? 'text-white' : 'text-gray-500'
+                        }`}
                       >
                         {item.label}
                       </motion.span>

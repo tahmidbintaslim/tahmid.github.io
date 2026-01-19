@@ -1,22 +1,28 @@
-"use client";
+'use client';
 
-import { PROJECTS } from "@/constants";
-import { ArrowsUpDownIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import React, { useMemo, useState } from "react";
-import { ProjectCard } from "../sub/project-card";
+import { PROJECTS } from '@/constants';
+import {
+  ArrowsUpDownIcon,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
+import React, { useMemo, useState } from 'react';
+import { ProjectCard } from '../sub/project-card';
 
 const ProjectsEnhanced = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedYear, setSelectedYear] = useState("all");
-  const [selectedTech, setSelectedTech] = useState("all");
-  const [selectedCompany, setSelectedCompany] = useState("all");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedYear, setSelectedYear] = useState('all');
+  const [selectedTech, setSelectedTech] = useState('all');
+  const [selectedCompany, setSelectedCompany] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
   // Extract unique values for filters
   const years = useMemo(() => {
-    const uniqueYears = Array.from(new Set(PROJECTS.map((p) => p.year))).sort((a, b) => b - a);
+    const uniqueYears = Array.from(new Set(PROJECTS.map((p) => p.year))).sort(
+      (a, b) => b - a
+    );
     return uniqueYears;
   }, []);
 
@@ -34,7 +40,7 @@ const ProjectsEnhanced = () => {
     return PROJECTS.filter((project) => {
       // Search filter
       const matchesSearch =
-        searchQuery === "" ||
+        searchQuery === '' ||
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.techStack.some((tech) =>
@@ -44,33 +50,34 @@ const ProjectsEnhanced = () => {
 
       // Year filter
       const matchesYear =
-        selectedYear === "all" || project.year === parseInt(selectedYear);
+        selectedYear === 'all' || project.year === parseInt(selectedYear);
 
       // Technology filter
       const matchesTech =
-        selectedTech === "all" || (project.techStack as readonly string[]).includes(selectedTech);
+        selectedTech === 'all' ||
+        (project.techStack as readonly string[]).includes(selectedTech);
 
       // Company filter
       const matchesCompany =
-        selectedCompany === "all" || project.company === selectedCompany;
+        selectedCompany === 'all' || project.company === selectedCompany;
 
       return matchesSearch && matchesYear && matchesTech && matchesCompany;
     }).sort((a, b) => b.year - a.year); // Sort by year descending (latest first)
   }, [searchQuery, selectedYear, selectedTech, selectedCompany]);
 
   const resetFilters = () => {
-    setSearchQuery("");
-    setSelectedYear("all");
-    setSelectedTech("all");
-    setSelectedCompany("all");
+    setSearchQuery('');
+    setSelectedYear('all');
+    setSelectedTech('all');
+    setSelectedCompany('all');
     setCurrentPage(1);
   };
 
   const hasActiveFilters =
-    searchQuery !== "" ||
-    selectedYear !== "all" ||
-    selectedTech !== "all" ||
-    selectedCompany !== "all";
+    searchQuery !== '' ||
+    selectedYear !== 'all' ||
+    selectedTech !== 'all' ||
+    selectedCompany !== 'all';
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
@@ -90,23 +97,23 @@ const ProjectsEnhanced = () => {
     >
       <div className="w-full max-w-7xl px-4">
         {/* Header */}
-        <h1 className="text-[26px] sm:text-[32px] md:text-[40px] lg:text-[50px] font-bold text-left md:text-center py-4 sm:py-6 md:py-8 lg:py-10 leading-tight">
+        <h1 className="py-4 text-left text-[26px] leading-tight font-bold sm:py-6 sm:text-[32px] md:py-8 md:text-center md:text-[40px] lg:py-10 lg:text-[50px]">
           <span className="text-white">Featured </span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+          <span className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
             Projects
           </span>
         </h1>
 
         {/* Search and Filter Bar */}
-        <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+        <div className="mb-6 space-y-3 sm:mb-8 sm:space-y-4">
           {/* Search Bar */}
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
             </div>
             <input
               type="text"
-              className="w-full pl-10 pr-4 py-3 sm:py-3.5 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm sm:text-base min-h-[48px] touch-manipulation"
+              className="min-h-[48px] w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 py-3 pr-4 pl-10 text-sm text-gray-200 placeholder-gray-400 transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5 sm:text-base"
               placeholder="Search projects..."
               aria-label="Search projects by name, technology, or company"
               value={searchQuery}
@@ -115,29 +122,29 @@ const ProjectsEnhanced = () => {
           </div>
 
           {/* Filter Toggle Button and Sort */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1a1a2e]/50 border border-cyan-500/30 rounded-lg text-gray-200 hover:border-cyan-500 transition-colors min-h-[44px] text-sm sm:text-base touch-manipulation w-full sm:w-auto"
+                className="flex min-h-[44px] w-full touch-manipulation items-center justify-center gap-2 rounded-lg border border-cyan-500/30 bg-[#1a1a2e]/50 px-3 py-2.5 text-sm text-gray-200 transition-colors hover:border-cyan-500 sm:w-auto sm:px-4 sm:py-3 sm:text-base"
               >
                 <FunnelIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Filters</span>
                 {hasActiveFilters && (
-                  <span className="ml-1 sm:ml-2 px-1.5 sm:px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
+                  <span className="ml-1 rounded-full bg-purple-500 px-1.5 py-0.5 text-xs text-white sm:ml-2 sm:px-2">
                     Active
                   </span>
                 )}
               </button>
 
               {/* Sort Dropdown - Full width on mobile */}
-              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
-                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
+              <div className="relative flex min-h-[44px] w-full items-center gap-2 rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 px-4 py-3 sm:w-auto md:py-2">
+                <ArrowsUpDownIcon className="h-5 w-5 flex-shrink-0 text-purple-400" />
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
                   aria-label="Sort projects by year"
-                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
+                  className="flex-1 cursor-pointer appearance-none bg-transparent pr-6 text-sm text-gray-200 focus:outline-none sm:text-base"
                 >
                   <option value="all">All Years (Latest First)</option>
                   {years.map((year) => (
@@ -146,35 +153,43 @@ const ProjectsEnhanced = () => {
                     </option>
                   ))}
                 </select>
-                <svg className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </div>
             </div>
 
-            <div className="text-gray-400 text-sm text-left sm:text-right">
-              Showing{" "}
-              <span className="text-purple-400 font-semibold">
+            <div className="text-left text-sm text-gray-400 sm:text-right">
+              Showing{' '}
+              <span className="font-semibold text-purple-400">
                 {paginatedProjects.length}
-              </span>{" "}
-              of{" "}
-              <span className="text-cyan-400 font-semibold">
+              </span>{' '}
+              of{' '}
+              <span className="font-semibold text-cyan-400">
                 {filteredProjects.length}
-              </span>{" "}
+              </span>{' '}
               projects
             </div>
           </div>
 
           {/* Filter Dropdowns */}
           {showFilters && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-[#1a1a2e]/30 border border-purple-500/20 rounded-lg animate-fade-in">
+            <div className="animate-fade-in grid grid-cols-1 gap-4 rounded-lg border border-purple-500/20 bg-[#1a1a2e]/30 p-4 md:grid-cols-3">
               {/* Year Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
-                  Year
-                </label>
+                <label className="mb-2 block text-sm text-gray-400">Year</label>
                 <select
-                  className="w-full px-4 py-2 bg-[#1a1a2e] border border-purple-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-purple-500 transition-colors"
+                  className="w-full rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-2 text-gray-200 transition-colors focus:border-purple-500 focus:outline-none"
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
                   aria-label="Filter by year"
@@ -190,11 +205,11 @@ const ProjectsEnhanced = () => {
 
               {/* Technology Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label className="mb-2 block text-sm text-gray-400">
                   Technology
                 </label>
                 <select
-                  className="w-full px-4 py-2 bg-[#1a1a2e] border border-cyan-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full rounded-lg border border-cyan-500/30 bg-[#1a1a2e] px-4 py-2 text-gray-200 transition-colors focus:border-cyan-500 focus:outline-none"
                   value={selectedTech}
                   onChange={(e) => setSelectedTech(e.target.value)}
                   aria-label="Filter by technology"
@@ -210,11 +225,11 @@ const ProjectsEnhanced = () => {
 
               {/* Company Filter */}
               <div>
-                <label className="block text-sm text-gray-400 mb-2">
+                <label className="mb-2 block text-sm text-gray-400">
                   Company
                 </label>
                 <select
-                  className="w-full px-4 py-2 bg-[#1a1a2e] border border-green-500/30 rounded-lg text-gray-200 focus:outline-none focus:border-green-500 transition-colors"
+                  className="w-full rounded-lg border border-green-500/30 bg-[#1a1a2e] px-4 py-2 text-gray-200 transition-colors focus:border-green-500 focus:outline-none"
                   value={selectedCompany}
                   onChange={(e) => setSelectedCompany(e.target.value)}
                   aria-label="Filter by company"
@@ -230,10 +245,10 @@ const ProjectsEnhanced = () => {
 
               {/* Reset Button */}
               {hasActiveFilters && (
-                <div className="md:col-span-3 flex justify-end">
+                <div className="flex justify-end md:col-span-3">
                   <button
                     onClick={resetFilters}
-                    className="px-4 py-2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+                    className="rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-4 py-2 text-white transition-opacity hover:opacity-80"
                   >
                     Reset All Filters
                   </button>
@@ -246,7 +261,7 @@ const ProjectsEnhanced = () => {
         {/* Projects Grid */}
         {filteredProjects.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {paginatedProjects.map((project, index) => (
                 <ProjectCard
                   key={index}
@@ -264,34 +279,39 @@ const ProjectsEnhanced = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-12">
+              <div className="mt-12 flex items-center justify-center gap-2">
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 rounded-lg bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 px-4 py-2 text-gray-200 transition-colors hover:border-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Previous
                 </button>
 
                 <div className="flex items-center gap-2">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={`w-10 h-10 rounded-lg transition-all duration-300 ${currentPage === page
-                          ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white'
-                          : 'bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500'
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`h-10 w-10 rounded-lg transition-all duration-300 ${
+                          currentPage === page
+                            ? 'bg-linear-to-r from-purple-500 to-cyan-500 text-white'
+                            : 'border border-purple-500/30 bg-[#1a1a2e]/50 text-gray-200 hover:border-purple-500'
                         }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
+                      >
+                        {page}
+                      </button>
+                    )
+                  )}
                 </div>
 
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  onClick={() =>
+                    setCurrentPage(Math.min(totalPages, currentPage + 1))
+                  }
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 rounded-lg bg-[#1a1a2e]/50 border border-purple-500/30 text-gray-200 hover:border-purple-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 px-4 py-2 text-gray-200 transition-colors hover:border-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Next
                 </button>
@@ -299,15 +319,15 @@ const ProjectsEnhanced = () => {
             )}
           </>
         ) : (
-          <div className="text-center py-20">
-            <MagnifyingGlassIcon className="w-24 h-24 mx-auto text-purple-400 mb-4" />
-            <h3 className="text-2xl text-gray-300 mb-2">No projects found</h3>
-            <p className="text-gray-400 mb-6">
+          <div className="py-20 text-center">
+            <MagnifyingGlassIcon className="mx-auto mb-4 h-24 w-24 text-purple-400" />
+            <h3 className="mb-2 text-2xl text-gray-300">No projects found</h3>
+            <p className="mb-6 text-gray-400">
               Try adjusting your search or filters
             </p>
             <button
               onClick={resetFilters}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+              className="rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-6 py-3 text-white transition-opacity hover:opacity-80"
             >
               Clear Filters
             </button>

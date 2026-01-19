@@ -2,16 +2,16 @@
 
 # Modern Space Theme Portfolio using Next.js 15 and Three.js
 
-![Modern Space Theme Portfolio using Next.js 15 and Three.js](/.github/images/img_main.png "Modern Space Theme Portfolio using Next.js 15 and Three.js")
+![Modern Space Theme Portfolio using Next.js 15 and Three.js](/.github/images/img_main.png 'Modern Space Theme Portfolio using Next.js 15 and Three.js')
 
-[![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim "Ask Me Anything!")
-[![GitHub license](https://flat.badgen.net/github/license/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/blob/main/LICENSE "GitHub license")
-[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/commits/main "Maintenance")
-[![GitHub branches](https://flat.badgen.net/github/branches/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/branches "GitHub branches")
-[![Github commits](https://flat.badgen.net/github/commits/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/commits "Github commits")
-[![GitHub issues](https://flat.badgen.net/github/issues/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/issues "GitHub issues")
-[![GitHub pull requests](https://flat.badgen.net/github/prs/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/pulls "GitHub pull requests")
-[![Netlify Status](https://api.netlify.com/api/v1/badges/451ed0e0-3541-474e-896a-4987e30a7722/deploy-status)](https://spaceportfolio.netlify.app/ "Netlify Status")
+[![Ask Me Anything!](https://flat.badgen.net/static/Ask%20me/anything?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim 'Ask Me Anything!')
+[![GitHub license](https://flat.badgen.net/github/license/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/blob/main/LICENSE 'GitHub license')
+[![Maintenance](https://flat.badgen.net/static/Maintained/yes?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/commits/main 'Maintenance')
+[![GitHub branches](https://flat.badgen.net/github/branches/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/branches 'GitHub branches')
+[![Github commits](https://flat.badgen.net/github/commits/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/commits 'Github commits')
+[![GitHub issues](https://flat.badgen.net/github/issues/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/issues 'GitHub issues')
+[![GitHub pull requests](https://flat.badgen.net/github/prs/tahmidbintaslim/tahmid.github.io?icon=github&color=black&scale=1.01)](https://github.com/tahmidbintaslim/tahmid.github.io/pulls 'GitHub pull requests')
+[![Netlify Status](https://api.netlify.com/api/v1/badges/451ed0e0-3541-474e-896a-4987e30a7722/deploy-status)](https://spaceportfolio.netlify.app/ 'Netlify Status')
 
 <!-- Table of Contents -->
 <details>
@@ -103,13 +103,13 @@ tahmid.github.io/
 
 ## :camera: Screenshots:
 
-![Modern UI/UX](/.github/images/img1.png "Modern UI/UX")
+![Modern UI/UX](/.github/images/img1.png 'Modern UI/UX')
 
-![Showcase your skills](/.github/images/img2.png "Showcase your skills")
+![Showcase your skills](/.github/images/img2.png 'Showcase your skills')
 
-![Built with Typescript](/.github/images/img3.png "Built with Typescript")
+![Built with Typescript](/.github/images/img3.png 'Built with Typescript')
 
-![Showcase your projects](/.github/images/img4.png "Showcase your projects")
+![Showcase your projects](/.github/images/img4.png 'Showcase your projects')
 
 ## :gear: Tech Stack
 
@@ -224,7 +224,7 @@ tahmid.github.io/
 
 ## :wrench: Stats
 
-[![Stats for Space Portfolio](/.github/images/stats.svg "Stats for Space Portfolio")](https://pagespeed.web.dev/analysis/https-spaceportfolio-netlify-app/2efbmg117d "Stats for Space Portfolio")
+[![Stats for Space Portfolio](/.github/images/stats.svg 'Stats for Space Portfolio')](https://pagespeed.web.dev/analysis/https-spaceportfolio-netlify-app/2efbmg117d 'Stats for Space Portfolio')
 
 ## :raised_hands: Contribute
 
@@ -260,13 +260,13 @@ Useful resources and dependencies that are used in Space Portfolio.
 
 ## :coffee: Buy Me a Coffee
 
-[<img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" width="200" />](https://www.buymeacoffee.com/sanidhy "Buy me a Coffee")
+[<img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" width="200" />](https://www.buymeacoffee.com/sanidhy 'Buy me a Coffee')
 
 ## :rocket: Follow Me
 
-[![GitHub followers](https://img.shields.io/github/followers/tahmidbintaslim?style=social&label=Follow&maxAge=2592000)](https://github.com/tahmidbintaslim "Follow Me")
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2Ftahmidbintaslim%2Ftahmid.github.io "Tweet")
-[![YouTube](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@OPGAMER. "Subscribe my YouTube Channel")
+[![GitHub followers](https://img.shields.io/github/followers/tahmidbintaslim?style=social&label=Follow&maxAge=2592000)](https://github.com/tahmidbintaslim 'Follow Me')
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2FTechnicalShubam)](https://twitter.com/intent/tweet?text=Check+out+this+amazing+app:&url=https%3A%2F%2Fgithub.com%2Ftahmidbintaslim%2Ftahmid.github.io 'Tweet')
+[![YouTube](https://img.shields.io/youtube/channel/subscribers/UCNAz_hUVBG2ZUN8TVm0bmYw)](https://www.youtube.com/@OPGAMER. 'Subscribe my YouTube Channel')
 
 ## :books: Learn More
 
@@ -411,12 +411,12 @@ CONTACT_EMAIL=your-receiving-email@example.com
 ## Optional Variables
 
 ```env
-NEXT_PUBLIC_GNEWS_API_KEY=your-gnews-key
+NEWSAPI_KEY=your-newsapi-key
 ADMIN_API_KEY=your-random-admin-key
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-- `NEXT_PUBLIC_GNEWS_API_KEY`: Enables the news widget
+- `NEWSAPI_KEY`: Enables the news widget
 - `ADMIN_API_KEY`: Protects admin endpoints
 - `NEXT_PUBLIC_BASE_URL`: Base URL for API tests (defaults to `http://localhost:3000`)
 
@@ -514,11 +514,11 @@ declined, etc.
 
 ```typescript
 // CSRF Protection in API routes
-const token = request.headers.get("X-CSRF-Token");
-const cookieToken = request.cookies.get("csrf-token")?.value;
+const token = request.headers.get('X-CSRF-Token');
+const cookieToken = request.cookies.get('csrf-token')?.value;
 
 if (!token || !cookieToken || token !== cookieToken) {
-  return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+  return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
 }
 ```
 
@@ -527,7 +527,7 @@ if (!token || !cookieToken || token !== cookieToken) {
 1. **Client requests token:**
 
    ```typescript
-   const response = await fetch("/api/csrf");
+   const response = await fetch('/api/csrf');
    const { token } = await response.json();
    ```
 
@@ -539,8 +539,8 @@ if (!token || !cookieToken || token !== cookieToken) {
 3. **Client sends token with request:**
 
    ```typescript
-   fetch("/api/contact", {
-     headers: { "X-CSRF-Token": token },
+   fetch('/api/contact', {
+     headers: { 'X-CSRF-Token': token },
    });
    ```
 
@@ -824,26 +824,26 @@ pnpm build
 
 ```typescript
 // 1. Client fetches CSRF token
-const response = await fetch("/api/csrf");
+const response = await fetch('/api/csrf');
 const { token } = await response.json();
 
 // 2. Token stored in httpOnly cookie + returned to client
 response.cookies.set({
-  name: "csrf-token",
+  name: 'csrf-token',
   value: token,
   httpOnly: true,
   secure: true, // production only
-  sameSite: "strict",
+  sameSite: 'strict',
 });
 
 // 3. Client sends token in header
-fetch("/api/contact", {
-  headers: { "X-CSRF-Token": token },
+fetch('/api/contact', {
+  headers: { 'X-CSRF-Token': token },
 });
 
 // 4. Server validates token
-const token = request.headers.get("X-CSRF-Token");
-const cookieToken = request.cookies.get("csrf-token")?.value;
+const token = request.headers.get('X-CSRF-Token');
+const cookieToken = request.cookies.get('csrf-token')?.value;
 if (token !== cookieToken) return 403;
 ```
 
@@ -902,11 +902,11 @@ const contactFormSchema = z.object({
 ```typescript
 export function escapeHtml(text: string): string {
   return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 ```
 
@@ -2606,10 +2606,10 @@ const data: ResponseData = await response.json();
 
 ```typescript
 // Bad
-console.error("Error:", error);
+console.error('Error:', error);
 
 // Good
-logger.error("Error occurred", error);
+logger.error('Error occurred', error);
 ```
 
 #### 3. No Unit Tests

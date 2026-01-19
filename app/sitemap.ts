@@ -1,8 +1,8 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://tahmid.space'
-  const currentDate = new Date()
+  const baseUrl = 'https://tahmid.space';
+  const currentDate = new Date();
 
   // For single-page applications, only include the base URL
   // Hash fragments are not indexable by search engines
@@ -13,5 +13,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1.0,
     },
-  ]
+  ];
 }

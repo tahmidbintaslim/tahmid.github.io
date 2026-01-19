@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { PointMaterial, Points } from "@react-three/drei";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
+import { PointMaterial, Points } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
 
-import { Suspense, useRef, useState } from "react";
-import type { Points as PointsType } from "three";
+import { Suspense, useRef, useState } from 'react';
+import type { Points as PointsType } from 'three';
 
 // Generate random sphere coordinates using native Math functions
 const generateSphere = (count: number, radius: number): Float32Array => {
@@ -49,7 +49,7 @@ export const StarBackground = () => {
 };
 
 export const StarsCanvas = () => (
-  <div className="w-full h-full fixed inset-0 -z-10 opacity-40">
+  <div className="fixed inset-0 -z-10 h-full w-full opacity-40">
     <Canvas camera={{ position: [0, 0, 1], fov: 75 }}>
       <Suspense fallback={null}>
         <StarBackground />

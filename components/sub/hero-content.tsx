@@ -1,20 +1,23 @@
-"use client";
+'use client';
 
-import { SparklesIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import { TypeAnimation } from "react-type-animation";
+import { SparklesIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { TypeAnimation } from 'react-type-animation';
 
 import {
   slideInFromLeft,
   slideInFromRight,
   slideInFromTop,
-} from "@/lib/motion";
+} from '@/lib/motion';
 
-const DynamicHeroMobileWidgets = dynamic(() => import("@/components/main/hero-mobile-widgets"), {
-  ssr: false,
-});
+const DynamicHeroMobileWidgets = dynamic(
+  () => import('@/components/main/hero-mobile-widgets'),
+  {
+    ssr: false,
+  }
+);
 
 interface HeroContentProps {
   onLocationClick?: () => void;
@@ -22,19 +25,23 @@ interface HeroContentProps {
   onFeedbackClick?: () => void;
 }
 
-export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: HeroContentProps) => {
+export const HeroContent = ({
+  onLocationClick,
+  onNewsClick,
+  onFeedbackClick,
+}: HeroContentProps) => {
   return (
     <motion.div
       initial="hidden"
       animate="visible"
-      className="flex flex-col-reverse lg:flex-row items-center justify-center px-4 sm:px-8 lg:px-20 mt-24 sm:mt-32 lg:mt-40 w-full z-[20]"
+      className="z-[20] mt-24 flex w-full flex-col-reverse items-center justify-center px-4 sm:mt-32 sm:px-8 lg:mt-40 lg:flex-row lg:px-20"
     >
-      <div className="h-full w-full flex flex-col gap-4 sm:gap-5 justify-center m-auto text-start">
+      <div className="m-auto flex h-full w-full flex-col justify-center gap-4 text-start sm:gap-5">
         <motion.div
           variants={slideInFromTop}
-          className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
+          className="Welcome-box border border-[#7042f88b] px-[7px] py-[8px] opacity-[0.9]"
         >
-          <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
+          <SparklesIcon className="mr-[10px] h-5 w-5 text-[#b49bff]" />
           <h1 className="Welcome-text text-[12px] sm:text-[13px]">
             <TypeAnimation
               sequence={[
@@ -54,7 +61,7 @@ export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: H
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="flex flex-col gap-4 sm:gap-6 mt-4 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-bold text-white max-w-[600px] w-auto h-auto"
+          className="text-bold mt-4 flex h-auto w-auto max-w-[600px] flex-col gap-4 text-2xl text-white sm:mt-6 sm:gap-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
         >
           <span>
             <TypeAnimation
@@ -69,36 +76,37 @@ export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: H
               wrapper="span"
               speed={50}
               repeat={Infinity}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500"
+              className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent"
             />
           </span>
         </motion.div>
 
         <motion.p
           variants={slideInFromLeft(0.8)}
-          className="text-sm sm:text-base lg:text-lg text-gray-400 my-3 sm:my-5 max-w-[600px] leading-relaxed"
+          className="my-3 max-w-[600px] text-sm leading-relaxed text-gray-400 sm:my-5 sm:text-base lg:text-lg"
         >
-          I&apos;m a Senior Software Engineer with 4+ years of expertise in full-stack development,
-          Shopify/Shopify Plus, AI/ML integration, cloud architecture (AWS, GCP), SaaS platforms,
-          e-commerce solutions, and scalable APIs. Proficient in React, Remix, Next.js, Vue, Node.js, Python,
-          TypeScript, Ruby, and modern DevOps/CI/CD practices.
+          I&apos;m a Senior Software Engineer with 4+ years of expertise in
+          full-stack development, Shopify/Shopify Plus, AI/ML integration, cloud
+          architecture (AWS, GCP), SaaS platforms, e-commerce solutions, and
+          scalable APIs. Proficient in React, Remix, Next.js, Vue, Node.js,
+          Python, TypeScript, Ruby, and modern DevOps/CI/CD practices.
         </motion.p>
 
         <motion.div
           variants={slideInFromLeft(1)}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center"
+          className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
         >
           <a
             href="https://iglu.net/talent/senior-software-developer/"
             target="_blank"
             rel="noopener noreferrer"
-            className="py-3 px-6 button-primary text-center text-white cursor-pointer rounded-lg w-full sm:w-auto hover:scale-105 transition-transform duration-300 text-sm sm:text-base font-medium min-h-[48px] flex items-center justify-center touch-manipulation"
+            className="button-primary flex min-h-[48px] w-full cursor-pointer touch-manipulation items-center justify-center rounded-lg px-6 py-3 text-center text-sm font-medium text-white transition-transform duration-300 hover:scale-105 sm:w-auto sm:text-base"
           >
             Hire Me
           </a>
           <a
             href="mailto:tahmidbintaslimrafi@gmail.com"
-            className="py-3 px-6 text-center text-white cursor-pointer rounded-lg border-2 border-purple-500/50 hover:bg-purple-500/10 w-full sm:w-auto hover:scale-105 transition-all duration-300 text-sm sm:text-base font-medium min-h-[48px] flex items-center justify-center touch-manipulation"
+            className="flex min-h-[48px] w-full cursor-pointer touch-manipulation items-center justify-center rounded-lg border-2 border-purple-500/50 px-6 py-3 text-center text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-purple-500/10 sm:w-auto sm:text-base"
           >
             Contact via Email
           </a>
@@ -107,7 +115,7 @@ export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: H
 
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-full flex flex-col justify-center items-center mb-8 lg:mb-0"
+        className="mb-8 flex h-full w-full flex-col items-center justify-center lg:mb-0"
       >
         <Image
           src="/hero-bg.svg"
@@ -115,7 +123,7 @@ export const HeroContent = ({ onLocationClick, onNewsClick, onFeedbackClick }: H
           height={650}
           width={650}
           draggable={false}
-          className="select-none w-[280px] sm:w-[400px] md:w-[500px] lg:w-[650px]"
+          className="w-[280px] select-none sm:w-[400px] md:w-[500px] lg:w-[650px]"
           style={{ height: 'auto' }}
           priority
         />

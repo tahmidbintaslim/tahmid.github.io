@@ -75,19 +75,19 @@ const requiredImages = {
 
 function checkImages() {
   console.log('🖼️  Verifying image assets...\n');
-  
+
   let allExist = true;
   let totalChecked = 0;
   let totalMissing = 0;
 
   for (const [category, images] of Object.entries(requiredImages)) {
     const dir = category === 'root' ? PUBLIC_DIR : join(PUBLIC_DIR, category);
-    
+
     for (const image of images) {
       totalChecked++;
       const imagePath = join(dir, image);
       const exists = existsSync(imagePath);
-      
+
       if (!exists) {
         console.log(`❌ Missing: ${category}/${image}`);
         allExist = false;
@@ -99,7 +99,9 @@ function checkImages() {
   if (allExist) {
     console.log(`✅ All ${totalChecked} images verified successfully!`);
   } else {
-    console.log(`\n⚠️  ${totalMissing} missing images out of ${totalChecked} checked`);
+    console.log(
+      `\n⚠️  ${totalMissing} missing images out of ${totalChecked} checked`
+    );
   }
 
   return allExist;

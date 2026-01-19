@@ -1,17 +1,26 @@
-"use client";
+'use client';
 
-import { ArrowsUpDownIcon, ArrowTopRightOnSquareIcon, BookOpenIcon, ChevronLeftIcon, ChevronRightIcon, ClockIcon, FunnelIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowsUpDownIcon,
+  ArrowTopRightOnSquareIcon,
+  BookOpenIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ClockIcon,
+  FunnelIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useMemo, useState } from 'react';
 
 type BlogPost = {
   title: string;
   link: string;
   pubDate: string;
   description: string;
-  platform: "Medium" | "Dev.to";
+  platform: 'Medium' | 'Dev.to';
   readTime?: string;
   coverImage?: string;
 };
@@ -22,9 +31,11 @@ const Blog = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Filter and sort states
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedPlatform, setSelectedPlatform] = useState<"all" | "Medium" | "Dev.to">("all");
-  const [sortBy, setSortBy] = useState<"latest" | "oldest">("latest");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPlatform, setSelectedPlatform] = useState<
+    'all' | 'Medium' | 'Dev.to'
+  >('all');
+  const [sortBy, setSortBy] = useState<'latest' | 'oldest'>('latest');
   const [showFilters, setShowFilters] = useState(false);
 
   // Pagination state
@@ -37,12 +48,12 @@ const Blog = () => {
         setLoading(true);
 
         // Fetch from our own API route (SSR with ISR caching)
-        const response = await fetch("/api/blog", {
+        const response = await fetch('/api/blog', {
           next: { revalidate: 3600 }, // Use cached data for 1 hour
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch blog posts");
+          throw new Error('Failed to fetch blog posts');
         }
 
         const data = await response.json();
@@ -51,11 +62,11 @@ const Blog = () => {
           setPosts(data.posts);
           setError(null);
         } else {
-          setError("No blog posts found. Please check back later.");
+          setError('No blog posts found. Please check back later.');
         }
       } catch (err) {
-        console.error("Error fetching blog posts:", err);
-        setError("Failed to load blog posts. Please try again later.");
+        console.error('Error fetching blog posts:', err);
+        setError('Failed to load blog posts. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -68,12 +79,12 @@ const Blog = () => {
   const filteredAndSortedPosts = useMemo(() => {
     let filtered = posts.filter((post) => {
       const matchesSearch =
-        searchQuery === "" ||
+        searchQuery === '' ||
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesPlatform =
-        selectedPlatform === "all" || post.platform === selectedPlatform;
+        selectedPlatform === 'all' || post.platform === selectedPlatform;
 
       return matchesSearch && matchesPlatform;
     });
@@ -82,7 +93,7 @@ const Blog = () => {
     filtered.sort((a, b) => {
       const dateA = new Date(a.pubDate).getTime();
       const dateB = new Date(b.pubDate).getTime();
-      return sortBy === "latest" ? dateB - dateA : dateA - dateB;
+      return sortBy === 'latest' ? dateB - dateA : dateA - dateB;
     });
 
     return filtered;
@@ -102,45 +113,46 @@ const Blog = () => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
     });
   };
 
   const resetFilters = () => {
-    setSearchQuery("");
-    setSelectedPlatform("all");
-    setSortBy("latest");
+    setSearchQuery('');
+    setSelectedPlatform('all');
+    setSortBy('latest');
     setCurrentPage(1);
   };
 
-  const hasActiveFilters = searchQuery !== "" || selectedPlatform !== "all" || sortBy !== "latest";
+  const hasActiveFilters =
+    searchQuery !== '' || selectedPlatform !== 'all' || sortBy !== 'latest';
 
   return (
     <section
       id="blog"
-      className="flex flex-col items-center justify-center py-12 md:py-16 lg:py-20 px-4"
+      className="flex flex-col items-center justify-center px-4 py-12 md:py-16 lg:py-20"
     >
       <div className="w-full max-w-7xl">
         {/* Header */}
-        <div className="text-left md:text-center mb-8 md:mb-12">
+        <div className="mb-8 text-left md:mb-12 md:text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-[28px] md:text-[40px] lg:text-[50px] font-bold mb-3 md:mb-4 leading-tight">
+            <h1 className="mb-3 text-[28px] leading-tight font-bold md:mb-4 md:text-[40px] lg:text-[50px]">
               <span className="text-white">Latest Articles </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+              <span className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
                 & Insights
               </span>
             </h1>
-            <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-2xl md:mx-auto">
-              Sharing knowledge and experiences on full-stack development, cloud architecture,
-              and modern web technologies
+            <p className="max-w-2xl text-sm text-gray-300 md:mx-auto md:text-base lg:text-lg">
+              Sharing knowledge and experiences on full-stack development, cloud
+              architecture, and modern web technologies
             </p>
           </motion.div>
         </div>
@@ -149,12 +161,12 @@ const Blog = () => {
         <div className="mb-8 space-y-4">
           {/* Search Bar */}
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
             </div>
             <input
               type="text"
-              className="w-full pl-10 pr-4 py-3 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+              className="w-full rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 py-3 pr-4 pl-10 text-gray-200 placeholder-gray-400 transition-colors focus:border-purple-500 focus:outline-none"
               placeholder="Search articles by title or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -162,46 +174,61 @@ const Blog = () => {
           </div>
 
           {/* Filter and Sort Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center justify-center gap-2 px-4 py-3 md:py-2 bg-purple-500/20 border border-purple-500/30 rounded-lg text-gray-200 hover:bg-purple-500/30 transition-colors min-h-[44px] w-full sm:w-auto"
+                className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/20 px-4 py-3 text-gray-200 transition-colors hover:bg-purple-500/30 sm:w-auto md:py-2"
               >
-                <FunnelIcon className="w-5 h-5" />
+                <FunnelIcon className="h-5 w-5" />
                 <span>Filters</span>
               </button>
 
               {/* Sort - Full width on mobile */}
-              <div className="relative flex items-center gap-2 px-4 py-3 md:py-2 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg min-h-[44px] w-full sm:w-auto">
-                <ArrowsUpDownIcon className="h-5 w-5 text-purple-400 flex-shrink-0" />
-                <label htmlFor="sort-articles" className="sr-only">Sort articles</label>
+              <div className="relative flex min-h-[44px] w-full items-center gap-2 rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 px-4 py-3 sm:w-auto md:py-2">
+                <ArrowsUpDownIcon className="h-5 w-5 flex-shrink-0 text-purple-400" />
+                <label htmlFor="sort-articles" className="sr-only">
+                  Sort articles
+                </label>
                 <select
                   id="sort-articles"
                   title="Sort articles by date"
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as "latest" | "oldest")}
-                  className="bg-transparent text-gray-200 focus:outline-none cursor-pointer appearance-none pr-6 flex-1 text-sm sm:text-base"
+                  onChange={(e) =>
+                    setSortBy(e.target.value as 'latest' | 'oldest')
+                  }
+                  className="flex-1 cursor-pointer appearance-none bg-transparent pr-6 text-sm text-gray-200 focus:outline-none sm:text-base"
                 >
                   <option value="latest">Latest First</option>
                   <option value="oldest">Oldest First</option>
                 </select>
-                <svg className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
               {/* Article Count */}
-              <span className="text-gray-400 text-sm">
-                Showing {paginatedPosts.length} of {filteredAndSortedPosts.length} articles
+              <span className="text-sm text-gray-400">
+                Showing {paginatedPosts.length} of{' '}
+                {filteredAndSortedPosts.length} articles
               </span>
 
               {hasActiveFilters && (
                 <button
                   onClick={resetFilters}
-                  className="px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 hover:bg-red-500/30 transition-colors text-sm min-h-[44px] w-full sm:w-auto"
+                  className="min-h-[44px] w-full rounded-lg border border-red-500/30 bg-red-500/20 px-4 py-2 text-sm text-red-300 transition-colors hover:bg-red-500/30 sm:w-auto"
                 >
                   Reset Filters
                 </button>
@@ -213,39 +240,44 @@ const Blog = () => {
           {showFilters && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
+              animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="p-4 bg-[#1a1a2e]/50 border border-purple-500/30 rounded-lg space-y-4"
+              className="space-y-4 rounded-lg border border-purple-500/30 bg-[#1a1a2e]/50 p-4"
             >
               {/* Platform Filter */}
               <div>
-                <label className="block text-gray-300 text-sm font-semibold mb-2">Platform</label>
-                <div className="flex gap-2 flex-wrap">
+                <label className="mb-2 block text-sm font-semibold text-gray-300">
+                  Platform
+                </label>
+                <div className="flex flex-wrap gap-2">
                   <button
-                    onClick={() => setSelectedPlatform("all")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "all"
-                      ? "bg-purple-500 text-white"
-                      : "bg-purple-500/20 text-gray-300 hover:bg-purple-500/30"
-                      }`}
+                    onClick={() => setSelectedPlatform('all')}
+                    className={`rounded-lg px-4 py-2 transition-colors ${
+                      selectedPlatform === 'all'
+                        ? 'bg-purple-500 text-white'
+                        : 'bg-purple-500/20 text-gray-300 hover:bg-purple-500/30'
+                    }`}
                   >
                     All
                   </button>
                   <button
-                    onClick={() => setSelectedPlatform("Medium")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Medium"
-                      ? "bg-green-500 text-white"
-                      : "bg-green-500/20 text-gray-300 hover:bg-green-500/30"
-                      }`}
+                    onClick={() => setSelectedPlatform('Medium')}
+                    className={`rounded-lg px-4 py-2 transition-colors ${
+                      selectedPlatform === 'Medium'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-green-500/20 text-gray-300 hover:bg-green-500/30'
+                    }`}
                   >
                     Medium
                   </button>
                   <button
-                    onClick={() => setSelectedPlatform("Dev.to")}
-                    className={`px-4 py-2 rounded-lg transition-colors ${selectedPlatform === "Dev.to"
-                      ? "bg-purple-600 text-white"
-                      : "bg-purple-600/20 text-gray-300 hover:bg-purple-600/30"
-                      }`}
+                    onClick={() => setSelectedPlatform('Dev.to')}
+                    className={`rounded-lg px-4 py-2 transition-colors ${
+                      selectedPlatform === 'Dev.to'
+                        ? 'bg-purple-600 text-white'
+                        : 'bg-purple-600/20 text-gray-300 hover:bg-purple-600/30'
+                    }`}
                   >
                     Dev.to
                   </button>
@@ -257,18 +289,18 @@ const Blog = () => {
 
         {/* Loading State */}
         {loading && (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+          <div className="flex items-center justify-center py-20">
+            <div className="h-12 w-12 animate-spin rounded-full border-t-2 border-b-2 border-purple-500"></div>
           </div>
         )}
 
         {/* Error State */}
         {error && (
-          <div className="text-center py-20">
-            <div className="text-red-400 text-lg mb-4">{error}</div>
+          <div className="py-20 text-center">
+            <div className="mb-4 text-lg text-red-400">{error}</div>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+              className="rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-6 py-3 text-white transition-opacity hover:opacity-80"
             >
               Retry
             </button>
@@ -278,7 +310,7 @@ const Blog = () => {
         {/* Blog Posts Grid */}
         {!loading && !error && paginatedPosts.length > 0 && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {paginatedPosts.map((post, index) => (
                 <motion.div
                   key={`${post.title}-${index}`}
@@ -295,68 +327,69 @@ const Blog = () => {
                     rel="noopener noreferrer"
                     className="block h-full"
                   >
-                    <div className="h-full bg-gradient-to-br from-[#0a0a1a] to-[#1a0a2e] border border-purple-500/30 rounded-lg overflow-hidden hover:border-purple-500/60 transition-all duration-300 flex flex-col">
+                    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-purple-500/30 bg-linear-to-br from-[#0a0a1a] to-[#1a0a2e] transition-all duration-300 hover:border-purple-500/60">
                       {/* Cover Image */}
-                      <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-purple-500/20 to-cyan-500/20">
+                      <div className="relative h-48 w-full overflow-hidden bg-linear-to-br from-purple-500/20 to-cyan-500/20">
                         {post.coverImage ? (
                           <>
                             <Image
                               src={post.coverImage}
                               alt={post.title}
                               fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-300"
+                              className="object-cover transition-transform duration-300 group-hover:scale-110"
                               onError={(e) => {
                                 // Hide image on error and show gradient background
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = 'none';
                               }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a] to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-[#0a0a1a] to-transparent" />
                           </>
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <BookOpenIcon className="w-16 h-16 text-purple-400/40" />
+                            <BookOpenIcon className="h-16 w-16 text-purple-400/40" />
                           </div>
                         )}
                       </div>
 
                       {/* Content */}
-                      <div className="p-6 flex flex-col flex-1">
+                      <div className="flex flex-1 flex-col p-6">
                         {/* Platform Badge */}
-                        <div className="flex items-center justify-between mb-4">
+                        <div className="mb-4 flex items-center justify-between">
                           <span
-                            className={`px-3 py-1 text-xs font-semibold rounded-full ${post.platform === "Medium"
-                              ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                              : "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                              }`}
+                            className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                              post.platform === 'Medium'
+                                ? 'border border-green-500/30 bg-green-500/20 text-green-300'
+                                : 'border border-purple-500/30 bg-purple-500/20 text-purple-300'
+                            }`}
                           >
                             {post.platform}
                           </span>
-                          <BookOpenIcon className="w-5 h-5 text-gray-400" />
+                          <BookOpenIcon className="h-5 w-5 text-gray-400" />
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-lg md:text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-all line-clamp-2 leading-tight">
+                        <h2 className="mb-3 line-clamp-2 text-lg leading-tight font-bold text-white transition-all group-hover:bg-linear-to-r group-hover:from-purple-500 group-hover:to-cyan-500 group-hover:bg-clip-text group-hover:text-transparent md:text-xl">
                           {post.title}
                         </h2>
 
                         {/* Description */}
-                        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 flex-1 line-clamp-3">
+                        <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-gray-300 md:text-base">
                           {post.description}
                         </p>
 
                         {/* Footer */}
-                        <div className="flex items-center justify-between text-sm text-gray-400 pt-4 border-t border-gray-700">
+                        <div className="flex items-center justify-between border-t border-gray-700 pt-4 text-sm text-gray-400">
                           <div className="flex items-center gap-4">
                             <span>{formatDate(post.pubDate)}</span>
                             {post.readTime && (
                               <div className="flex items-center gap-1">
-                                <ClockIcon className="w-4 h-4" />
+                                <ClockIcon className="h-4 w-4" />
                                 <span>{post.readTime}</span>
                               </div>
                             )}
                           </div>
-                          <ArrowTopRightOnSquareIcon className="w-5 h-5 group-hover:text-cyan-400 transition-colors" />
+                          <ArrowTopRightOnSquareIcon className="h-5 w-5 transition-colors group-hover:text-cyan-400" />
                         </div>
                       </div>
                     </div>
@@ -367,61 +400,68 @@ const Blog = () => {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
                 <button
-                  onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(1, prev - 1))
+                  }
                   disabled={currentPage === 1}
-                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-purple-500/30 bg-purple-500/20 p-3 text-gray-300 transition-colors hover:bg-purple-500/30 disabled:cursor-not-allowed disabled:opacity-50 md:p-2"
                   aria-label="Previous page"
                 >
-                  <ChevronLeftIcon className="w-5 h-5" />
+                  <ChevronLeftIcon className="h-5 w-5" />
                 </button>
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-4 py-3 md:py-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] ${currentPage === page
-                      ? "bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold"
-                      : "bg-purple-500/20 border border-purple-500/30 text-gray-300 hover:bg-purple-500/30"
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`min-h-[44px] min-w-[44px] rounded-lg px-4 py-3 transition-colors md:py-2 ${
+                        currentPage === page
+                          ? 'bg-linear-to-r from-purple-500 to-cyan-500 font-bold text-white'
+                          : 'border border-purple-500/30 bg-purple-500/20 text-gray-300 hover:bg-purple-500/30'
                       }`}
-                    aria-label={`Go to page ${page}`}
-                    aria-current={currentPage === page ? "page" : undefined}
-                  >
-                    {page}
-                  </button>
-                ))}
+                      aria-label={`Go to page ${page}`}
+                      aria-current={currentPage === page ? 'page' : undefined}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
 
                 <button
-                  onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                  }
                   disabled={currentPage === totalPages}
-                  className="p-3 md:p-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-gray-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-500/30 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-purple-500/30 bg-purple-500/20 p-3 text-gray-300 transition-colors hover:bg-purple-500/30 disabled:cursor-not-allowed disabled:opacity-50 md:p-2"
                   aria-label="Next page"
                 >
-                  <ChevronRightIcon className="w-5 h-5" />
+                  <ChevronRightIcon className="h-5 w-5" />
                 </button>
               </div>
             )}
 
             {/* View All Links */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12">
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="https://medium.com/@tahmidbintaslimrafi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:opacity-80 transition-opacity flex items-center gap-2 font-semibold"
+                className="flex items-center gap-2 rounded-lg bg-linear-to-r from-green-500 to-green-600 px-8 py-3 font-semibold text-white transition-opacity hover:opacity-80"
               >
                 View All on Medium
-                <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                <ArrowTopRightOnSquareIcon className="h-5 w-5" />
               </Link>
               <Link
                 href="https://dev.to/tahmidbintaslim"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-80 transition-opacity flex items-center gap-2 font-semibold"
+                className="flex items-center gap-2 rounded-lg bg-linear-to-r from-purple-500 to-purple-600 px-8 py-3 font-semibold text-white transition-opacity hover:opacity-80"
               >
                 View All on Dev.to
-                <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                <ArrowTopRightOnSquareIcon className="h-5 w-5" />
               </Link>
             </div>
           </>
@@ -429,11 +469,13 @@ const Blog = () => {
 
         {/* No Results State */}
         {!loading && !error && paginatedPosts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-gray-400 text-lg mb-4">No articles found matching your criteria.</p>
+          <div className="py-20 text-center">
+            <p className="mb-4 text-lg text-gray-400">
+              No articles found matching your criteria.
+            </p>
             <button
               onClick={resetFilters}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white rounded-lg hover:opacity-80 transition-opacity"
+              className="rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-6 py-3 text-white transition-opacity hover:opacity-80"
             >
               Reset Filters
             </button>

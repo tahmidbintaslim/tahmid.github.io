@@ -28,19 +28,26 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="min-h-screen flex items-center justify-center bg-[#030014]">
-          <div className="text-center p-8 max-w-md">
-            <h2 className="text-2xl font-bold text-white mb-4">Something went wrong</h2>
-            <p className="text-gray-400 mb-6">We're sorry for the inconvenience. Please try refreshing the page.</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-            >
-              Refresh Page
-            </button>
+      return (
+        this.props.fallback || (
+          <div className="flex min-h-screen items-center justify-center bg-[#030014]">
+            <div className="max-w-md p-8 text-center">
+              <h2 className="mb-4 text-2xl font-bold text-white">
+                Something went wrong
+              </h2>
+              <p className="mb-6 text-gray-400">
+                We're sorry for the inconvenience. Please try refreshing the
+                page.
+              </p>
+              <button
+                onClick={() => window.location.reload()}
+                className="rounded-lg bg-purple-600 px-6 py-3 text-white transition-colors hover:bg-purple-700"
+              >
+                Refresh Page
+              </button>
+            </div>
           </div>
-        </div>
+        )
       );
     }
 

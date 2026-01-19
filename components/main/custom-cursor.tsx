@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -14,9 +14,9 @@ export default function CustomCursor() {
   useEffect(() => {
     // Check if it's a touch device
     const checkTouchDevice = () => {
-      const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      const hasHover = window.matchMedia("(hover: hover)").matches;
-      const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasHover = window.matchMedia('(hover: hover)').matches;
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 
       // Only show custom cursor on devices with hover capability and fine pointer (mouse)
       setIsTouchDevice(hasTouch && !hasHover && !hasFinePointer);
@@ -25,12 +25,12 @@ export default function CustomCursor() {
     checkTouchDevice();
 
     // Listen for media query changes
-    const hoverQuery = window.matchMedia("(hover: hover)");
+    const hoverQuery = window.matchMedia('(hover: hover)');
     const handleHoverChange = () => checkTouchDevice();
-    hoverQuery.addEventListener("change", handleHoverChange);
+    hoverQuery.addEventListener('change', handleHoverChange);
 
     return () => {
-      hoverQuery.removeEventListener("change", handleHoverChange);
+      hoverQuery.removeEventListener('change', handleHoverChange);
     };
   }, []);
 
@@ -55,20 +55,20 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener("mousemove", updateCursor);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener('mousemove', updateCursor);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
 
     const animationFrame = setInterval(updateFollower, 16);
 
     return () => {
-      window.removeEventListener("mousemove", updateCursor);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener('mousemove', updateCursor);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
       clearInterval(animationFrame);
     };
   }, [position, isTouchDevice]);
@@ -80,23 +80,23 @@ export default function CustomCursor() {
     <>
       <div
         id="custom-cursor"
-        className={`hidden md:block ${isVisible ? "active" : ""} ${
-          isClicking ? "clicking" : ""
+        className={`hidden md:block ${isVisible ? 'active' : ''} ${
+          isClicking ? 'clicking' : ''
         }`}
         style={
           {
-            "--cursor-x": `${position.x}px`,
-            "--cursor-y": `${position.y}px`,
+            '--cursor-x': `${position.x}px`,
+            '--cursor-y': `${position.y}px`,
           } as React.CSSProperties
         }
       />
       <div
         id="custom-cursor-follower"
-        className={`hidden md:block ${isVisible ? "active" : ""}`}
+        className={`hidden md:block ${isVisible ? 'active' : ''}`}
         style={
           {
-            "--cursor-x": `${followerPosition.x}px`,
-            "--cursor-y": `${followerPosition.y}px`,
+            '--cursor-x': `${followerPosition.x}px`,
+            '--cursor-y': `${followerPosition.y}px`,
           } as React.CSSProperties
         }
       />

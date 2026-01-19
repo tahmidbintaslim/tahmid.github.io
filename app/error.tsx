@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function Error({
   error,
   reset,
@@ -8,25 +10,25 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#030014]">
-      <div className="text-center p-8 max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-4">Page Error</h2>
-        <p className="text-gray-400 mb-6">
+    <div className="flex min-h-screen items-center justify-center bg-[#030014]">
+      <div className="max-w-md p-8 text-center">
+        <h2 className="mb-4 text-2xl font-bold text-white">Page Error</h2>
+        <p className="mb-6 text-gray-400">
           {error.message || 'Something went wrong on this page'}
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex justify-center gap-4">
           <button
             onClick={reset}
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
+            className="rounded-lg bg-purple-600 px-6 py-3 text-white transition-colors hover:bg-purple-700"
           >
             Try Again
           </button>
-          <a
+          <Link
             href="/"
-            className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+            className="rounded-lg bg-gray-700 px-6 py-3 text-white transition-colors hover:bg-gray-600"
           >
             Go Home
-          </a>
+          </Link>
         </div>
       </div>
     </div>

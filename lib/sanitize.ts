@@ -1,4 +1,4 @@
-import DOMPurify from "dompurify";
+import DOMPurify from 'isomorphic-dompurify';
 
 /**
  * Sanitize user input to prevent XSS attacks
@@ -11,7 +11,7 @@ export function sanitizeInput(input: string): string {
     ALLOWED_ATTR: [] as string[], // No attributes allowed
     KEEP_CONTENT: true,
   };
-  
+
   return DOMPurify.sanitize(input, config);
 }
 
@@ -20,13 +20,13 @@ export function sanitizeInput(input: string): string {
  */
 export function escapeHtml(text: string): string {
   const map: Record<string, string> = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;",
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
   };
-  
+
   return text.replace(/[&<>"']/g, (char) => map[char]);
 }
 
@@ -43,7 +43,7 @@ export function sanitizeEmail(email: string): string {
 export function sanitizeName(name: string): string {
   const sanitized = sanitizeInput(name);
   // Remove any non-letter characters except spaces, hyphens, and apostrophes
-  return sanitized.replace(/[^a-zA-Z\s'-]/g, "").trim();
+  return sanitized.replace(/[^a-zA-Z\s'-]/g, '').trim();
 }
 
 /**
@@ -52,5 +52,5 @@ export function sanitizeName(name: string): string {
 export function sanitizeMessage(message: string): string {
   const sanitized = sanitizeInput(message);
   // Normalize whitespace
-  return sanitized.replace(/\s+/g, " ").trim();
+  return sanitized.replace(/\s+/g, ' ').trim();
 }

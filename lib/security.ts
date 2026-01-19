@@ -1,8 +1,8 @@
-import type { NextRequest } from "next/server";
+import type { NextRequest } from 'next/server';
 
 export function isSameOrigin(request: NextRequest): boolean {
-  const originHeader = request.headers.get("origin");
-  const refererHeader = request.headers.get("referer");
+  const originHeader = request.headers.get('origin');
+  const refererHeader = request.headers.get('referer');
   let origin: string | null = originHeader;
 
   if (!origin && refererHeader) {
@@ -21,7 +21,7 @@ export function isSameOrigin(request: NextRequest): boolean {
 }
 
 export function validateCsrfToken(request: NextRequest): boolean {
-  const token = request.headers.get("X-CSRF-Token");
-  const cookieToken = request.cookies.get("csrf-token")?.value;
+  const token = request.headers.get('X-CSRF-Token');
+  const cookieToken = request.cookies.get('csrf-token')?.value;
   return Boolean(token && cookieToken && token === cookieToken);
 }

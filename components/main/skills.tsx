@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import { SkillDataProvider } from "@/components/sub/skill-data-provider";
-import { SkillText } from "@/components/sub/skill-text";
+import { SkillDataProvider } from '@/components/sub/skill-data-provider';
+import { SkillText } from '@/components/sub/skill-text';
 
 import {
   AI_ML_SKILL,
@@ -14,23 +14,23 @@ import {
   FRONTEND_SKILL,
   LANGUAGES_SKILL,
   TOOLS_OTHER_SKILL,
-} from "@/constants";
+} from '@/constants';
 
 // Helper to safely extract properties
 const getSkillImage = (skill: any): string | undefined => {
-  return "image" in skill ? skill.image : undefined;
+  return 'image' in skill ? skill.image : undefined;
 };
 
 const getSkillSvgIcon = (skill: any): string | undefined => {
-  return "svgIcon" in skill ? skill.svgIcon : undefined;
+  return 'svgIcon' in skill ? skill.svgIcon : undefined;
 };
 
 const getSkillWidth = (skill: any): number => {
-  return "width" in skill ? skill.width : 80;
+  return 'width' in skill ? skill.width : 80;
 };
 
 const getSkillHeight = (skill: any): number => {
-  return "height" in skill ? skill.height : 80;
+  return 'height' in skill ? skill.height : 80;
 };
 
 export const Skills = () => {
@@ -55,20 +55,16 @@ export const Skills = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial call
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="skills"
-      className="relative min-h-screen"
-    >
+    <section ref={sectionRef} id="skills" className="relative min-h-screen">
       {/* Sticky Video Background Container with Parallax */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden z-0 pointer-events-none">
+      <div className="pointer-events-none sticky top-0 z-0 h-screen w-full overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
@@ -76,30 +72,30 @@ export const Skills = () => {
           loop
           playsInline
           preload="metadata"
-          className="absolute inset-0 w-full h-[120%] object-cover opacity-30 will-change-transform"
+          className="absolute inset-0 h-[120%] w-full object-cover opacity-30 will-change-transform"
           style={{
             transform: `translate3d(0, ${parallaxY}px, 0)`,
-            top: '-10%'
+            top: '-10%',
           }}
         >
           <source src="/videos/skills-bg.webm" type="video/webm" />
         </video>
         {/* Darker gradient overlay for better icon visibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030014]/80 via-[#030014]/70 to-[#030014]/90" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#030014]/80 via-[#030014]/70 to-[#030014]/90" />
         {/* Additional vignette effect */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#030014_70%)] opacity-60" />
       </div>
 
       {/* Content that scrolls over the video */}
-      <div className="relative z-10 -mt-[100vh] flex flex-col items-center justify-center gap-3 py-20 px-4">
+      <div className="relative z-10 -mt-[100vh] flex flex-col items-center justify-center gap-3 px-4 py-20">
         <SkillText />
 
         {/* Languages */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-purple-500/10">
-          <h3 className="text-2xl font-semibold text-center text-purple-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-purple-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-purple-400">
             Programming Languages
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {LANGUAGES_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -115,11 +111,11 @@ export const Skills = () => {
         </div>
 
         {/* Frontend */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-cyan-500/10">
-          <h3 className="text-2xl font-semibold text-center text-cyan-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-cyan-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-cyan-400">
             Frontend Development
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {FRONTEND_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -135,11 +131,11 @@ export const Skills = () => {
         </div>
 
         {/* Backend */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-green-500/10">
-          <h3 className="text-2xl font-semibold text-center text-green-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-green-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-green-400">
             Backend Development
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {BACKEND_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -155,11 +151,11 @@ export const Skills = () => {
         </div>
 
         {/* Databases */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-yellow-500/10">
-          <h3 className="text-2xl font-semibold text-center text-yellow-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-yellow-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-yellow-400">
             Databases & ORMs
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {DATABASE_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -175,11 +171,11 @@ export const Skills = () => {
         </div>
 
         {/* Cloud & DevOps */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-blue-500/10">
-          <h3 className="text-2xl font-semibold text-center text-blue-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-blue-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-blue-400">
             Cloud & DevOps
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {CLOUD_DEVOPS_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -195,11 +191,11 @@ export const Skills = () => {
         </div>
 
         {/* E-commerce */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-pink-500/10">
-          <h3 className="text-2xl font-semibold text-center text-pink-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-pink-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-pink-400">
             E-commerce Platforms
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {ECOMMERCE_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -215,11 +211,11 @@ export const Skills = () => {
         </div>
 
         {/* AI/ML */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-red-500/10">
-          <h3 className="text-2xl font-semibold text-center text-red-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-red-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-red-400">
             AI & Machine Learning
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {AI_ML_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}
@@ -235,11 +231,11 @@ export const Skills = () => {
         </div>
 
         {/* Tools & Other */}
-        <div className="w-full max-w-6xl mt-6 backdrop-blur-md bg-[#030014]/50 rounded-2xl p-6 mx-4 border border-gray-500/10">
-          <h3 className="text-2xl font-semibold text-center text-gray-400 mb-4">
+        <div className="mx-4 mt-6 w-full max-w-6xl rounded-2xl border border-gray-500/10 bg-[#030014]/50 p-6 backdrop-blur-md">
+          <h3 className="mb-4 text-center text-2xl font-semibold text-gray-400">
             Tools & Others
           </h3>
-          <div className="flex flex-row justify-center flex-wrap gap-5 items-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-5">
             {TOOLS_OTHER_SKILL.map((skill, i) => (
               <SkillDataProvider
                 key={skill.skill_name}

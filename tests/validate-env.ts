@@ -3,6 +3,11 @@
  * Checks if all required environment variables are set
  */
 
+import { config } from 'dotenv';
+
+// Load environment variables from .env.local
+config({ path: '.env.local' });
+
 interface EnvCheck {
   name: string;
   required: boolean;
@@ -36,9 +41,9 @@ const envChecks: EnvCheck[] = [
     description: 'Email address to receive contact form submissions',
   },
   {
-    name: 'NEXT_PUBLIC_GNEWS_API_KEY',
+    name: 'NEWSAPI_KEY',
     required: false,
-    description: 'GNews API key for news widget (optional)',
+    description: 'NewsAPI key for news widget (optional)',
   },
   {
     name: 'ADMIN_API_KEY',
@@ -73,7 +78,7 @@ function validateEnv() {
   }
 
   console.log('\n' + '='.repeat(50));
-  
+
   if (hasErrors) {
     console.log('\n❌ Missing required environment variables!');
     console.log('📖 See ENV_SETUP.md for configuration instructions\n');

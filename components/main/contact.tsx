@@ -1,42 +1,42 @@
-"use client";
+'use client';
 
 import {
   slideInFromLeft,
   slideInFromRight,
   slideInFromTop,
-} from "@/lib/motion";
+} from '@/lib/motion';
 import {
   EnvelopeIcon,
   MapPinIcon,
   PhoneIcon,
-} from "@heroicons/react/24/outline";
-import { SparklesIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+} from '@heroicons/react/24/outline';
+import { SparklesIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 export const Contact = () => {
   const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
   });
 
-  const [csrfToken, setCsrfToken] = useState("");
+  const [csrfToken, setCsrfToken] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+    'idle' | 'success' | 'error'
+  >('idle');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        const response = await fetch("/api/csrf");
+        const response = await fetch('/api/csrf');
         const { token } = await response.json();
         setCsrfToken(token);
       } catch (error) {
-        console.error("Failed to fetch CSRF token:", error);
+        console.error('Failed to fetch CSRF token:', error);
       }
     };
     fetchCsrfToken();
@@ -63,36 +63,36 @@ export const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus("idle");
+    setSubmitStatus('idle');
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
+      const response = await fetch('/api/contact', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken,
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken,
         },
         body: JSON.stringify({ ...formState, _csrf: csrfToken }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        throw new Error('Failed to send message');
       }
 
       setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormState({ name: "", email: "", subject: "", message: "" });
+      setSubmitStatus('success');
+      setFormState({ name: '', email: '', subject: '', message: '' });
 
       timeoutRef.current = setTimeout(() => {
-        setSubmitStatus("idle");
+        setSubmitStatus('idle');
       }, 5000);
     } catch (error) {
-      console.error("Failed to send email:", error);
+      console.error('Failed to send email:', error);
       setIsSubmitting(false);
-      setSubmitStatus("error");
+      setSubmitStatus('error');
 
       timeoutRef.current = setTimeout(() => {
-        setSubmitStatus("idle");
+        setSubmitStatus('idle');
       }, 5000);
     }
   };
@@ -100,20 +100,20 @@ export const Contact = () => {
   const contactInfo = [
     {
       icon: EnvelopeIcon,
-      label: "Email",
-      value: "tahmidbintaslimrafi@gmail.com",
-      link: "mailto:tahmidbintaslimrafi@gmail.com",
+      label: 'Email',
+      value: 'tahmidbintaslimrafi@gmail.com',
+      link: 'mailto:tahmidbintaslimrafi@gmail.com',
     },
     {
       icon: MapPinIcon,
-      label: "Location",
-      value: "Bangkok, Thailand",
+      label: 'Location',
+      value: 'Bangkok, Thailand',
       link: null,
     },
     {
       icon: PhoneIcon,
-      label: "Available",
-      value: "Mon - Fri, 9AM - 6PM",
+      label: 'Available',
+      value: 'Mon - Fri, 9AM - 6PM',
       link: null,
     },
   ];
@@ -121,16 +121,16 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-20"
+      className="flex flex-col items-center justify-center px-4 py-12 sm:px-6 sm:py-16 md:px-20 md:py-20"
     >
       <motion.div
         variants={slideInFromTop}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="Welcome-box py-2 px-2 border border-[#7042f88b] opacity-90"
+        className="Welcome-box border border-[#7042f88b] px-2 py-2 opacity-90"
       >
-        <SparklesIcon className="text-[#b49bff] mr-2.5 h-5 w-5" />
+        <SparklesIcon className="mr-2.5 h-5 w-5 text-[#b49bff]" />
         <h2 className="Welcome-text text-[12px] sm:text-[13px]">
           Let&apos;s work together
         </h2>
@@ -141,10 +141,10 @@ export const Contact = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-[28px] sm:text-[36px] md:text-[40px] lg:text-[50px] text-white font-bold mt-4 sm:mt-5 text-center mb-3 sm:mb-3.75"
+        className="mt-4 mb-3 text-center text-[28px] font-bold text-white sm:mt-5 sm:mb-3.75 sm:text-[36px] md:text-[40px] lg:text-[50px]"
       >
-        Get In{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+        Get In{' '}
+        <span className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
           Touch
         </span>
       </motion.h2>
@@ -154,14 +154,14 @@ export const Contact = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="text-gray-300 text-center max-w-2xl mb-8 sm:mb-12 text-sm sm:text-base px-2"
+        className="mb-8 max-w-2xl px-2 text-center text-sm text-gray-300 sm:mb-12 sm:text-base"
       >
         Have a project in mind or want to collaborate? Feel free to reach out!
         I&apos;m always open to discussing new opportunities and interesting
         ideas.
       </motion.p>
 
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 [&_.contact-info]:translate-y-0">
+      <div className="grid w-full max-w-6xl grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 [&_.contact-info]:translate-y-0">
         {/* Contact Info */}
         <motion.div
           variants={slideInFromLeft(0.5)}
@@ -170,7 +170,7 @@ export const Contact = () => {
           viewport={{ once: true }}
           className="flex flex-col gap-6"
         >
-          <h3 className="text-2xl font-bold text-white mb-4">
+          <h3 className="mb-4 text-2xl font-bold text-white">
             Contact Information
           </h3>
 
@@ -179,36 +179,36 @@ export const Contact = () => {
               key={info.label}
               variants={slideInFromLeft(0.5)}
               transition={{ delay: index * 0.1 }}
-              className="flex items-start gap-4 p-4 rounded-lg bg-linear-to-br from-purple-500/10 to-cyan-500/10 border border-purple-500/20 backdrop-blur-sm hover:scale-105 transition-transform duration-300 contact-info"
+              className="contact-info flex items-start gap-4 rounded-lg border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-4 backdrop-blur-sm transition-transform duration-300 hover:scale-105"
             >
-              <div className="p-3 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500">
+              <div className="rounded-full bg-linear-to-r from-purple-500 to-cyan-500 p-3">
                 <info.icon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-gray-400 text-sm">{info.label}</p>
+                <p className="text-sm text-gray-400">{info.label}</p>
                 {info.link ? (
                   <a
                     href={info.link}
-                    className="text-white font-semibold hover:text-purple-400 transition-colors"
+                    className="font-semibold text-white transition-colors hover:text-purple-400"
                   >
                     {info.value}
                   </a>
                 ) : (
-                  <p className="text-white font-semibold">{info.value}</p>
+                  <p className="font-semibold text-white">{info.value}</p>
                 )}
               </div>
             </motion.div>
           ))}
 
           <div className="mt-6">
-            <h4 className="text-xl font-bold text-white mb-4">Follow Me</h4>
+            <h4 className="mb-4 text-xl font-bold text-white">Follow Me</h4>
             <div className="flex gap-4">
               <a
                 href="https://github.com/tahmidbintaslim"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 hover:scale-110 transition-transform duration-300"
+                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -224,7 +224,7 @@ export const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 hover:scale-110 transition-transform duration-300"
+                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -240,7 +240,7 @@ export const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter Profile"
-                className="p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border border-purple-500/30 hover:scale-110 transition-transform duration-300"
+                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -267,7 +267,7 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                className="mb-2 block text-sm text-gray-300 sm:text-base"
               >
                 Your Name
               </label>
@@ -279,7 +279,7 @@ export const Contact = () => {
                 value={formState.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
+                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
                 placeholder="John Doe"
               />
             </div>
@@ -287,7 +287,7 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                className="mb-2 block text-sm text-gray-300 sm:text-base"
               >
                 Your Email
               </label>
@@ -299,7 +299,7 @@ export const Contact = () => {
                 value={formState.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
+                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
                 placeholder="john@example.com"
               />
             </div>
@@ -307,7 +307,7 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="subject"
-                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                className="mb-2 block text-sm text-gray-300 sm:text-base"
               >
                 Subject
               </label>
@@ -319,7 +319,7 @@ export const Contact = () => {
                 value={formState.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-base min-h-[48px] touch-manipulation"
+                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
                 placeholder="Project Inquiry"
               />
             </div>
@@ -327,7 +327,7 @@ export const Contact = () => {
             <div>
               <label
                 htmlFor="message"
-                className="block text-gray-300 mb-2 text-sm sm:text-base"
+                className="mb-2 block text-sm text-gray-300 sm:text-base"
               >
                 Message
               </label>
@@ -339,7 +339,7 @@ export const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-3 sm:py-3.5 rounded-lg bg-[#1a1a2e] border border-purple-500/30 text-white focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all resize-none text-base touch-manipulation"
+                className="w-full touch-manipulation resize-none rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
                 placeholder="Tell me about your project..."
               />
             </div>
@@ -347,32 +347,32 @@ export const Contact = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 sm:py-4 px-6 rounded-lg bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] text-base active:scale-[0.98] touch-manipulation"
+              className="min-h-13 w-full touch-manipulation rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:py-4"
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
 
-            {submitStatus === "success" && (
+            {submitStatus === 'success' && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 text-center"
+                className="rounded-lg border border-green-500/30 bg-green-500/20 p-4 text-center text-green-400"
               >
                 <p className="font-semibold">Message sent successfully!</p>
-                <p className="text-sm mt-1 text-green-300">
+                <p className="mt-1 text-sm text-green-300">
                   Thank you for reaching out! I&apos;ll get back to you soon.
                 </p>
               </motion.div>
             )}
 
-            {submitStatus === "error" && (
+            {submitStatus === 'error' && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-center"
+                className="rounded-lg border border-red-500/30 bg-red-500/20 p-4 text-center text-red-400"
               >
                 <p className="font-semibold">Failed to send message</p>
-                <p className="text-sm mt-1 text-red-300">
+                <p className="mt-1 text-sm text-red-300">
                   Please try again or contact me directly at
                   tahmidbintaslimrafi@gmail.com
                 </p>

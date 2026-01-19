@@ -1,58 +1,61 @@
-import { Analytics } from "@vercel/analytics/next";
-import type { Metadata, Viewport } from "next";
-import { Cedarville_Cursive, Inter, Space_Grotesk } from "next/font/google";
-import Script from "next/script";
-import type { PropsWithChildren } from "react";
+import { Analytics } from '@vercel/analytics/next';
+import type { Metadata, Viewport } from 'next';
+import { Cedarville_Cursive, Inter, Space_Grotesk } from 'next/font/google';
+import Script from 'next/script';
+import type { PropsWithChildren } from 'react';
 
-import CustomCursor from "@/components/main/custom-cursor";
-import { Footer } from "@/components/main/footer";
-import { Navbar } from "@/components/main/navbar";
-import { StarsCanvas } from "@/components/main/stars-canvas-wrapper";
-import { siteConfig } from "@/config";
-import { structuredData } from "@/config/structured-data";
-import { cn } from "@/lib/utils";
+import CustomCursor from '@/components/main/custom-cursor';
+import { Footer } from '@/components/main/footer';
+import { Navbar } from '@/components/main/navbar';
+import { StarsCanvas } from '@/components/main/stars-canvas-wrapper';
+import { siteConfig } from '@/config';
+import { structuredData } from '@/config/structured-data';
+import { cn } from '@/lib/utils';
 
-import "./globals.css";
+import './globals.css';
 
 // Inter - Highly readable sans-serif for body text
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
 });
 
 // Space Grotesk - Modern geometric sans-serif for headings
 const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
 });
 
 // Cedarville Cursive - Decorative cursive font (lazy loaded)
 const cedarvilleCursive = Cedarville_Cursive({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-cursive",
-  display: "swap",
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-cursive',
+  display: 'swap',
   preload: false, // Don't preload since it's rarely used
 });
 
 export const viewport: Viewport = {
-  themeColor: "#030014",
-  width: "device-width",
+  themeColor: '#030014',
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  colorScheme: "dark",
+  colorScheme: 'dark',
 };
 
 export const metadata: Metadata = siteConfig;
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${cedarvilleCursive.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable} ${cedarvilleCursive.variable}`}
+    >
       <body
         className={cn(
-          "bg-[#030014] overflow-y-scroll overflow-x-hidden font-sans"
+          'overflow-x-hidden overflow-y-scroll bg-[#030014] font-sans'
         )}
       >
         {/* Skip to main content - Accessibility */}

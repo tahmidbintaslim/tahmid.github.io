@@ -65,7 +65,7 @@ async function testCSRFProtection() {
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': token,
-        'Cookie': cookies || '',
+        Cookie: cookies || '',
         ...originHeaders,
       },
       body: JSON.stringify({
@@ -152,7 +152,7 @@ async function testInputValidation() {
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': token,
-        'Cookie': cookies || '',
+        Cookie: cookies || '',
         ...originHeaders,
       },
       body: JSON.stringify({
@@ -191,7 +191,7 @@ async function testInputValidation() {
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': token,
-        'Cookie': cookies || '',
+        Cookie: cookies || '',
         ...originHeaders,
       },
       body: JSON.stringify({

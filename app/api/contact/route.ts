@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { contactFormSchema } from '@/lib/validation';
-import { sanitizeName, sanitizeEmail, sanitizeMessage, escapeHtml } from '@/lib/sanitize';
-import { getRateLimitKey, checkRateLimit, rateLimitResponse, RATE_LIMIT_CONFIG } from '@/lib/rate-limit';
+import {
+  sanitizeName,
+  sanitizeEmail,
+  sanitizeMessage,
+  escapeHtml,
+} from '@/lib/sanitize';
+import {
+  getRateLimitKey,
+  checkRateLimit,
+  rateLimitResponse,
+  RATE_LIMIT_CONFIG,
+} from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
 import { isSameOrigin, validateCsrfToken } from '@/lib/security';
 
@@ -10,10 +20,16 @@ export async function POST(request: NextRequest) {
   try {
     // CSRF Protection
     if (!validateCsrfToken(request)) {
-      return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Invalid CSRF token' },
+        { status: 403 }
+      );
     }
     if (!isSameOrigin(request)) {
-      return NextResponse.json({ error: 'Invalid request origin' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Invalid request origin' },
+        { status: 403 }
+      );
     }
 
     // Check rate limit
@@ -21,7 +37,10 @@ export async function POST(request: NextRequest) {
     const rateLimitCheck = await checkRateLimit(key, RATE_LIMIT_CONFIG.contact);
 
     if (!rateLimitCheck.allowed) {
-      return rateLimitResponse(rateLimitCheck.remaining, rateLimitCheck.resetTime);
+      return rateLimitResponse(
+        rateLimitCheck.remaining,
+        rateLimitCheck.resetTime
+      );
     }
 
     const body = await request.json();
@@ -35,8 +54,8 @@ export async function POST(request: NextRequest) {
           error: 'Validation failed',
           details: validation.error.issues.map((issue) => ({
             field: issue.path.join('.'),
-            message: issue.message
-          }))
+            message: issue.message,
+          })),
         },
         { status: 400 }
       );
