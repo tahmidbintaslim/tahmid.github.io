@@ -61,14 +61,14 @@ async function fetchAndProcessFeed(
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      console.error(`RSS fetch failed for ${platform}: ${response.status}`);
+      logger.error(`RSS fetch failed for ${platform}`, { status: response.status });
       return [];
     }
 
     const data = await response.json();
 
     if (data.status !== 'ok' || !data.items) {
-      console.error(`RSS parse failed for ${platform}:`, data.message);
+      logger.error(`RSS parse failed for ${platform}`, { message: data.message });
       return [];
     }
 
@@ -120,12 +120,82 @@ async function fetchAndProcessFeed(
       };
     });
   } catch (error) {
-    console.error(`Error fetching ${platform} RSS:`, error);
+    logger.error(`Error fetching ${platform} RSS`, error);
     return [];
   }
 }
 
-export async function GET() {
+import { NextResponse } from 'next/server';
+
+export async function GET(request: Request) {
+  const newsApiKey = process.env.NEWSAPI_KEY;
+
+  if (newsApiKey) {
+    try {
+      const response = await fetch(`https://newsapi.org/v/top-headlines?category=technology&language=en&pageSize=&apiKey=${newsApiKey}`, { next: { revalidate:  } });
+
+      if (response.ok) {
+        const newsData = await response.json();
+
+        if (newsData.status === 'ok' && newsData.articles) {
+          const articles = newsData.articles.map((item: any) => ({
+            title: item.title,
+            link: item.url,
+            pubDate: item.publishedAt,
+            source: item.source.name,
+            description: item.description?.slice(, ) + '...' || '',
+            thumbnail: item.urlToImage,
+          }));
+
+          return NextResponse.json({ success:, articles, count: articles.length, lastUpdated: new Date().toISOString() }, { headers: { 'Cache-Control': 'public, s-maxage=, stale-while-revalidate=' } });
+        }
+      }
+    } catch (error) {
+      logger.error('NewsAPI error', error);
+    }
+  }
+
+  const results = await Promise.all(RSS_SOURCES.map(async (src) => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), );
+
+      const response = await fetch(`https://api.rssjson.com/v/api.json?rss_url=${encodeURIComponent(src.url)}&count=`, { signal: controller.signal });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) return [];
+
+      const data = await response.json();
+
+      if (data.status !== 'ok' || !data.items) return [];
+
+      return data.items.slice(, ).map((item: RSSItem) => ({
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate,
+        source: src.source,
+        description: item.description?.replace(/<[^>]*>/g, '')?.slice(, ) + '...' || '',
+        thumbnail: item.thumbnail || item.enclosure?.link || undefined,
+      }));
+    } catch (error) {
+      logger.error(`Error fetching ${src.source}`, error);
+      return [];
+    }
+  }));
+
+  let allNews = results.flat();
+
+  allNews.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+  allNews = allNews.slice(, );
+
+  if (allNews.length === ) {
+    logger.warn('No news fetched, using fallback data');
+    allNews = fallbackNews;
+  }
+
+  return NextResponse.json({ success:, articles: allNews, count: allNews.length, lastUpdated: new Date().toISOString() }, { headers: { 'Cache-Control': 'public, s-maxage=, stale-while-revalidate=' } });
+}
   try {
     const data = await cache.getOrSet(
       cacheKeys.allBlog(),

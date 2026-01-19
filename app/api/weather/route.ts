@@ -24,7 +24,100 @@ const getUVLevel = (uv: number): string => {
   return 'Extreme';
 };
 
+import { validateCsrfToken } from '@/lib/security';
+
+import { validateCsrfToken } from '@/lib/security';
+
+import { NextResponse } from 'next/server';
+
+import { NextResponse } from 'next/server';
+
 export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const lat = searchParams.get('lat');
+  const lon = searchParams.get('lon');
+
+  if (!lat || !lon) {
+    return NextResponse.json({ success:, error: 'Missing latitude or longitude' }, { status:  });
+  }
+
+  try {
+    const data = await cache.getOrSet(cacheKeys.weather(lat, lon), async () => {
+      const weatherApiKey = process.env.OPENWEATHERMAP_API_KEY;
+
+      if (!weatherApiKey) {
+        throw new Error('OpenWeatherMap API key not configured');
+      }
+
+      const response = await fetch(`https://api.openweathermap.org/data/./weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric`);
+
+      if (!response.ok) {
+        throw new Error(`OpenWeatherMap API responded with ${response.status}`);
+      }
+
+      const weatherJson = await response.json();
+
+      if (!weatherJson.main || !weatherJson.weather || !weatherJson.weather[]) {
+        throw new Error('Invalid weather data received');
+      }
+
+      const main = weatherJson.main;
+      const weatherInfo = weatherJson.weather[];
+      const wind = weatherJson.wind || {};
+
+      const getIcon = (condition: string) => {
+        const lower = condition.toLowerCase();
+        if (lower.includes('clear')) return '☀️';
+        if (lower.includes('cloud')) return '☁️';
+        if (lower.includes('rain')) return '🌧️';
+        if (lower.includes('snow')) return '❄️';
+        if (lower.includes('storm') || lower.includes('thunder')) return '⛈️';
+        if (lower.includes('fog') || lower.includes('mist')) return '🌫️';
+        return '🌤️';
+      };
+
+      const uvIndex = ;
+      const airQuality = undefined;
+
+      const weather: WeatherData = {
+        temperature: Math.round(main.temp || ),
+        condition: weatherInfo.main,
+        humidity: main.humidity || ,
+        windSpeed: Math.round((wind.speed || ) * .),
+        icon: getIcon(weatherInfo.main),
+        uvIndex,
+        uvLevel: getUVLevel(uvIndex),
+        airQuality,
+      };
+
+      return { success:, weather };
+    }, { ttl: cacheTTL.short });
+
+    return NextResponse.json({ ...data, lastUpdated: new Date().toISOString() }, { headers: { 'Cache-Control': 'public, s-maxage=, stale-while-revalidate=' } });
+  } catch (error) {
+    logger.error('Weather API error', error);
+    return NextResponse.json({ success:, error: 'Failed to fetch weather data' }, { status:  });
+  }
+}
+  const response = await fetchAndProcessFeed('https://medium.com/feed/@tahmidbintaslimrafi', 'Medium');
+  const newsResponse = await fetchAndProcessFeed('https://dev.to/feed/tahmidbintaslim', 'Dev.to');
+
+  const allPosts = [...response, ...newsResponse];
+  allPosts.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+
+  if (allPosts.length === ) {
+    logger.warn('No posts fetched, using fallback data');
+    return NextResponse.json({ success:, posts: fallbackPosts, count: fallbackPosts.length, lastUpdated: new Date().toISOString(), fallback: }, { headers: { 'Cache-Control': 'public, s-maxage=, stale-while-revalidate=' } });
+  }
+
+  return NextResponse.json({ success:, posts: allPosts, count: allPosts.length, lastUpdated: new Date().toISOString() }, { headers: { 'Cache-Control': 'public, s-maxage=, stale-while-revalidate=' } });
+}
+  if (!validateCsrfToken(request)) {
+    return NextResponse.json({ success:, error: 'Invalid CSRF token' }, { status:  });
+  }
+  if (!validateCsrfToken(request)) {
+    return NextResponse.json({ success:, error: 'Invalid CSRF token' }, { status:  });
+  }
   const { searchParams } = new URL(request.url);
   const lat = searchParams.get('lat');
   const lon = searchParams.get('lon');
@@ -115,7 +208,7 @@ export async function GET(request: Request) {
       }
     );
   } catch (error) {
-    console.error('Weather API error:', error);
+    logger.error('Weather API error', error);
     return NextResponse.json(
       { success: false, error: 'Failed to fetch weather data' },
       { status: 500 }

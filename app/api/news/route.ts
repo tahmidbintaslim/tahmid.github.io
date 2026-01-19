@@ -57,7 +57,12 @@ const RSS_SOURCES = [
   { url: 'https://www.wired.com/feed/rss', source: 'Wired' },
 ];
 
-export async function GET() {
+import { validateCsrfToken } from '@/lib/security';
+
+export async function GET(request: Request) {
+  if (!validateCsrfToken(request)) {
+    return NextResponse.json({ success:, error: 'Invalid CSRF token' }, { status:  });
+  }
   try {
     const data = await cache.getOrSet(
       cacheKeys.news(),
@@ -92,7 +97,7 @@ export async function GET() {
               }
             }
           } catch (error) {
-            console.error('NewsAPI error:', error);
+            logger.error('NewsAPI error', error);
             // Fall back to RSS
           }
         }
@@ -132,7 +137,7 @@ export async function GET() {
                 thumbnail: item.thumbnail || item.enclosure?.link || undefined,
               }));
             } catch (error) {
-              console.error(`Error fetching ${src.source}:`, error);
+              logger.error(`Error fetching ${src.source}`, error);
               return [];
             }
           })
