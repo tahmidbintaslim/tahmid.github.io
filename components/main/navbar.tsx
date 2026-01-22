@@ -1,70 +1,61 @@
 'use client';
 import Link from 'next/link';
 
-import { LINKS, NAV_LINKS, SOCIALS } from '@/constants';
+import { NAV_LINKS, SOCIALS } from '@/constants';
 
 export const Navbar = () => {
   return (
     // Hidden on mobile, shown on desktop (md and up)
     <nav
       aria-label="Main navigation"
-      className="fixed top-0 z-50 hidden h-[65px] w-full bg-[#03001427] px-10 shadow-lg shadow-[#2A0E61]/50 backdrop-blur-md md:block"
+      className="contrast-dark bg-space-950/15 shadow-space-700/50 fixed top-0 z-50 hidden h-16 w-full px-10 shadow-lg backdrop-blur-md md:block"
     >
       {/* Navbar Container */}
-      <div className="m-auto flex h-full w-full items-center justify-between px-[10px]">
+      <div className="m-auto flex h-full w-full items-center justify-between px-2.5">
         {/* Logo + Name */}
         <Link
           href="/"
           aria-label="Home - Tahmid Bin Taslim Rafi"
           className="flex items-center"
         >
-          <div className="ml-[10px] font-bold text-gray-300">TBTR</div>
+          <div className="text-muted ml-2 font-bold">TBTR</div>
         </Link>
 
         {/* Web Navbar */}
-        <div className="flex h-full w-[500px] flex-row items-center justify-between">
-          <div className="flex h-auto w-full items-center justify-between rounded-full border-[rgba(112,66,248,0.38)] bg-[rgba(3,0,20,0.37)] px-[20px] py-[10px] text-gray-200">
+        <div className="flex h-full w-1/2 flex-row items-center justify-between">
+          <div className="bg-space-950/35 flex h-auto w-full items-center justify-between rounded-full px-5 py-2 text-ink">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.title}
                 href={link.link}
-                className="cursor-pointer transition hover:text-[rgb(112,66,248)]"
+                className="ui-pop hover:text-brand-500 cursor-pointer transition"
               >
                 {link.title}
               </Link>
             ))}
-
-            {/* Source Code */}
-            <Link
-              href={LINKS.sourceCode}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="cursor-pointer transition hover:text-[rgb(112,66,248)]"
-            >
-              Source Code
-            </Link>
           </div>
         </div>
 
         {/* Social Icons (Web) */}
-        <div
+        <ul
           className="flex flex-row gap-5"
           role="list"
           aria-label="Social media links"
         >
           {SOCIALS.map(({ link, name, icon: Icon }) => (
-            <Link
-              href={link}
-              target="_blank"
-              rel="noreferrer noopener"
-              key={name}
-              aria-label={`Visit my ${name} profile`}
-              role="listitem"
-            >
-              <Icon className="h-6 w-6 text-white" aria-hidden="true" />
-            </Link>
+            <li key={name} role="listitem">
+              <Link
+                href={link}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={`Visit my ${name} profile`}
+                className="ui-pop inline-flex"
+              >
+                <Icon className="h-6 w-6 text-white" aria-hidden="true" />
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </nav>
   );

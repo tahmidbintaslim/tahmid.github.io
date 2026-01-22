@@ -5,7 +5,7 @@ import { SiGooglecloud, SiOpenai } from 'react-icons/si';
 
 export const Footer = () => {
   return (
-    <footer className="relative mt-20 w-full bg-linear-to-b from-transparent via-[#030014] to-[#0a0a1a] pb-24 text-gray-200 md:pb-0">
+    <footer className="contrast-dark via-space-950 to-space-900 relative mt-20 w-full bg-linear-to-b from-transparent pb-24 text-ink md:pb-0">
       {/* Decorative top border */}
       <div className="absolute top-0 right-0 left-0 h-px bg-linear-to-r from-transparent via-purple-500/50 to-transparent" />
 
@@ -15,7 +15,7 @@ export const Footer = () => {
           {FOOTER_DATA.map((column) => (
             <div key={column.title} className="flex flex-col space-y-5">
               {/* Section Title */}
-              <h2 className="mb-2 bg-linear-to-r from-purple-400 to-cyan-400 bg-clip-text text-xl font-bold text-transparent">
+              <h2 className="card-title mb-2 bg-linear-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
                 {column.title}
               </h2>
 
@@ -27,16 +27,14 @@ export const Footer = () => {
                     href={link}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="group flex w-fit items-center gap-3 text-gray-400 transition-all duration-300 hover:text-white"
+                    className="text-muted group flex w-fit items-center gap-3 transition-colors duration-200 ease-out hover:text-white"
                   >
                     {Icon && (
-                      <div className="rounded-lg border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-2 transition-all duration-300 group-hover:scale-110 group-hover:border-purple-500/50">
+                      <div className="rounded-xl border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-2 transition-colors duration-200 ease-out group-hover:border-purple-500/50">
                         <Icon />
                       </div>
                     )}
-                    <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
-                      {name}
-                    </span>
+                    <span className="text-base">{name}</span>
                   </Link>
                 ))}
               </div>
@@ -49,46 +47,46 @@ export const Footer = () => {
 
         {/* Certifications & Badges Section */}
         <div className="mb-8 flex flex-col items-center gap-6">
-          <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">
+          <h3 className="section-kicker">
             Certifications & Compliance
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-6">
             {/* Security Badge */}
-            <div className="group flex items-center gap-2 rounded-lg border border-green-500/30 bg-linear-to-br from-green-500/10 to-emerald-500/10 px-4 py-2 transition-all duration-300 hover:border-green-500/60">
+            <div className="group flex items-center gap-2 rounded-xl border border-green-500/30 bg-linear-to-br from-green-500/10 to-emerald-500/10 px-4 py-2 transition-colors duration-200 ease-out hover:border-green-500/60">
               <FaLock className="text-lg text-green-400" />
-              <span className="text-xs font-medium text-gray-300">
+              <span className="text-muted text-xs font-medium">
                 SSL Secured
               </span>
             </div>
 
             {/* Accessibility Badge */}
-            <div className="group flex items-center gap-2 rounded-lg border border-blue-500/30 bg-linear-to-br from-blue-500/10 to-cyan-500/10 px-4 py-2 transition-all duration-300 hover:border-blue-500/60">
+            <div className="group flex items-center gap-2 rounded-xl border border-blue-500/30 bg-linear-to-br from-blue-500/10 to-cyan-500/10 px-4 py-2 transition-colors duration-200 ease-out hover:border-blue-500/60">
               <FaUniversalAccess className="text-lg text-blue-400" />
-              <span className="text-xs font-medium text-gray-300">
+              <span className="text-muted text-xs font-medium">
                 Accessibility-Focused
               </span>
             </div>
 
             {/* AI-Ready Badge */}
-            <div className="group flex items-center gap-2 rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/10 to-pink-500/10 px-4 py-2 transition-all duration-300 hover:border-purple-500/60">
+            <div className="group flex items-center gap-2 rounded-xl border border-purple-500/30 bg-linear-to-br from-purple-500/10 to-pink-500/10 px-4 py-2 transition-colors duration-200 ease-out hover:border-purple-500/60">
               <FaRobot className="text-lg text-purple-400" />
-              <span className="text-xs font-medium text-gray-300">
+              <span className="text-muted text-xs font-medium">
                 AI-Ready (LLM.txt)
               </span>
             </div>
 
             {/* Google Cloud Expertise */}
-            <div className="group flex items-center gap-2 rounded-lg border border-blue-400/30 bg-linear-to-br from-blue-400/10 to-cyan-400/10 px-4 py-2 transition-all duration-300 hover:border-blue-400/60">
+            <div className="group flex items-center gap-2 rounded-xl border border-blue-400/30 bg-linear-to-br from-blue-400/10 to-cyan-400/10 px-4 py-2 transition-colors duration-200 ease-out hover:border-blue-400/60">
               <SiGooglecloud className="text-lg text-blue-400" />
-              <span className="text-xs font-medium text-gray-300">
+              <span className="text-muted text-xs font-medium">
                 Google Cloud
               </span>
             </div>
 
             {/* OpenAI Integration */}
-            <div className="group flex items-center gap-2 rounded-lg border border-green-400/30 bg-linear-to-br from-green-400/10 to-emerald-400/10 px-4 py-2 transition-all duration-300 hover:border-green-400/60">
+            <div className="group flex items-center gap-2 rounded-xl border border-green-400/30 bg-linear-to-br from-green-400/10 to-emerald-400/10 px-4 py-2 transition-colors duration-200 ease-out hover:border-green-400/60">
               <SiOpenai className="text-lg text-green-400" />
-              <span className="text-xs font-medium text-gray-300">
+              <span className="text-muted text-xs font-medium">
                 OpenAI Expert
               </span>
             </div>
@@ -101,7 +99,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           {/* Copyright */}
-          <div className="text-sm text-gray-400">
+          <div className="text-muted text-sm">
             &copy; {new Date().getFullYear()}{' '}
             <span className="bg-linear-to-r from-purple-400 to-cyan-400 bg-clip-text font-semibold text-transparent">
               TBTR
@@ -113,7 +111,7 @@ export const Footer = () => {
           <div className="flex items-center gap-6">
             <a
               href="mailto:tahmidbintaslimrafi@gmail.com"
-              className="text-sm text-gray-400 transition-colors duration-300 hover:text-purple-400"
+              className="text-muted text-sm transition-colors duration-200 ease-out hover:text-purple-400"
             >
               Contact
             </a>
@@ -121,7 +119,7 @@ export const Footer = () => {
               href="/sitemap.xml"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-sm text-gray-400 transition-colors duration-300 hover:text-cyan-400"
+              className="text-muted text-sm transition-colors duration-200 ease-out hover:text-cyan-400"
             >
               Sitemap
             </a>
@@ -129,7 +127,7 @@ export const Footer = () => {
               href="/llm.txt"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-sm text-gray-400 transition-colors duration-300 hover:text-green-400"
+              className="text-muted text-sm transition-colors duration-200 ease-out hover:text-green-400"
               title="AI/LLM-ready information file"
             >
               LLM.txt
@@ -138,7 +136,7 @@ export const Footer = () => {
               href="https://github.com/tahmidbintaslim/tahmid.github.io"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-sm text-gray-400 transition-colors duration-300 hover:text-cyan-400"
+              className="text-muted text-sm transition-colors duration-200 ease-out hover:text-cyan-400"
             >
               Source Code
             </a>

@@ -1,10 +1,9 @@
-'use client';
+ 'use client';
 
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { TypeAnimation } from 'react-type-animation';
+import { TypeAnimation } from '@/components/sub/type-animation';
 
 import {
   slideInFromLeft,
@@ -12,23 +11,16 @@ import {
   slideInFromTop,
 } from '@/lib/motion';
 
-const DynamicHeroMobileWidgets = dynamic(
-  () => import('@/components/main/hero-mobile-widgets'),
-  {
-    ssr: false,
-  }
-);
-
 interface HeroContentProps {
+  onFeedbackClick?: () => void;
   onLocationClick?: () => void;
   onNewsClick?: () => void;
-  onFeedbackClick?: () => void;
 }
 
 export const HeroContent = ({
+  onFeedbackClick,
   onLocationClick,
   onNewsClick,
-  onFeedbackClick,
 }: HeroContentProps) => {
   return (
     <motion.div
@@ -128,14 +120,7 @@ export const HeroContent = ({
           priority
         />
 
-        {/* Mobile Widgets - Below hero image on mobile */}
-        {onLocationClick && onNewsClick && onFeedbackClick && (
-          <DynamicHeroMobileWidgets
-            onLocationClick={onLocationClick}
-            onNewsClick={onNewsClick}
-            onFeedbackClick={onFeedbackClick}
-          />
-        )}
+        {/* Mobile widgets omitted (component not present in repo) */}
       </motion.div>
     </motion.div>
   );

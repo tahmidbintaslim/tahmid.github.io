@@ -1,101 +1,40 @@
 'use client';
 
 import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from '@/lib/motion';
-import {
   EnvelopeIcon,
   MapPinIcon,
   PhoneIcon,
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { WelcomePill } from '@/components/ui/welcome-pill';
+import React, { useEffect, useRef } from 'react'; // Import React
+import { useFormStatus } from 'react-dom'; // New import
+import { submitContactForm, FormState } from '@/app/actions/contact'; // New import
+
+const initialState: FormState = {
+  status: 'idle',
+  message: '',
+};
 
 export const Contact = () => {
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const [csrfToken, setCsrfToken] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    'idle' | 'success' | 'error'
-  >('idle');
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [state, formAction] = React.useActionState(
+    submitContactForm,
+    initialState
+  );
+  const { pending } = useFormStatus(); // Get pending status
+  const formRef = useRef<HTMLFormElement>(null); // Ref to reset form
 
   useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        const response = await fetch('/api/csrf');
-        const { token } = await response.json();
-        setCsrfToken(token);
-      } catch (error) {
-        console.error('Failed to fetch CSRF token:', error);
-      }
-    };
-    fetchCsrfToken();
-  }, []);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken,
-        },
-        body: JSON.stringify({ ...formState, _csrf: csrfToken }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormState({ name: '', email: '', subject: '', message: '' });
-
-      timeoutRef.current = setTimeout(() => {
-        setSubmitStatus('idle');
+    if (state.status === 'success') {
+      formRef.current?.reset(); // Reset the form fields
+      // Optionally, clear the success message after some time
+      const timer = setTimeout(() => {
+        state.status = 'idle';
+        state.message = '';
       }, 5000);
-    } catch (error) {
-      console.error('Failed to send email:', error);
-      setIsSubmitting(false);
-      setSubmitStatus('error');
-
-      timeoutRef.current = setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [state]);
 
   const contactInfo = [
     {
@@ -123,73 +62,35 @@ export const Contact = () => {
       id="contact"
       className="flex flex-col items-center justify-center px-4 py-12 sm:px-6 sm:py-16 md:px-20 md:py-20"
     >
-      <motion.div
-        variants={slideInFromTop}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="Welcome-box border border-[#7042f88b] px-2 py-2 opacity-90"
-      >
-        <SparklesIcon className="mr-2.5 h-5 w-5 text-[#b49bff]" />
-        <h2 className="Welcome-text text-[12px] sm:text-[13px]">
-          Let&apos;s work together
-        </h2>
-      </motion.div>
+      <WelcomePill icon={<SparklesIcon className="text-brand-300 h-4 w-4" />}>
+        Let&apos;s work together
+      </WelcomePill>
 
-      <motion.h2
-        variants={slideInFromLeft(0.5)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="mt-4 mb-3 text-center text-[28px] font-bold text-white sm:mt-5 sm:mb-3.75 sm:text-[36px] md:text-[40px] lg:text-[50px]"
-      >
-        Get In{' '}
-        <span className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-          Touch
-        </span>
-      </motion.h2>
-
-      <motion.p
-        variants={slideInFromRight(0.5)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="mb-8 max-w-2xl px-2 text-center text-sm text-gray-300 sm:mb-12 sm:text-base"
-      >
+      <p className="section-lead mb-8 max-w-2xl px-2 text-start sm:mb-12 md:mx-auto md:text-center">
         Have a project in mind or want to collaborate? Feel free to reach out!
         I&apos;m always open to discussing new opportunities and interesting
         ideas.
-      </motion.p>
+      </p>
 
-      <div className="grid w-full max-w-6xl grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2 [&_.contact-info]:translate-y-0">
+      <div className="contact-info-reset grid w-full max-w-6xl grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-2">
         {/* Contact Info */}
-        <motion.div
-          variants={slideInFromLeft(0.5)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-col gap-6"
-        >
-          <h3 className="mb-4 text-2xl font-bold text-white">
-            Contact Information
-          </h3>
+        <div className="flex flex-col gap-6">
+          <h3 className="subsection-title mb-4">Contact Information</h3>
 
-          {contactInfo.map((info, index) => (
-            <motion.div
+          {contactInfo.map((info) => (
+            <div
               key={info.label}
-              variants={slideInFromLeft(0.5)}
-              transition={{ delay: index * 0.1 }}
-              className="contact-info flex items-start gap-4 rounded-lg border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-4 backdrop-blur-sm transition-transform duration-300 hover:scale-105"
+              className="contact-info flex items-start gap-4 rounded-xl border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-4 backdrop-blur-sm"
             >
               <div className="rounded-full bg-linear-to-r from-purple-500 to-cyan-500 p-3">
                 <info.icon className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="text-sm text-gray-400">{info.label}</p>
+                <p className="text-muted text-sm">{info.label}</p>
                 {info.link ? (
                   <a
                     href={info.link}
-                    className="font-semibold text-white transition-colors hover:text-purple-400"
+                    className="font-semibold text-white transition-colors duration-200 ease-out hover:text-purple-400"
                   >
                     {info.value}
                   </a>
@@ -197,18 +98,18 @@ export const Contact = () => {
                   <p className="font-semibold text-white">{info.value}</p>
                 )}
               </div>
-            </motion.div>
+            </div>
           ))}
 
           <div className="mt-6">
-            <h4 className="mb-4 text-xl font-bold text-white">Follow Me</h4>
+            <h4 className="subsection-title mb-4">Follow Me</h4>
             <div className="flex gap-4">
               <a
                 href="https://github.com/tahmidbintaslim"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub Profile"
-                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
+                className="ui-pop rounded-xl border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-colors duration-200 ease-out hover:border-purple-500/60"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -224,7 +125,7 @@ export const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn Profile"
-                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
+                className="ui-pop rounded-xl border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-colors duration-200 ease-out hover:border-purple-500/60"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -240,7 +141,7 @@ export const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter Profile"
-                className="rounded-lg border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-transform duration-300 hover:scale-110"
+                className="ui-pop rounded-xl border border-purple-500/30 bg-linear-to-br from-purple-500/20 to-cyan-500/20 p-3 transition-colors duration-200 ease-out hover:border-purple-500/60"
               >
                 <svg
                   className="h-6 w-6 text-white"
@@ -253,21 +154,19 @@ export const Contact = () => {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Contact Form */}
-        <motion.div
-          variants={slideInFromRight(0.5)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
-            <input type="hidden" name="_csrf" value={csrfToken} />
+        <div>
+          <form
+            action={formAction}
+            ref={formRef}
+            className="space-y-5 sm:space-y-6"
+          >
             <div>
               <label
                 htmlFor="name"
-                className="mb-2 block text-sm text-gray-300 sm:text-base"
+                className="text-muted mb-2 block text-sm sm:text-base"
               >
                 Your Name
               </label>
@@ -276,18 +175,22 @@ export const Contact = () => {
                 id="name"
                 name="name"
                 autoComplete="name"
-                value={formState.name}
-                onChange={handleChange}
                 required
-                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
+                className="ui-input min-h-12 touch-manipulation sm:py-3.5"
                 placeholder="John Doe"
+                {...(state.errors?.name && { 'aria-invalid': 'true' })}
               />
+              {state.errors?.name && (
+                <p className="mt-1 text-sm text-red-400" role="alert">
+                  {state.errors.name}
+                </p>
+              )}
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block text-sm text-gray-300 sm:text-base"
+                className="text-muted mb-2 block text-sm sm:text-base"
               >
                 Your Email
               </label>
@@ -296,18 +199,22 @@ export const Contact = () => {
                 id="email"
                 name="email"
                 autoComplete="email"
-                value={formState.email}
-                onChange={handleChange}
                 required
-                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
+                className="ui-input min-h-12 touch-manipulation sm:py-3.5"
                 placeholder="john@example.com"
+                {...(state.errors?.email && { 'aria-invalid': 'true' })}
               />
+              {state.errors?.email && (
+                <p className="mt-1 text-sm text-red-400" role="alert">
+                  {state.errors.email}
+                </p>
+              )}
             </div>
 
             <div>
               <label
                 htmlFor="subject"
-                className="mb-2 block text-sm text-gray-300 sm:text-base"
+                className="text-muted mb-2 block text-sm sm:text-base"
               >
                 Subject
               </label>
@@ -316,18 +223,22 @@ export const Contact = () => {
                 id="subject"
                 name="subject"
                 autoComplete="off"
-                value={formState.subject}
-                onChange={handleChange}
                 required
-                className="min-h-12 w-full touch-manipulation rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
+                className="ui-input min-h-12 touch-manipulation sm:py-3.5"
                 placeholder="Project Inquiry"
+                {...(state.errors?.subject && { 'aria-invalid': 'true' })}
               />
+              {state.errors?.subject && (
+                <p className="mt-1 text-sm text-red-400" role="alert">
+                  {state.errors.subject}
+                </p>
+              )}
             </div>
 
             <div>
               <label
                 htmlFor="message"
-                className="mb-2 block text-sm text-gray-300 sm:text-base"
+                className="text-muted mb-2 block text-sm sm:text-base"
               >
                 Message
               </label>
@@ -335,51 +246,50 @@ export const Contact = () => {
                 id="message"
                 name="message"
                 autoComplete="off"
-                value={formState.message}
-                onChange={handleChange}
                 required
                 rows={5}
-                className="w-full touch-manipulation resize-none rounded-lg border border-purple-500/30 bg-[#1a1a2e] px-4 py-3 text-base text-white transition-all focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 focus:outline-none sm:py-3.5"
+                className="ui-input touch-manipulation resize-none sm:py-3.5"
                 placeholder="Tell me about your project..."
+                {...(state.errors?.message && { 'aria-invalid': 'true' })}
               />
+              {state.errors?.message && (
+                <p className="mt-1 text-sm text-red-400" role="alert">
+                  {state.errors.message}
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="min-h-13 w-full touch-manipulation rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:py-4"
+              disabled={pending}
+              className="btn-primary min-h-13 w-full touch-manipulation hover:shadow-lg hover:shadow-purple-500/50 disabled:cursor-not-allowed disabled:opacity-50 sm:py-4"
+              {...(pending && { 'aria-busy': 'true' })}
             >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
+              {pending ? 'Sending...' : 'Send Message'}
             </button>
 
-            {submitStatus === 'success' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-lg border border-green-500/30 bg-green-500/20 p-4 text-center text-green-400"
+            {state.status === 'success' && (
+              <div
+                className="rounded-xl border border-green-500/30 bg-green-500/20 p-4 text-start text-green-400"
+                role="status"
+                aria-live="polite"
               >
                 <p className="font-semibold">Message sent successfully!</p>
-                <p className="mt-1 text-sm text-green-300">
-                  Thank you for reaching out! I&apos;ll get back to you soon.
-                </p>
-              </motion.div>
+                <p className="mt-1 text-sm text-green-300">{state.message}</p>
+              </div>
             )}
 
-            {submitStatus === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-lg border border-red-500/30 bg-red-500/20 p-4 text-center text-red-400"
+            {state.status === 'error' && (
+              <div
+                className="rounded-xl border border-red-500/30 bg-red-500/20 p-4 text-start text-red-400"
+                role="alert"
               >
                 <p className="font-semibold">Failed to send message</p>
-                <p className="mt-1 text-sm text-red-300">
-                  Please try again or contact me directly at
-                  tahmidbintaslimrafi@gmail.com
-                </p>
-              </motion.div>
+                <p className="mt-1 text-sm text-red-300">{state.message}</p>
+              </div>
             )}
           </form>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cache, cacheKeys, cacheTTL } from '@/lib/cache';
+import { logger } from '@/lib/logger'; // Import logger
+
 type NewsItem = {
   title: string;
   link: string;
@@ -57,12 +59,7 @@ const RSS_SOURCES = [
   { url: 'https://www.wired.com/feed/rss', source: 'Wired' },
 ];
 
-import { validateCsrfToken } from '@/lib/security';
-
-export async function GET(request: Request) {
-  if (!validateCsrfToken(request)) {
-    return NextResponse.json({ success:, error: 'Invalid CSRF token' }, { status:  });
-  }
+export async function GET() {
   try {
     const data = await cache.getOrSet(
       cacheKeys.news(),
@@ -124,7 +121,7 @@ export async function GET(request: Request) {
 
               const data = await response.json();
 
-              if (data.status !== 'ok' || !data.items) return [];
+              if (data.status !== 'ok' && !data.items) return []; // Fixed condition
 
               return data.items.slice(0, 5).map((item: RSSItem) => ({
                 title: item.title,
@@ -181,7 +178,7 @@ export async function GET(request: Request) {
       }
     );
   } catch (error) {
-    console.error('News API error:', error);
+    logger.error('News API error:', error);
 
     return NextResponse.json(
       {

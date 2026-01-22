@@ -1,12 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { memo, useState } from 'react';
 import type { IconType } from 'react-icons';
-import { useInView } from 'react-intersection-observer';
-
-// Individual icon imports to reduce bundle size (tree-shakeable)
 import { FaAws } from 'react-icons/fa';
 import {
   SiAngular,
@@ -35,6 +31,37 @@ import {
   SiWordpress,
 } from 'react-icons/si';
 import { VscAzure } from 'react-icons/vsc';
+import { skillIconColors, themeColors } from '@/lib/theme';
+
+// Map of svgIcon keys to react-icons
+const iconMap: { [key: string]: { Icon: IconType; color: string } } = {
+  python: { Icon: SiPython, color: skillIconColors.python },
+  php: { Icon: SiPhp, color: skillIconColors.php },
+  rust: { Icon: SiRust, color: skillIconColors.rust },
+  ruby: { Icon: SiRuby, color: skillIconColors.ruby },
+  django: { Icon: SiDjango, color: skillIconColors.django },
+  flask: { Icon: SiFlask, color: skillIconColors.flask },
+  fastapi: { Icon: SiFastapi, color: skillIconColors.fastapi },
+  laravel: { Icon: SiLaravel, color: skillIconColors.laravel },
+  rails: { Icon: SiRubyonrails, color: skillIconColors.rails },
+  vue: { Icon: SiVuedotjs, color: skillIconColors.vue },
+  remix: { Icon: SiRemix, color: skillIconColors.remix },
+  angular: { Icon: SiAngular, color: skillIconColors.angular },
+  redis: { Icon: SiRedis, color: skillIconColors.redis },
+  typeorm: { Icon: SiTypeorm, color: skillIconColors.typeorm },
+  aws: { Icon: FaAws, color: skillIconColors.aws },
+  azure: { Icon: VscAzure, color: skillIconColors.azure },
+  gcp: { Icon: SiGooglecloud, color: skillIconColors.gcp },
+  kubernetes: { Icon: SiKubernetes, color: skillIconColors.kubernetes },
+  cicd: { Icon: SiGithubactions, color: skillIconColors.cicd },
+  terraform: { Icon: SiTerraform, color: skillIconColors.terraform },
+  shopify: { Icon: SiShopify, color: skillIconColors.shopify },
+  wordpress: { Icon: SiWordpress, color: skillIconColors.wordpress },
+  headless: { Icon: SiStrapi, color: skillIconColors.headless },
+  openai: { Icon: SiOpenai, color: skillIconColors.openai },
+  tensorflow: { Icon: SiTensorflow, color: skillIconColors.tensorflow },
+  pytorch: { Icon: SiPytorch, color: skillIconColors.pytorch },
+};
 
 type SkillDataProviderProps = {
   src?: string;
@@ -42,68 +69,19 @@ type SkillDataProviderProps = {
   name: string;
   width: number;
   height: number;
-  index: number;
-};
-
-// Map of svgIcon keys to react-icons
-const iconMap: { [key: string]: { Icon: IconType; color: string } } = {
-  python: { Icon: SiPython, color: '#3776AB' },
-  php: { Icon: SiPhp, color: '#777BB4' },
-  rust: { Icon: SiRust, color: '#000000' },
-  ruby: { Icon: SiRuby, color: '#CC342D' },
-  django: { Icon: SiDjango, color: '#092E20' },
-  flask: { Icon: SiFlask, color: '#000000' },
-  fastapi: { Icon: SiFastapi, color: '#009688' },
-  laravel: { Icon: SiLaravel, color: '#FF2D20' },
-  rails: { Icon: SiRubyonrails, color: '#CC0000' },
-  vue: { Icon: SiVuedotjs, color: '#4FC08D' },
-  remix: { Icon: SiRemix, color: '#000000' },
-  angular: { Icon: SiAngular, color: '#DD0031' },
-  redis: { Icon: SiRedis, color: '#DC382D' },
-  typeorm: { Icon: SiTypeorm, color: '#FE0803' },
-  aws: { Icon: FaAws, color: '#FF9900' },
-  azure: { Icon: VscAzure, color: '#0078D4' },
-  gcp: { Icon: SiGooglecloud, color: '#4285F4' },
-  kubernetes: { Icon: SiKubernetes, color: '#326CE5' },
-  cicd: { Icon: SiGithubactions, color: '#2088FF' },
-  terraform: { Icon: SiTerraform, color: '#7B42BC' },
-  shopify: { Icon: SiShopify, color: '#7AB55C' },
-  wordpress: { Icon: SiWordpress, color: '#21759B' },
-  headless: { Icon: SiStrapi, color: '#8E75FF' },
-  openai: { Icon: SiOpenai, color: '#412991' },
-  tensorflow: { Icon: SiTensorflow, color: '#FF6F00' },
-  pytorch: { Icon: SiPytorch, color: '#EE4C2C' },
 };
 
 export const SkillDataProvider = memo(
-  ({ src, svgIcon, name, width, height, index }: SkillDataProviderProps) => {
-    const { ref, inView } = useInView({
-      triggerOnce: true,
-      threshold: 0.1,
-    });
-
+  ({ src, svgIcon, name, width, height }: SkillDataProviderProps) => {
     const [showTooltip, setShowTooltip] = useState(false);
-
-    const imageVariants = {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
-    };
-
-    const animationDelay = 0.1;
 
     // Get icon from react-icons
     const iconData = svgIcon ? iconMap[svgIcon.toLowerCase()] : null;
     const IconComponent = iconData?.Icon;
-    const iconColor = iconData?.color || '#a855f7';
+    const iconColor = iconData?.color || themeColors.accent.purple400;
 
     return (
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        variants={imageVariants}
-        animate={inView ? 'visible' : 'hidden'}
-        custom={index}
-        transition={{ delay: index * animationDelay }}
+      <div
         className="relative flex flex-col items-center gap-2"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
@@ -111,11 +89,7 @@ export const SkillDataProvider = memo(
         aria-label={`${name} skill`}
         title={name}
       >
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.3 }}
-          className="flex items-center justify-center"
-        >
+        <div className="flex items-center justify-center">
           {src ? (
             <Image
               src={`/skills/${src}`}
@@ -124,31 +98,49 @@ export const SkillDataProvider = memo(
               alt={`${name} logo`}
               loading="lazy"
               quality={75}
-              className="transition-transform duration-300"
             />
           ) : IconComponent ? (
             <IconComponent
-              className="transition-transform duration-300"
               style={{ width: width, height: height, color: iconColor }}
               aria-label={`${name} icon`}
             />
           ) : (
-            <div className="flex h-[80px] min-w-[80px] items-center justify-center rounded-lg bg-linear-to-r from-purple-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-white transition-transform duration-300">
-              {name}
+            <div
+              className="flex h-20 min-w-20 items-center justify-center rounded-xl bg-linear-to-r from-purple-500 to-cyan-500 px-4 py-2"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-10 w-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3l7 4v8l-7 4-7-4V7l7-4z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9.5 10.5h5v5h-5z"
+                />
+              </svg>
             </div>
           )}
-        </motion.div>
+        </div>
 
         {/* Tooltip for SEO and accessibility */}
         {showTooltip && (
-          <div className="pointer-events-none absolute -bottom-8 left-1/2 z-10 -translate-x-1/2 transform rounded bg-gray-900 px-3 py-1 text-xs whitespace-nowrap text-white">
+          <div className="pointer-events-none absolute -bottom-8 left-1/2 z-10 -translate-x-1/2 transform rounded bg-space-950/90 px-3 py-1 text-xs whitespace-nowrap text-white">
             {name}
           </div>
         )}
 
         {/* Hidden text for SEO */}
         <span className="sr-only">{name}</span>
-      </motion.div>
+      </div>
     );
   }
 );

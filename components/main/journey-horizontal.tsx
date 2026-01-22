@@ -1,14 +1,15 @@
 'use client';
 
-import { slideInFromTop } from '@/lib/motion';
 import {
   BriefcaseIcon,
   BuildingOfficeIcon,
-  CalendarIcon,
   SparklesIcon,
 } from '@heroicons/react/24/solid';
-import { motion, useScroll } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { WelcomePill } from '@/components/ui/welcome-pill';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { getMotionScale } from '@/lib/motion-scale';
 import {
   FaBuilding,
   FaChartBar,
@@ -18,10 +19,71 @@ import {
   FaUtensils,
 } from 'react-icons/fa';
 
+const getSummary = (text: string, maxLength = 180) => {
+  if (text.length <= maxLength) return text;
+  const trimmed = text.slice(0, maxLength).replace(/\s+\S*$/, '');
+  return `${trimmed}…`;
+};
+
 export const JourneyHorizontal = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  useScroll({ container: containerRef });
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const hintArrowRef = useRef<HTMLSpanElement | null>(null);
+  const cardRefs = useRef<HTMLDivElement[]>([]);
+
+  const registerCardRef = (el: HTMLDivElement | null) => {
+    if (!el) return;
+    if (!cardRefs.current.includes(el)) {
+      cardRefs.current.push(el);
+    }
+  };
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const scale = getMotionScale();
+
+    const ctx = gsap.context(() => {
+      cardRefs.current.forEach((card) => {
+        gsap.fromTo(
+          card,
+          { autoAlpha: 0, y: 16 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6 * scale,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              scroller,
+              start: 'left 80%',
+              end: 'right 60%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+
+      if (hintArrowRef.current) {
+        gsap.to(hintArrowRef.current, {
+          x: 10,
+          duration: 0.9,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+        });
+      }
+    }, scroller);
+
+    return () => ctx.revert();
+  }, []);
 
   const timeline = [
     {
@@ -194,342 +256,192 @@ export const JourneyHorizontal = () => {
   ];
 
   return (
-    <section className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-20 md:px-20">
-      {/* Animated background */}
+    <section
+      id="journey"
+      className="relative flex flex-col items-center justify-center overflow-hidden px-6 py-20 md:px-20"
+    >
+      {/* Soft ambient background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-1/2 left-1/2 h-96 w-96 rounded-full bg-linear-to-r from-purple-500/10 to-cyan-500/10 blur-3xl"
-        />
+        <div className="absolute top-1/3 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-linear-to-r from-purple-500/10 to-cyan-500/10 blur-3xl" />
       </div>
 
       {/* Header */}
-      <motion.div
-        variants={slideInFromTop}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="Welcome-box relative z-10 mb-6 border border-[#7042f88b] px-[7px] py-[8px] opacity-[0.9]"
+      <WelcomePill
+        icon={<SparklesIcon className="text-brand-300 h-4 w-4" />}
+        className="relative z-10 mb-6"
       >
-        <SparklesIcon className="mr-[10px] h-5 w-5 text-[#b49bff]" />
-        <h2 className="Welcome-text text-[13px]">Professional Timeline</h2>
-      </motion.div>
+        Professional Timeline
+      </WelcomePill>
 
-      <motion.h2
-        variants={slideInFromTop}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="relative z-10 mb-[15px] text-center text-[40px] font-bold text-white md:text-[50px]"
-      >
-        My{' '}
-        <span className="bg-linear-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-          Journey
-        </span>
-      </motion.h2>
+      <h2 className="section-title relative z-10 mb-3.75 text-start md:text-center">
+        My <span className="section-title-gradient">Journey</span>
+      </h2>
 
-      <motion.p
-        variants={slideInFromTop}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="relative z-10 mb-12 max-w-2xl text-center text-gray-300"
-      >
+      <p className="section-lead relative z-10 mb-12 max-w-3xl text-start md:mx-auto md:text-center">
         4 years of professional growth across cutting-edge technologies and
         diverse industries
-      </motion.p>
+      </p>
 
-      {/* Desktop: Horizontal Scrolling Timeline */}
-      <div className="relative z-10 hidden w-full max-w-7xl md:block">
-        <div
-          ref={containerRef}
-          className="scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-purple-500/10 overflow-x-auto overflow-y-hidden pb-8"
-          style={{ scrollBehavior: 'smooth' }}
-        >
-          <div className="relative flex min-w-max gap-8 px-8">
-            {/* Timeline line */}
-            <div className="absolute top-24 right-0 left-0 h-1 bg-linear-to-r from-purple-500 via-cyan-500 to-yellow-500" />
+      {/* Horizontal scroll timeline */}
+      <div className="relative z-10 w-full max-w-7xl">
+        <div className="mb-6 grid gap-3 rounded-2xl border border-white/10 bg-linear-to-br from-white/5 to-white/0 p-6 backdrop-blur-md md:grid-cols-3">
+          <div className="flex items-center gap-3 rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3">
+            <FaRocket className="text-xl text-purple-300" />
+            <span className="text-sm font-semibold text-purple-200">
+              20+ projects delivered
+            </span>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-cyan-500/20 bg-cyan-500/10 px-4 py-3">
+            <FaChartBar className="text-xl text-cyan-300" />
+            <span className="text-sm font-semibold text-cyan-200">
+              40% sales growth impact
+            </span>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3">
+            <FaBuilding className="text-xl text-green-300" />
+            <span className="text-sm font-semibold text-green-200">
+              Multi-sector leadership
+            </span>
+          </div>
+        </div>
 
+        <div className="text-muted mb-3 flex items-center justify-between text-start text-sm md:text-center">
+          <span className="text-muted font-medium">
+            Scroll horizontally to explore the timeline
+          </span>
+          <span ref={hintArrowRef} className="hidden md:inline">
+            →
+          </span>
+        </div>
+
+        <div ref={scrollerRef} className="scrollbar-thin overflow-x-auto pb-8">
+          <div className="relative flex min-w-max gap-6 px-1">
+            <div className="absolute top-8 right-0 left-0 h-px bg-linear-to-r from-purple-500 via-cyan-500 to-yellow-500" />
             {timeline.map((item, index) => {
-              // Extract year from the date range with robust fallback
-              const yearMatch = item.year.match(/(\d{4})/);
-              const displayYear = yearMatch
-                ? yearMatch[1]
-                : new Date().getFullYear().toString();
               const companyUrl =
                 'companyUrl' in item ? item.companyUrl : undefined;
+              const isExpanded = selectedJob === index;
+              const detailsId = `journey-details-${index}`;
 
               return (
-                <motion.div
+                <div
                   key={item.company}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="relative w-96 flex-shrink-0"
+                  ref={registerCardRef}
+                  className="relative w-96 shrink-0"
                 >
-                  {/* Year Marker replacing timeline dot */}
-                  <div className="absolute top-24 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
-                    <motion.div
-                      whileHover={{ scale: 1.15 }}
-                      className={`rounded-xl bg-linear-to-r px-4 py-2 ${item.dotGradient} cursor-pointer border-2 border-[#030014] shadow-2xl ${item.dotShadow} backdrop-blur-sm`}
+                  <div className="absolute top-8 left-6 z-10 -translate-y-1/2">
+                    <div
+                      className={`rounded-full bg-linear-to-r ${item.dotGradient} border-space-950 border-2 px-3 py-1 text-xs font-bold text-white shadow-lg ${item.dotShadow}`}
                     >
-                      <span className="text-lg font-bold text-white">
-                        {displayYear}
-                      </span>
-                    </motion.div>
+                      {item.year}
+                    </div>
                   </div>
 
-                  {/* Card */}
-                  <motion.div
-                    whileHover={{ scale: 1.05, rotateY: 5 }}
-                    onClick={() =>
-                      setSelectedJob(selectedJob === index ? null : index)
-                    }
-                    className="group mt-36 cursor-pointer rounded-2xl border border-purple-500/30 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-6 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/50"
-                    style={{ transformStyle: 'preserve-3d' }}
-                  >
-                    {/* Company Logo/Icon */}
-                    <div className="mb-4 transition-transform duration-300 group-hover:scale-110">
-                      <item.logo className={`text-6xl ${item.iconColor}`} />
+                  <div className="mt-12 rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-6 backdrop-blur-md">
+                    <div className="flex items-start gap-3">
+                      <item.logo className={`text-4xl ${item.iconColor}`} />
+                      <div className="space-y-1">
+                        <p className="text-muted text-sm">{item.location}</p>
+                        <h3 className="text-xl font-bold text-white">
+                          {item.title}
+                        </h3>
+                      </div>
                     </div>
 
-                    {/* Year Badge */}
-                    <div
-                      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 ${item.badgeBg} border ${item.badgeBorder} mb-4`}
-                    >
-                      <CalendarIcon className={`h-4 w-4 ${item.iconColor}`} />
-                      <span className={`text-xs font-bold ${item.badgeText}`}>
-                        {item.year}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="mb-2 text-xl font-bold text-white transition-colors duration-300 group-hover:text-cyan-300">
-                      {item.title}
-                    </h3>
-
-                    {/* Company */}
-                    <div className="mb-3 flex items-center gap-2">
+                    <div className="text-ink mt-3 flex items-center gap-2 text-sm font-semibold">
                       <BuildingOfficeIcon
-                        className={`h-5 w-5 ${item.iconColor}`}
+                        className={`h-4 w-4 ${item.iconColor}`}
                       />
                       {companyUrl ? (
                         <a
                           href={companyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${item.iconColor} font-semibold transition-colors hover:text-white`}
+                          className={`${item.iconColor} hover:text-white`}
                         >
                           {item.company}
                         </a>
                       ) : (
-                        <p className={`${item.iconColor} font-semibold`}>
-                          {item.company}
-                        </p>
+                        <span className={item.iconColor}>{item.company}</span>
                       )}
                     </div>
 
-                    {/* Location */}
-                    <p className="mb-4 text-sm text-gray-400">
-                      {item.location}
+                    <p className="text-muted mt-4 text-sm leading-relaxed">
+                      {isExpanded
+                        ? item.description
+                        : getSummary(item.description)}
                     </p>
 
-                    {/* Description */}
-                    <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-gray-300 transition-all duration-300 group-hover:line-clamp-none">
-                      {item.description}
-                    </p>
-
-                    {/* Technologies */}
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {item.technologies.slice(0, 4).map((tech) => (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {item.technologies.slice(0, 5).map((tech) => (
                         <span
                           key={tech}
-                          className={`rounded-md px-2 py-1 text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
+                          className={`rounded-md px-2.5 py-1 text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
                         >
                           {tech}
                         </span>
                       ))}
-                      {item.technologies.length > 4 && (
-                        <span className="rounded-md bg-gray-500/10 px-2 py-1 text-xs text-gray-300">
-                          +{item.technologies.length - 4} more
+                      {item.technologies.length > 5 && (
+                        <span className="text-muted bg-panel rounded-md px-2.5 py-1 text-xs">
+                          +{item.technologies.length - 5}
                         </span>
                       )}
                     </div>
 
-                    {/* Achievements (on hover/click) */}
-                    {selectedJob === index && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="border-t border-purple-500/20 pt-4"
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {item.achievements.map((achievement) => (
+                        <span
+                          key={achievement}
+                          className="text-ink rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold"
+                        >
+                          {achievement}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedJob(isExpanded ? null : index)
+                        }
+                        className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white"
+                        {...(isExpanded && { 'aria-expanded': 'true' })}
+                        aria-controls={detailsId}
                       >
-                        <h5 className="mb-2 flex items-center gap-2 text-sm font-bold text-white">
-                          <BriefcaseIcon className="h-4 w-4 text-cyan-400" />
-                          Key Achievements
-                        </h5>
-                        <ul className="space-y-2">
-                          {item.achievements.map((achievement) => (
-                            <li
-                              key={achievement}
-                              className="flex items-start gap-2 text-sm text-gray-300"
-                            >
-                              <span className="mt-1 text-cyan-400">✓</span>
-                              <span>{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
+                        <BriefcaseIcon className="h-4 w-4 text-cyan-300" />
+                        {isExpanded ? 'Show less' : 'Read more'}
+                      </button>
+                    </div>
+
+                    {isExpanded && (
+                      <div
+                        id={detailsId}
+                        className="mt-4 border-t border-purple-500/20 pt-4"
+                      >
+                        <div className="grid gap-3">
+                          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                            <p className="text-muted text-xs font-semibold">
+                              Role focus
+                            </p>
+                            <p className="text-ink mt-2 text-sm">
+                              {item.title} · {item.company}
+                            </p>
+                          </div>
+                          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                            <p className="text-muted text-xs font-semibold">
+                              Timeline
+                            </p>
+                            <p className="text-ink mt-2 text-sm">{item.year}</p>
+                          </div>
+                        </div>
+                      </div>
                     )}
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               );
             })}
           </div>
-        </div>
-
-        {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: [1, 0.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="mt-6 text-center text-sm text-gray-400"
-        >
-          ← Scroll horizontally to explore timeline →
-        </motion.div>
-      </div>
-
-      {/* Mobile: Vertical Timeline */}
-      <div className="relative z-10 w-full max-w-xl md:hidden">
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute top-0 bottom-0 left-4 w-1 bg-linear-to-b from-purple-500 via-cyan-500 to-yellow-500" />
-
-          {timeline.map((item, index) => {
-            const companyUrl =
-              'companyUrl' in item ? item.companyUrl : undefined;
-
-            return (
-              <motion.div
-                key={item.company}
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                className="relative mb-8 pl-12"
-              >
-                {/* Timeline dot */}
-                <div
-                  className={`absolute top-8 left-4 h-4 w-4 -translate-x-1/2 transform rounded-full bg-linear-to-r ${item.dotGradient} border-4 border-[#030014] shadow-lg ${item.dotShadow}`}
-                />
-
-                {/* Card */}
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() =>
-                    setSelectedJob(selectedJob === index ? null : index)
-                  }
-                  className="cursor-pointer rounded-xl border border-purple-500/30 bg-linear-to-br from-purple-500/10 to-cyan-500/10 p-5 backdrop-blur-md transition-all duration-300 hover:border-cyan-500/50"
-                >
-                  {/* Logo */}
-                  <div className="mb-3">
-                    <item.logo className={`text-4xl ${item.iconColor}`} />
-                  </div>
-
-                  {/* Year */}
-                  <div
-                    className={`inline-flex items-center gap-1 rounded-full px-2 py-1 ${item.badgeBg} border ${item.badgeBorder} mb-3`}
-                  >
-                    <CalendarIcon className={`h-3 w-3 ${item.iconColor}`} />
-                    <span className={`text-xs font-bold ${item.badgeText}`}>
-                      {item.year}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="mb-2 text-lg font-bold text-white">
-                    {item.title}
-                  </h3>
-
-                  {/* Company */}
-                  <div className="mb-3 flex items-center gap-2">
-                    <BuildingOfficeIcon
-                      className={`h-4 w-4 ${item.iconColor}`}
-                    />
-                    {companyUrl ? (
-                      <a
-                        href={companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${item.iconColor} text-sm font-semibold transition-colors hover:text-white`}
-                      >
-                        {item.company}
-                      </a>
-                    ) : (
-                      <p className={`${item.iconColor} text-sm font-semibold`}>
-                        {item.company}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-gray-300">
-                    {item.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {item.technologies.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className={`rounded-md px-2 py-1 text-xs ${item.techBadgeBg} ${item.techBadgeText} border ${item.techBadgeBorder}`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {item.technologies.length > 3 && (
-                      <span className="rounded-md bg-gray-500/10 px-2 py-1 text-xs text-gray-300">
-                        +{item.technologies.length - 3}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Achievements (expanded) */}
-                  {selectedJob === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      className="mt-3 border-t border-purple-500/20 pt-3"
-                    >
-                      <h5 className="mb-2 text-sm font-bold text-white">
-                        Key Achievements
-                      </h5>
-                      <ul className="space-y-1">
-                        {item.achievements.map((achievement) => (
-                          <li
-                            key={achievement}
-                            className="flex items-start gap-2 text-xs text-gray-300"
-                          >
-                            <span className="text-cyan-400">✓</span>
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </motion.div>
-              </motion.div>
-            );
-          })}
         </div>
       </div>
     </section>

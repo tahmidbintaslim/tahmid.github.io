@@ -1,6 +1,5 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
@@ -13,20 +12,12 @@ import {
 
 interface NavItem {
   label: string;
-  icon: typeof IoHomeOutline;
+  icon: typeof IoHomeOutline; // Can be any IconType from react-icons
   href?: string;
   onClick?: () => void;
 }
 
-interface MobileBottomNavProps {
-  onLocationClick: () => void;
-  onNewsClick: () => void;
-}
-
-export default function MobileBottomNav({
-  onLocationClick: _onLocationClick,
-  onNewsClick: _onNewsClick,
-}: MobileBottomNavProps) {
+export default function MobileBottomNav() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -54,8 +45,8 @@ export default function MobileBottomNav({
   const navItems: NavItem[] = [
     { label: 'Home', icon: IoHomeOutline, href: '#hero' },
     { label: 'About', icon: IoPersonOutline, href: '#about-me' },
+    { label: 'Services', icon: IoNewspaperOutline, href: '#services' },
     { label: 'Projects', icon: IoBriefcaseOutline, href: '#projects' },
-    { label: 'Blog', icon: IoNewspaperOutline, href: '#blog' },
     { label: 'Contact', icon: IoMailOutline, href: '#contact' },
   ];
 
@@ -70,34 +61,30 @@ export default function MobileBottomNav({
     if (item.href) {
       // Special handling for home - scroll to top
       if (item.href === '#hero') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
         return;
       }
       const element = document.querySelector(item.href);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'auto' });
       }
     }
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isVisible && (
-        <motion.nav
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-          className="fixed right-4 bottom-4 left-4 z-50 md:hidden"
+        <nav
+          className="contrast-dark fixed right-4 bottom-4 left-4 z-50 md:hidden"
           aria-label="Mobile navigation"
         >
           {/* Liquid Glass Container */}
           <div className="relative">
             {/* Glass background with blur */}
-            <div className="absolute inset-0 rounded-[28px] border border-white/10 bg-linear-to-r from-[#0a0118]/95 via-[#1a0b2e]/95 to-[#0a0118]/95 shadow-2xl shadow-purple-500/20 backdrop-blur-xl" />
+            <div className="rounded-7 from-space-940/95 via-space-930/95 to-space-940/95 absolute inset-0 border border-white/10 bg-linear-to-r shadow-2xl shadow-purple-500/20 backdrop-blur-xl" />
 
             {/* Animated gradient border glow */}
-            <div className="absolute -inset-[1px] rounded-[28px] bg-linear-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 opacity-50 blur-sm" />
+            <div className="rounded-7 absolute -inset-px bg-linear-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 opacity-50 blur-sm" />
 
             {/* Content */}
             <div className="relative px-4 py-3">
@@ -106,77 +93,105 @@ export default function MobileBottomNav({
                 {navItems.map((item, index) => {
                   const Icon = item.icon;
                   const isActive = activeIndex === index && !item.onClick;
-                  const Component = item.onClick ? 'button' : Link;
 
-                  return (
-                    <Component
-                      key={item.label}
-                      href={item.href || '#'}
-                      onClick={(e: React.MouseEvent) => {
-                        e.preventDefault();
-                        handleNavClick(index, item);
-                      }}
-                      className="group relative flex min-h-[56px] min-w-[56px] touch-manipulation flex-col items-center justify-center"
-                      aria-label={item.label}
-                      aria-current={isActive ? 'page' : undefined}
-                      type={item.onClick ? 'button' : undefined}
-                    >
-                      {/* Active indicator with liquid effect */}
-                      <AnimatePresence>
+                  // Conditional rendering for Link or Button
+                  if (item.href) {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={(e: React.MouseEvent) => {
+                          e.preventDefault();
+                          handleNavClick(index, item);
+                        }}
+                        className="group relative flex min-h-14 min-w-14 touch-manipulation flex-col items-center justify-center"
+                        aria-label={item.label}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        {/* Active indicator */}
                         {isActive && (
-                          <motion.div
-                            layoutId="activeNav"
-                            initial={{ scale: 0, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0, opacity: 0 }}
-                            transition={{
-                              type: 'spring',
-                              stiffness: 400,
-                              damping: 25,
-                            }}
-                            className="absolute inset-1 rounded-2xl bg-linear-to-r from-purple-500/30 to-cyan-500/30 blur-md"
-                          />
+                          <div className="absolute inset-1 rounded-2xl bg-linear-to-r from-purple-500/30 to-cyan-500/30 blur-md" />
                         )}
-                      </AnimatePresence>
 
-                      {/* Icon container - larger touch target */}
-                      <motion.div
-                        whileTap={{ scale: 0.9 }}
-                        className="relative z-10"
-                      >
-                        <div
-                          className={`flex h-11 w-11 items-center justify-center rounded-xl ${
-                            isActive
-                              ? 'border border-white/25 bg-linear-to-br from-purple-500/25 to-cyan-500/25'
-                              : 'border border-white/5 bg-white/5'
-                          } transition-all duration-300 active:scale-95`}
-                        >
-                          <Icon
-                            className={`h-5 w-5 transition-all duration-300 ${
-                              isActive ? 'text-white' : 'text-gray-400'
-                            } `}
-                          />
+                        {/* Icon container - larger touch target */}
+                        <div className="relative z-10">
+                          <div
+                            className={`flex h-11 w-11 items-center justify-center rounded-xl ${
+                              isActive
+                                ? 'border border-white/25 bg-linear-to-br from-purple-500/25 to-cyan-500/25'
+                                : 'border border-white/5 bg-white/5'
+                            }`}
+                          >
+                            <Icon
+                              className={`h-5 w-5 ${
+                                isActive ? 'text-white' : 'text-muted'
+                              } `}
+                            />
+                          </div>
                         </div>
-                      </motion.div>
 
-                      {/* Label - always visible for better UX */}
-                      <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className={`mt-1 text-[10px] font-medium whitespace-nowrap transition-colors duration-300 ${
-                          isActive ? 'text-white' : 'text-gray-500'
-                        }`}
+                        {/* Label - always visible for better UX */}
+                        <span
+                          className={`text-2.5 mt-1 font-medium whitespace-nowrap ${
+                            isActive ? 'text-white' : 'text-muted'
+                          }`}
+                        >
+                          {item.label}
+                        </span>
+                      </Link>
+                    );
+                  } else {
+                    return (
+                      <button
+                        key={item.label}
+                        onClick={(e: React.MouseEvent) => {
+                          e.preventDefault();
+                          handleNavClick(index, item);
+                        }}
+                        className="group relative flex min-h-14 min-w-14 touch-manipulation flex-col items-center justify-center"
+                        aria-label={item.label}
+                        aria-current={isActive ? 'page' : undefined}
+                        type="button" // Always set type to button for buttons
                       >
-                        {item.label}
-                      </motion.span>
-                    </Component>
-                  );
+                        {/* Active indicator */}
+                        {isActive && (
+                          <div className="absolute inset-1 rounded-2xl bg-linear-to-r from-purple-500/30 to-cyan-500/30 blur-md" />
+                        )}
+
+                        {/* Icon container - larger touch target */}
+                        <div className="relative z-10">
+                          <div
+                            className={`flex h-11 w-11 items-center justify-center rounded-xl ${
+                              isActive
+                                ? 'border border-white/25 bg-linear-to-br from-purple-500/25 to-cyan-500/25'
+                                : 'border border-white/5 bg-white/5'
+                            }`}
+                          >
+                            <Icon
+                              className={`h-5 w-5 ${
+                                isActive ? 'text-white' : 'text-muted'
+                              } `}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Label - always visible for better UX */}
+                        <span
+                          className={`text-2.5 mt-1 font-medium whitespace-nowrap ${
+                            isActive ? 'text-white' : 'text-muted'
+                          }`}
+                        >
+                          {item.label}
+                        </span>
+                      </button>
+                    );
+                  }
                 })}
               </div>
             </div>
           </div>
-        </motion.nav>
+        </nav>
       )}
-    </AnimatePresence>
+    </>
   );
 }

@@ -1,41 +1,23 @@
 'use client';
 
 import { SparklesIcon } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
-
-import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from '@/lib/motion';
+import { WelcomePill } from '@/components/ui/welcome-pill';
 
 export const SkillText = () => {
   return (
     <div className="flex h-auto w-full flex-col items-center justify-center">
-      <motion.div
-        variants={slideInFromTop}
-        className="Welcome-box opacity-[0.9]] border border-[#7042f88b] px-[7px] py-[8px]"
-      >
-        <SparklesIcon className="mr-[10px] h-5 w-5 text-[#b49bff]" />
-        <h2 className="Welcome-text text-[13px]">
-          Comprehensive Tech Stack & Expertise
-        </h2>
-      </motion.div>
+      <WelcomePill icon={<SparklesIcon className="text-brand-300 h-4 w-4" />}>
+        Comprehensive Tech Stack & Expertise
+      </WelcomePill>
 
-      <motion.div
-        variants={slideInFromLeft(0.5)}
-        className="mt-[10px] mb-[15px] text-center text-[30px] font-medium text-white"
-      >
+      <div className="subsection-title mt-2.5 mb-3.5 text-start md:text-center">
         Full-Stack Development Excellence
-      </motion.div>
+      </div>
 
-      <motion.div
-        variants={slideInFromRight(0.5)}
-        className="cursive mt-[10px] mb-10 max-w-3xl text-center text-[20px] text-gray-200"
-      >
+      <div className="section-lead mt-2.5 mb-10 max-w-3xl text-start md:mx-auto md:text-center">
         Mastering modern web technologies, cloud platforms, AI/ML integration,
         and scalable architectures across the entire development stack.
-      </motion.div>
+      </div>
     </div>
   );
 };

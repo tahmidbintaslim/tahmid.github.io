@@ -10,22 +10,22 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#030014]">
-      <div className="max-w-md p-8 text-center">
+    <div className="bg-space-950 flex min-h-screen items-center justify-center">
+      <div className="max-w-md p-8 text-start">
         <h2 className="mb-4 text-2xl font-bold text-white">Page Error</h2>
-        <p className="mb-6 text-gray-400">
+        <p className="text-muted mb-6">
           {error.message || 'Something went wrong on this page'}
         </p>
         <div className="flex justify-center gap-4">
           <button
             onClick={reset}
-            className="rounded-lg bg-purple-600 px-6 py-3 text-white transition-colors hover:bg-purple-700"
+            className="btn-primary"
           >
             Try Again
           </button>
           <Link
             href="/"
-            className="rounded-lg bg-gray-700 px-6 py-3 text-white transition-colors hover:bg-gray-600"
+            className="btn-outline hover:bg-purple-500/10"
           >
             Go Home
           </Link>

@@ -1,16 +1,14 @@
-import { Analytics } from '@vercel/analytics/next';
 import type { Metadata, Viewport } from 'next';
 import { Cedarville_Cursive, Inter, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import type { PropsWithChildren } from 'react';
 
-import CustomCursor from '@/components/main/custom-cursor';
-import { Footer } from '@/components/main/footer';
-import { Navbar } from '@/components/main/navbar';
-import { StarsCanvas } from '@/components/main/stars-canvas-wrapper';
 import { siteConfig } from '@/config';
 import { structuredData } from '@/config/structured-data';
+import { themeColors } from '@/lib/theme';
 import { cn } from '@/lib/utils';
+
+import ClientLayout from './client-layout';
 
 import './globals.css';
 
@@ -38,7 +36,7 @@ const cedarvilleCursive = Cedarville_Cursive({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#030014',
+  themeColor: themeColors.space[950],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -53,15 +51,19 @@ export default function RootLayout({ children }: PropsWithChildren) {
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${cedarvilleCursive.variable}`}
     >
+      <head>
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llm.txt"
+          title="LLM-ready site summary"
+        />
+      </head>
       <body
         className={cn(
-          'overflow-x-hidden overflow-y-scroll bg-[#030014] font-sans'
+          'bg-space-950 overflow-x-hidden overflow-y-scroll font-sans'
         )}
       >
-        {/* Skip to main content - Accessibility */}
-        <a href="#main-content" className="skip-to-content">
-          Skip to main content
-        </a>
         {/* Structured Data for SEO and AEO - optimized loading */}
         <Script
           id="structured-data-person"
@@ -87,13 +89,24 @@ export default function RootLayout({ children }: PropsWithChildren) {
             __html: JSON.stringify(structuredData.professionalService),
           }}
         />
+        <Script
+          id="structured-data-webpage"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData.webPage),
+          }}
+        />
+        <Script
+          id="structured-data-faq"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData.faqPage),
+          }}
+        />
 
-        <StarsCanvas />
-        <Navbar />
-        <CustomCursor />
-        {children}
-        <Footer />
-        <Analytics />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

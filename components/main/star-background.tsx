@@ -3,11 +3,9 @@
 import { PointMaterial, Points } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
-
 import { Suspense, useRef, useState } from 'react';
 import type { Points as PointsType } from 'three';
 
-// Generate random sphere coordinates using native Math functions
 const generateSphere = (count: number, radius: number): Float32Array => {
   const arr = new Float32Array(count * 3);
   for (let i = 0; i < count * 3; i += 3) {
@@ -37,8 +35,8 @@ export const StarBackground = () => {
       <Points ref={ref} stride={3} positions={sphere} frustumCulled>
         <PointMaterial
           transparent
-          color="#fff"
-          size={0.0015}
+          color="#ffffff"
+          size={0.0016}
           sizeAttenuation
           depthWrite={false}
           opacity={0.6}

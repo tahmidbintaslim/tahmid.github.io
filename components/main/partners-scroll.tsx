@@ -1,9 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 import { FaBrain } from 'react-icons/fa';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import {
   SiAmazonwebservices,
   SiDevdotto,
@@ -138,116 +137,75 @@ const partners = [
 ];
 
 export default function PartnersScroll() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % partners.length);
-  };
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + partners.length) % partners.length);
-  };
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
+
+    const items = track.querySelectorAll('[data-partner-item]');
+    if (!items.length) return;
+
+    const totalWidth = track.scrollWidth / 2;
+    const tween = gsap.to(track, {
+      x: -totalWidth,
+      duration: 40,
+      ease: 'none',
+      repeat: -1,
+      modifiers: {
+        x: (value) => {
+          const current = parseFloat(value);
+          return `${current % -totalWidth}px`;
+        },
+      },
+    });
+
+    return () => {
+      tween.kill();
+      gsap.set(track, { clearProps: 'transform' });
+    };
+  }, []);
 
   return (
-    <section className="w-full overflow-hidden bg-linear-to-b from-transparent via-[#030014] to-transparent py-12 md:py-16">
+    <section className="via-space-950 w-full overflow-hidden bg-linear-to-b from-transparent to-transparent py-12 md:py-16">
       <div className="w-full px-4 md:px-0">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8 text-center md:mb-12"
-        >
-          <p className="mb-2 text-sm tracking-wider text-gray-400 uppercase">
-            Partnered With
-          </p>
-          <h2 className="bg-linear-to-r from-purple-400 to-cyan-400 bg-clip-text text-xl font-bold text-transparent md:text-2xl lg:text-3xl">
-            Trusted Collaborations
+        <div className="mb-8 text-start md:mb-12 md:text-center">
+          <p className="section-kicker mb-2 text-center">Partnered With</p>
+          <h2 className="subsection-title text-center">
+            <span className="section-title-gradient">Trusted Collaborations</span>
           </h2>
-        </motion.div>
-
-        {/* Mobile: Single Card with Navigation */}
-        <div className="mx-auto max-w-sm md:hidden">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
-            className={`rounded-2xl bg-linear-to-br ${partners[currentIndex].bgGradient} flex h-36 flex-col items-center justify-center gap-3 border border-white/10 p-6 backdrop-blur-xl`}
-          >
-            {(() => {
-              const Icon = partners[currentIndex].icon;
-              return (
-                <>
-                  <Icon
-                    className={`text-5xl ${partners[currentIndex].color}`}
-                  />
-                  <h4 className="text-center text-lg font-bold text-white">
-                    {partners[currentIndex].name}
-                  </h4>
-                  <p className="text-center text-xs leading-tight text-gray-400">
-                    {partners[currentIndex].label}
-                  </p>
-                </>
-              );
-            })()}
-          </motion.div>
-
-          <div className="mt-6 flex items-center justify-between">
-            <button
-              onClick={prevSlide}
-              className="touch-manipulation rounded-full border border-purple-500/30 bg-purple-500/20 p-3 text-white transition-colors hover:bg-purple-500/30"
-              aria-label="Previous partner"
-            >
-              <IoChevronBackOutline className="h-5 w-5" />
-            </button>
-
-            {/* Slide Counter instead of dots */}
-            <div className="flex items-center gap-2 text-gray-400">
-              <span className="font-semibold text-purple-400">
-                {currentIndex + 1}
-              </span>
-              <span>/</span>
-              <span>{partners.length}</span>
-            </div>
-
-            <button
-              onClick={nextSlide}
-              className="touch-manipulation rounded-full border border-purple-500/30 bg-purple-500/20 p-3 text-white transition-colors hover:bg-purple-500/30"
-              aria-label="Next partner"
-            >
-              <IoChevronForwardOutline className="h-5 w-5" />
-            </button>
-          </div>
         </div>
 
-        {/* Desktop: Full-width Infinite Scrolling */}
-        <div className="relative hidden md:block">
-          <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-32 bg-linear-to-r from-[#030014] to-transparent" />
-          <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-32 bg-linear-to-l from-[#030014] to-transparent" />
+        <div className="relative">
+          <div className="pointer-events-none absolute top-0 bottom-0 left-0 z-10 w-28 bg-linear-to-r from-black via-black/80 to-transparent" />
+          <div className="pointer-events-none absolute top-0 right-0 bottom-0 z-10 w-28 bg-linear-to-l from-black via-black/80 to-transparent" />
 
-          <div className="animate-scroll flex hover:[animation-play-state:paused]">
-            {[...Array(3)].map((_, setIndex) =>
-              partners.map((partner, index) => {
+          <div className="overflow-hidden">
+            <div ref={trackRef} className="flex w-max gap-6">
+              {[...partners, ...partners].map((partner, index) => {
                 const Icon = partner.icon;
                 return (
                   <div
-                    key={`partner-${setIndex}-${index}`}
-                    className={`mx-4 flex-shrink-0 rounded-2xl bg-linear-to-br ${partner.bgGradient} group flex h-36 w-48 flex-col items-center justify-center gap-3 border border-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:border-white/30 hover:bg-white/5 hover:shadow-2xl`}
+                    key={`${partner.name}-${index}`}
+                    data-partner-item
+                    className={`rounded-2xl bg-linear-to-br ${partner.bgGradient} flex h-36 w-52 flex-col items-center justify-center gap-3 border border-white/10 p-6 backdrop-blur-xl`}
                   >
-                    <Icon
-                      className={`text-4xl lg:text-5xl ${partner.color} transition-transform duration-300 group-hover:scale-110`}
-                    />
-                    <h4 className="text-center text-sm font-bold text-white lg:text-base">
+                    <Icon className={`text-4xl lg:text-5xl ${partner.color}`} />
+                    <h3 className="text-center text-sm font-bold text-white lg:text-base">
                       {partner.name}
-                    </h4>
-                    <p className="text-center text-xs leading-tight text-gray-400 transition-colors duration-300 group-hover:text-gray-300">
+                    </h3>
+                    <p className="text-muted text-center text-xs leading-tight">
                       {partner.label}
                     </p>
                   </div>
                 );
-              })
-            )}
+              })}
+            </div>
           </div>
         </div>
       </div>

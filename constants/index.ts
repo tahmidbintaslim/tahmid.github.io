@@ -600,8 +600,16 @@ export const NAV_LINKS = [
     link: '#about-me',
   },
   {
+    title: 'Journey',
+    link: '#journey',
+  },
+  {
     title: 'Skills',
     link: '#skills',
+  },
+  {
+    title: 'Services',
+    link: '#services',
   },
   {
     title: 'Projects',
@@ -610,6 +618,10 @@ export const NAV_LINKS = [
   {
     title: 'Blog',
     link: '#blog',
+  },
+  {
+    title: 'FAQ',
+    link: '#faq',
   },
   {
     title: 'Contact',

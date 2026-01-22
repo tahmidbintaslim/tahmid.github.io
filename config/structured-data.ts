@@ -3,6 +3,17 @@
  * This helps search engines and AI assistants understand the content better
  */
 
+import { faqItems } from '@/config/faq';
+
+const faqMainEntity = faqItems.map((item) => ({
+  '@type': 'Question',
+  name: item.question,
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: item.answer,
+  },
+}));
+
 export const structuredData = {
   // Person schema for the portfolio owner
   person: {
@@ -55,6 +66,31 @@ export const structuredData = {
       name: 'Tahmid Bin Taslim Rafi',
     },
     inLanguage: 'en-US',
+  },
+
+  // WebPage schema to tie primary entities together
+  webPage: {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Tahmid Bin Taslim Rafi | Senior Software Engineer & Full-Stack Developer',
+    url: 'https://tahmid.space',
+    description:
+      'Senior Software Engineer portfolio showcasing full-stack delivery, AI integrations, and cloud-native systems.',
+    inLanguage: 'en-US',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Tahmid Bin Taslim Rafi - Portfolio',
+      url: 'https://tahmid.space',
+    },
+    about: {
+      '@type': 'Person',
+      name: 'Tahmid Bin Taslim Rafi',
+    },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: 'https://tahmid.space/og-image.png',
+    },
+    mainEntity: faqMainEntity,
   },
 
   // Professional Service schema
@@ -113,6 +149,13 @@ export const structuredData = {
         },
       ],
     },
+  },
+
+  // FAQ schema for answer engines and rich results
+  faqPage: {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqMainEntity,
   },
 
   // Note: Breadcrumb schema removed for single-page application

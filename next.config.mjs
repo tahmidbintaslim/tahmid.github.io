@@ -34,6 +34,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'media.dev.to',
+      },
+      {
+        protocol: 'https',
         hostname: 'dev-to-uploads.s3.amazonaws.com',
       },
       {
@@ -52,11 +56,19 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'storage.googleapis.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
     ],
   },
 
   // Webpack optimizations
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     // Optimize bundle size
     if (!isServer) {
       config.optimization = {
@@ -84,6 +96,53 @@ const nextConfig = {
         },
       };
     }
+
+    // Add service worker in production
+    if (!isServer && !dev) {
+      const { GenerateSW } = require('workbox-webpack-plugin');
+
+      config.plugins.push(
+        new GenerateSW({
+          clientsClaim: true,
+          skipWaiting: true,
+          runtimeCaching: [
+            {
+              urlPattern: /^https?.*/,
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'offlineCache',
+                expiration: {
+                  maxEntries: 200,
+                },
+              },
+            },
+            {
+              urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'imageCache',
+                expiration: {
+                  maxEntries: 100,
+                  maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                },
+              },
+            },
+            {
+              urlPattern: /\.(?:js|css)$/,
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'staticResources',
+                expiration: {
+                  maxEntries: 50,
+                  maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                },
+              },
+            },
+          ],
+        })
+      );
+    }
+
     return config;
   },
 
@@ -102,6 +161,14 @@ const nextConfig = {
   // Turbopack config (default in Next.js 16)
   turbopack: {},
 
+  // Bundle analyzer for development
+  ...(process.env.ANALYZE === 'true' && {
+    bundleAnalyzer: {
+      enabled: true,
+      openAnalyzer: true,
+    },
+  }),
+
   // Headers for SEO, security, and performance
   async headers() {
     return [
@@ -111,6 +178,18 @@ const nextConfig = {
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
+          },
+          // Preconnect to external domains for better performance
+          {
+            key: 'Link',
+            value: [
+              '<https://fonts.googleapis.com>; rel=preconnect; crossorigin',
+              '<https://fonts.gstatic.com>; rel=preconnect; crossorigin',
+              '<https://vitals.vercel-analytics.com>; rel=preconnect',
+              '<https://api.weatherapi.com>; rel=preconnect',
+              '<https://newsapi.org>; rel=preconnect',
+              '<https://api.rss2json.com>; rel=preconnect',
+            ].join(', '),
           },
           {
             key: 'X-Frame-Options',
@@ -126,14 +205,14 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
+            value: 'camera=(), microphone=(), geolocation=(self)',
           },
           // Content Security Policy - strict but allows necessary resources
           {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.vercel.com *.vercel-analytics.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' *.vercel.com *.vercel-analytics.com va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
               "font-src 'self' fonts.gstatic.com",
               "img-src 'self' data: https: *.vercel.com *.dev.to *.medium.com *.miro.medium.com *.cdn-images-1.medium.com *.storage.googleapis.com",

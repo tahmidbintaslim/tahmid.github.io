@@ -2,104 +2,81 @@
 
 import { useEffect, useState } from 'react';
 
+type CursorMode = 'default' | 'ball' | 'book' | 'rocket';
+
+const getCursorMode = (target: EventTarget | null): CursorMode => {
+  if (!(target instanceof HTMLElement)) return 'default';
+  const el = target.closest<HTMLElement>('[data-cursor]');
+  const value = el?.dataset.cursor;
+  if (value === 'ball' || value === 'book' || value === 'rocket') {
+    return value;
+  }
+  return 'default';
+};
+
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [followerPosition, setFollowerPosition] = useState({ x: 0, y: 0 });
-  const [isClicking, setIsClicking] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState<boolean | undefined>(
-    undefined
-  ); // Start undefined to prevent flash
+  const [mode, setMode] = useState<CursorMode>('default');
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Check if it's a touch device
-    const checkTouchDevice = () => {
-      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      const hasHover = window.matchMedia('(hover: hover)').matches;
-      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-
-      // Only show custom cursor on devices with hover capability and fine pointer (mouse)
-      setIsTouchDevice(hasTouch && !hasHover && !hasFinePointer);
+    const root = document.documentElement;
+    setVisible(true);
+    const onMove = (event: MouseEvent) => {
+      root.style.setProperty('--cursor-x', `${event.clientX}px`);
+      root.style.setProperty('--cursor-y', `${event.clientY}px`);
+      setVisible(true);
+      setMode(getCursorMode(event.target));
     };
 
-    checkTouchDevice();
+    const onOver = (event: MouseEvent) => {
+      setMode(getCursorMode(event.target));
+    };
 
-    // Listen for media query changes
-    const hoverQuery = window.matchMedia('(hover: hover)');
-    const handleHoverChange = () => checkTouchDevice();
-    hoverQuery.addEventListener('change', handleHoverChange);
+    const onLeave = () => setVisible(false);
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseover', onOver, { passive: true });
+    window.addEventListener('mouseleave', onLeave);
 
     return () => {
-      hoverQuery.removeEventListener('change', handleHoverChange);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseover', onOver);
+      window.removeEventListener('mouseleave', onLeave);
     };
   }, []);
 
-  useEffect(() => {
-    // Don't add event listeners on touch devices
-    if (isTouchDevice) return;
-
-    const updateCursor = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
-    };
-
-    const updateFollower = () => {
-      setFollowerPosition((prev) => ({
-        x: prev.x + (position.x - prev.x) * 0.15,
-        y: prev.y + (position.y - prev.y) * 0.15,
-      }));
-    };
-
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
-
-    window.addEventListener('mousemove', updateCursor);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
-
-    const animationFrame = setInterval(updateFollower, 16);
-
-    return () => {
-      window.removeEventListener('mousemove', updateCursor);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      clearInterval(animationFrame);
-    };
-  }, [position, isTouchDevice]);
-
-  // Don't render until detection is complete, or if it's a touch device
-  if (isTouchDevice === undefined || isTouchDevice) return null;
-
   return (
-    <>
-      <div
-        id="custom-cursor"
-        className={`hidden md:block ${isVisible ? 'active' : ''} ${
-          isClicking ? 'clicking' : ''
-        }`}
-        style={
-          {
-            '--cursor-x': `${position.x}px`,
-            '--cursor-y': `${position.y}px`,
-          } as React.CSSProperties
-        }
-      />
-      <div
-        id="custom-cursor-follower"
-        className={`hidden md:block ${isVisible ? 'active' : ''}`}
-        style={
-          {
-            '--cursor-x': `${followerPosition.x}px`,
-            '--cursor-y': `${followerPosition.y}px`,
-          } as React.CSSProperties
-        }
-      />
-    </>
+    <div
+      className={`custom-cursor ${visible ? 'is-visible' : ''}`}
+      aria-hidden="true"
+    >
+      <div className={`cursor-shape cursor-${mode}`}>
+        {mode === 'book' ? (
+          <svg viewBox="0 0 32 32" className="cursor-icon" aria-hidden="true">
+            <path
+              d="M6 7h10c2.2 0 4 1.8 4 4v14c-1-1-2.3-1.5-4-1.5H6V7z"
+              fill="currentColor"
+            />
+            <path
+              d="M26 7H16c-2.2 0-4 1.8-4 4v14c1-1 2.3-1.5 4-1.5h10V7z"
+              fill="currentColor"
+              opacity="0.75"
+            />
+          </svg>
+        ) : mode === 'rocket' ? (
+          <svg viewBox="0 0 32 32" className="cursor-icon" aria-hidden="true">
+            <path
+              d="M18 3c4 2 6 6 7 10-3 1-7 3-10 7-4 3-6 7-7 10 4-1 8-3 10-7 4-3 6-7 7-10 4-1 8-3 10-7-4-2-8-4-13-3-3 1-6 3-7 0z"
+              fill="currentColor"
+            />
+            <circle cx="19" cy="12" r="2.5" fill="#0b0b18" />
+          </svg>
+        ) : mode === 'ball' ? (
+          <div className="cursor-ball" />
+        ) : (
+          <div className="cursor-dot" />
+        )}
+      </div>
+    </div>
   );
 }

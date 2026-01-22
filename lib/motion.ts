@@ -1,39 +1,37 @@
-export function slideInFromLeft(delay: number) {
-  return {
-    hidden: { x: -100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        delay: delay,
-        duration: 0.5,
-      },
+export const slideInFromLeft = (delay: number = 0) => ({
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
-  };
-}
+  },
+});
 
-export function slideInFromRight(delay: number) {
-  return {
-    hidden: { x: 100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        delay: delay,
-        duration: 0.5,
-      },
+export const slideInFromRight = (delay: number = 0) => ({
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
-  };
-}
+  },
+});
 
 export const slideInFromTop = {
-  hidden: { y: -100, opacity: 0 },
+  hidden: { opacity: 0, y: -20 },
   visible: {
-    y: 0,
     opacity: 1,
+    y: 0,
     transition: {
-      delay: 0.5,
-      duration: 0.5,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };

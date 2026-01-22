@@ -25,11 +25,28 @@ export function getRateLimitKey(
   request: NextRequest,
   endpoint: string
 ): string {
-  const ip =
-    request.headers.get('x-forwarded-for') ||
-    request.headers.get('x-real-ip') ||
-    'unknown';
+  const ip = getClientIpFromHeaders(request.headers);
 
+  return `ratelimit:${endpoint}:${ip}`;
+}
+
+export function getClientIpFromHeaders(headers: Headers): string {
+  const forwarded = headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0]?.trim() || 'unknown';
+  }
+
+  const realIp = headers.get('x-real-ip');
+  if (realIp) return realIp.trim();
+
+  return 'unknown';
+}
+
+export function getRateLimitKeyFromHeaders(
+  headers: Headers,
+  endpoint: string
+): string {
+  const ip = getClientIpFromHeaders(headers);
   return `ratelimit:${endpoint}:${ip}`;
 }
 

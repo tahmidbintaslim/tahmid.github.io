@@ -69,7 +69,6 @@ tahmid.github.io/
   |- constants/
     |-- index.ts
   |- lib/
-    |-- motion.ts
     |-- utils.ts
   |- public/
     |-- projects/

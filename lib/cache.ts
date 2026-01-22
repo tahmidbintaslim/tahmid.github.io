@@ -16,7 +16,7 @@ export const cache = {
   async get<T>(key: string): Promise<T | null> {
     try {
       const value = await kv.get<T>(key);
-      return value || null;
+      return value === null ? null : value;
     } catch (error) {
       console.warn(`Cache get failed for key ${key}:`, error);
       return null;
@@ -29,9 +29,9 @@ export const cache = {
   async set<T>(key: string, value: T, options?: CacheOptions): Promise<void> {
     try {
       if (options?.ttl) {
-        await kv.setex(key, options.ttl, JSON.stringify(value));
+        await kv.setex(key, options.ttl, value);
       } else {
-        await kv.set(key, JSON.stringify(value));
+        await kv.set(key, value);
       }
     } catch (error) {
       console.warn(`Cache set failed for key ${key}:`, error);
@@ -98,8 +98,9 @@ export const cacheKeys = {
   // Weather
   weather: (lat: string, lon: string) => `weather:${lat}:${lon}`,
 
-  // Visitors
-  visitors: () => 'visitors:count',
+  // Location
+  location: (ip: string) => `location:${ip}`,
+  locationCoords: (lat: number, lon: number) => `location:coords:${lat}:${lon}`,
 
   // User sessions
   session: (id: string) => `session:${id}`,
